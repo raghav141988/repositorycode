@@ -1,0 +1,17 @@
+<!--component html goes here -->
+<div *ngIf="content.description">
+<div *ngIf="!isTextEdit">
+        <div   [ngStyle]="{'font-size':pageSettings.contentFontSize+'px','font-family':pageSettings.contentFontStyle?pageSettings.contentFontStyle:'inherit'}"  matTooltip="Double click on the text content to edit the text!" textEditDirective (onDoubleClick)="toggleTextEdit()"  [innerHtml]="content.description"></div>
+    </div>
+
+</div>
+<div *ngIf="content.description">
+<div *ngIf="isTextEdit" >
+
+    <textarea style="width:100%" #myTextArea name="textInputBox" [value]="content.description" placeholder="Add Description">
+                                        </textarea>
+
+    <button  mat-raised-button color="primary"  (click)="toggleTextEdit()" >Done!</button>
+
+</div>
+</div>

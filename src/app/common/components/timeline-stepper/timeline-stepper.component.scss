@@ -1,0 +1,95 @@
+// component css goes here
+::ng-deep.mat-step-icon {
+    background-color: #00A9E0 !important;
+    height:34px !important;
+    width:34px  !important;
+}
+::ng-deep.mat-step-icon-not-touched {
+    height:34px !important;
+    width:34px  !important;
+}
+::ng-deep.mat-vertical-content-container {
+    margin-left: 60px !important;
+}
+::ng-deep.mat-stepper-vertical-line::before{
+    border-left-color: #00A9E0 !important;
+    top:-5px !important;
+    bottom: -5px !important;
+}
+
+ .step { 
+	position: relative; 
+	min-height: 32px; 
+	padding: 24px;
+}
+ .step:hover {
+	background: #F6F6F6;
+}
+ .step > div:first-child { 
+	position: static; height: 0; 
+}
+ .step > div:last-child { 
+	margin-left: 32px; 
+	padding-left: 16px; 
+	min-height: 24px;
+}
+ .circle { 
+	background: #00A9E0; 
+	width: 34px; 
+	height: 34px; 
+	line-height: 32px; 
+	border-radius: 16px; 
+	position: relative; 
+	color: white; 
+	text-align: center; 
+}
+ .line { 
+	position: absolute;
+    border-left: 1px solid #00A9E0;
+    left: 40px;
+    bottom: -20px;
+    top: 60px;
+    z-index: 1;
+}
+.stepper .step:last-child .line { 
+	display: none !important; 
+}
+ .title { 
+	line-height: 32px; 
+	font-weight: 500; 
+}
+ .body {    
+	padding-bottom: 28px;
+    padding-top: 8px;
+}
+ .description {
+	line-height: 0.1;
+
+    padding-bottom: 24px;
+    color: #989898;
+}
+/** Horizontal **/
+
+
+.stepper .step.inactive .title{
+	color: #C9C9C9;
+	font-weight: 400;
+}
+.stepper .step.inactive .body{
+    display: none;
+}
+.stepper .step.inactive .circle{
+    background-color: #9e9e9e;
+}
+.inline-layout{
+	display: inline-block !important;
+	width: 100%;
+  }
+  .action {
+    cursor:pointer;
+   float:right;
+   padding:-10px 5px 0 0; 
+    .material-icons{
+      font-weight: 600;
+    }
+    }

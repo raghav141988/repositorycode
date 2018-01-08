@@ -1,0 +1,179 @@
+<!--component html goes here -->
+<!--  <div  style="background: #000;margin:1px;"  ><img style="width:200px;height:80px;cursor:pointer" src="assets/img/logo.png" >
+ <i (click)="closeSideNav($event);" style="float:right;color:#fff;cursor:pointer;font-size:40px;" class="material-icons">clear</i>
+</div>-->
+
+<mat-accordion >
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+             Page Settings
+            </mat-panel-title>
+          
+          </mat-expansion-panel-header>
+          <mat-accordion >
+          <mat-expansion-panel  >
+       
+              <mat-expansion-panel-header>
+                  <mat-panel-title>
+                  Choose Color
+                  </mat-panel-title>
+                
+                </mat-expansion-panel-header>
+         <ng-container *ngFor="let material of materialColors">
+         
+           <div style="padding-top:10px;">{{material.color}}</div>
+           <hr>
+            <mat-grid-list cols="4" rowHeight="2:1">
+            <ng-container *ngFor="let variation of material.variations">
+        <mat-grid-tile 
+        [ngStyle]="{
+          'cursor':'pointer',
+          'color':material.fontColor,
+          'background-color': variation.hex
+         
+        }"
+        (click)="onColorSelect(material,variation);" >
+        <i [ngStyle]="{'color':variation.fontColor}" *ngIf="variation.hex==pageSettings.colorTheme" class="material-icons">done</i>
+      </mat-grid-tile>
+      
+      </ng-container>
+    </mat-grid-list>
+      </ng-container>
+
+    </mat-expansion-panel>
+     <div style="padding:10px">
+<mat-form-field  style="width:100%;">
+    <mat-select (change)="onHeaderFontChange($event)" [value]="pageSettings.headerFontStyle" name="headerFontFamily" placeholder="Choose Section header font style">
+  <ng-container *ngFor="let font of fontFamilies">    
+<mat-option    [value]="font"><span [ngStyle]="{'font-family' : font}">     {{font}} </span></mat-option>
+  </ng-container>
+    </mat-select>
+    </mat-form-field>
+  
+  </div>
+  <div style="padding:10px">
+      <mat-form-field style="width:100%;">
+          <mat-select (change)="onContentFontChange($event)"  [value]="pageSettings.contentFontStyle" name="contentFontFamily"  placeholder="Choose content font style">
+        <ng-container *ngFor="let font of fontFamilies">    
+      <mat-option  [value]="font"><span [ngStyle]="{'font-family' : font}">     {{font}} </span></mat-option>
+        </ng-container>
+          </mat-select>
+          </mat-form-field>
+        
+        </div>
+<div>
+  <div style="padding:10px">
+   Choose Section header font Size
+  </div>
+  <mat-slider style="width:100%;"
+  
+  [disabled]="disabled"
+  [invert]="invert"
+  [max]="max"
+  [min]="min"
+  [step]="step"
+  [thumb-label]=true
+  
+  [ngModel]="pageSettings.headerFontSize"
+  (change)="onHeaderFontSizeChange($event)" 
+  [vertical]="vertical">
+</mat-slider>
+</div>
+
+<div>
+    <div style="padding:10px">
+        Choose content font Size
+    </div>
+    <mat-slider style="width:100%;"
+    
+    [disabled]="disabled"
+    [invert]="invert"
+    [max]="max"
+    [min]="min"
+    [step]="step"
+    [thumb-label]=true
+    
+    [ngModel]="pageSettings.contentFontSize"
+    (change)="onContentFontSizeChange($event)" 
+    [vertical]="vertical">
+  </mat-slider>
+  </div>
+  </mat-accordion>
+
+
+
+
+     
+       
+    
+   
+   
+
+   
+   
+
+
+
+
+
+
+        </mat-expansion-panel>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Configure Sections
+            
+            </mat-panel-title>
+          
+          </mat-expansion-panel-header>
+          <hr>
+         <div *ngIf="templateSections"  slimScroll [options]="opts"
+           style="overflow-y: scroll;  height:350px; width:275px; padding-right: 0;"
+        
+       >
+             <div *ngFor ="let section of templateSections">
+                 <div style="display: flex;padding-top:5px; align-items: center;">
+                 
+              
+                        <div  (click) ="showOrHideSectionComp(section)"  style=" width:60%;vertical-align: -webkit-baseline-middle; vertical-align: middle;word-wrap: break-word; cursor: pointer">{{section.name}}</div>
+                <div *ngIf="section.component.length==1" style=" width:40%;padding-right: 20px;  text-align: right; cursor: pointer">
+                       
+                        <i matTooltip="Click to add this section to resume"  (click)="addSection(section)" class="material-icons">add_circle</i>
+                </div>
+                <div  (click) ="showOrHideSectionComp(section)" *ngIf="section.component.length> 1" style=" width:40%;padding-right: 20px;  text-align: right;  cursor: pointer">
+                      
+                        <i   *ngIf="!section.showComponent"  matTooltip="Click to select compoment for this section"   (click)="addSection(section)" class="material-icons">chevron_right</i>
+                        <i   *ngIf="section.showComponent"    class="material-icons">expand_more</i>
+                </div>
+                <div style="clear: both"></div>
+             </div>
+
+ 
+
+         <div *ngIf="section.component.length>1&& section.showComponent "  style="padding-left:15px;font-style: italic; padding-right: 20px; cursor: pointer">
+            
+                <ng-container   *ngFor ="let component of section.component">
+                <div style="width:260px; display: flex;padding-top:5px; align-items: center; cursor: pointer">
+                  
+                        <div style=" width:60%;vertical-align: -webkit-baseline-middle; vertical-align: middle;word-wrap: break-word; cursor: pointer">{{component.name}}</div>
+               
+                    <div  style=" width:40%;padding-right: 20px; text-align: right; cursor: pointer">
+                            <i  matTooltip="Click to add this section to resume" (click)="addSection(section,component.type)" class="material-icons">add_circle</i>
+                    </div>
+                    <div style="clear: both"></div>
+                </div>
+            </ng-container>
+       </div >
+
+
+        </div>
+    </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+      
+      
+      <!-- Copyright 2017 Google Inc. All Rights Reserved.
+          Use of this source code is governed by an MIT-style license that
+          can be found in the LICENSE file at http://angular.io/license -->

@@ -1,0 +1,92 @@
+// component css goes here
+
+.row.template2-theme {
+    margin:auto; 
+     min-height:100vh; 
+     font-size: 20px !important;
+     font-family: 'Roboto'  !important;
+     padding:5px;
+}
+
+.leftsideDiv {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    -webkit-transition: -webkit-transform 0.6s ease-in;
+        transition: -webkit-transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+        transition: transform 0.6s ease-in, -webkit-transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+        font-size: inherit;
+        font-family:inherit;
+}
+.centered{
+    margin: auto;
+    width: 150px;
+    background: #fff;
+    border-radius: 50%;
+    padding: 20px 10px 10px 10px;
+    height: 150px;
+    text-align: center;
+  
+    vertical-align: middle;
+}
+
+.rightsideDiv {
+margin-left: 5px;
+font-size: inherit;
+font-family:inherit;
+}
+.rightsideDiv .cardHeader{
+    margin: auto;
+    width: 100%;
+    margin-left: 60px;
+   
+    vertical-align: middle;
+}
+
+
+.leftsideDiv .cardHeader{
+    margin: auto;
+    width: 100%;
+    margin-left: 60px;
+    color:#fff;
+    vertical-align: middle;
+}
+.transparent-card {
+   background: inherit;
+   color:inherit;
+}
+.inline-layout{
+	display: inline-block !important;
+	width: 100%;
+  }
+  .action {
+    cursor:pointer;
+    text-align: right;
+   line-height:1.5 !important;
+   padding:5px 5px 0 0; 
+    .material-icons{
+      font-weight: 600;
+      
+    }
+    }
+
+    .leftsideDiv .card-header{
+        
+          border-bottom: 2px solid  #fff;
+          background: inherit;
+          font-weight: 600;
+       
+     
+        margin: inherit;
+        padding: 0;
+        }
+
+        .rightsideDiv .card-header{
+         
+            margin: inherit;
+              border-bottom: 2px solid  #000;
+              background: inherit;
+              padding: 0;
+              font-weight: 600;
+          
+            
+            }

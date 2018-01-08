@@ -1,0 +1,25 @@
+// component css goes here
+
+.contact-info {
+    word-wrap: break-word !important;
+    color:inherit;
+   
+  }
+  ul {
+    list-style-type: none;
+  
+    margin-top: 2px;
+}
+
+  .contact-inline-layout{
+  
+    width: 100%;
+    }
+    .action {
+      cursor:pointer;
+     float:right;
+     
+      .material-icons{
+        font-weight: 600;
+      }
+      }

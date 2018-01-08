@@ -1,0 +1,92 @@
+<!--component html goes here -->
+
+    
+        <div style="padding-top:5px" *ngFor="let contact of contactTypes">
+        
+          
+            <div  wrapperDirective (onHover) ="onHoverContact($event,contact)">
+             <div class="contact-info" >
+                <div  >
+                   
+                  <i  style="font-size: 18px" [className]="contact.icon"></i> 
+                
+                  <span style="font-size: 18px">&nbsp;&nbsp;{{contact.contactType}}</span></div>
+              <div style=" white-space: normal !important;padding-left: 10px;" >{{contact.value}}
+
+                  
+              </div>
+              <div  class="contact-inline-layout">
+                  <div  *ngIf="contact.showActions" class="action" >
+                          <i  matTooltip="Click to delete" (click)="onDeleteClicked(contact)" class="material-icons md-18">delete</i>
+                        </div>
+                      <!--  <div *ngIf="contact.showActions" class="action" >
+                         <i (click)="onSettingsClicked(contact)" class="material-icons md-18">settings</i>
+                       </div>
+                      -->
+                       <div *ngIf="contact.showActions" class="action" >
+                        <i  matTooltip="Click to add new" (click)="onAddNew(contact)" class="material-icons md-18">add</i>
+                      </div>
+           
+                        <div *ngIf="contact.showActions" class="action" >
+                               <i  matTooltip="Click to edit" (click)="onEditClicked(contact)" class="material-icons md-18">edit</i>
+                             </div>
+             
+      </div>
+                </div> 
+                
+
+                    <mat-divider></mat-divider>
+              </div>
+              <div *ngIf="contact.isEdit" >
+                  
+                  <div>
+                      <mat-form-field>
+                              <input matInput placeholder="Name"  [(ngModel)]="contact.contactType">
+                            </mat-form-field>
+                          </div> 
+                          <div>
+                            <mat-form-field>
+                              <input matInput placeholder=" Value"  [(ngModel)]="contact.value">
+                            </mat-form-field>
+                          </div>  
+                            <div>
+                                  
+                                  <button (click)="save(contact);" mat-raised-button color="primary">Save</button>
+                                  <button (click)="cancel(contact);" mat-raised-button>Cancel</button>
+          
+                            </div>
+                         
+                  </div>
+
+                  
+              </div>
+
+              <div *ngIf="addNew">
+                  
+                              <form (ngSubmit)="onNewData(f.value)" novalidate #f="ngForm">
+                                  <div> 
+                          <mat-form-field>
+                                  <input name="contactName" matInput placeholder="Title" ngModel>
+                                </mat-form-field>
+                              </div> 
+                              <div>
+                                <mat-form-field>
+                                  <input name="contactValue"  matInput placeholder="Details" ngModel >
+                                </mat-form-field>
+                              </div>  
+                                <div>
+                                      
+                                      <button type="submit" mat-raised-button color="primary">Add</button>
+                                      <button (click)="cancelForm();" mat-raised-button>Cancel</button>
+              
+                                </div>
+                              </form >
+          
+                             
+                              
+                  </div>
+             
+
+     
+   
+      

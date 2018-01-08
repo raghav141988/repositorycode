@@ -1,0 +1,52 @@
+<!--component html goes here -->
+<mat-accordion class="example-headers-align">
+  <mat-expansion-panel hideToggle="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Header
+      </mat-panel-title>
+      <mat-panel-description>
+
+        Edit the header section
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    Edit Title
+    <div>
+
+      <textarea #textArea name="titleRichText" class="textInputBox" style="width:100%" [ngModel]="data.title" placeholder="Title">
+            </textarea>
+      <button mat-raised-button color="primary" (click)="onSave(data,'titleRichText')">Done!</button>
+    </div>
+    <!--
+    Edit Backgound:
+
+    <div>
+
+      <font-color-chooser (onSelect)="onBackgroundHeader($event,data)"></font-color-chooser>
+    </div>
+
+  -->
+
+
+
+
+  </mat-expansion-panel>
+    <!--
+  <mat-expansion-panel hideToggle="true">
+<mat-expansion-panel-header>
+      <mat-panel-title>
+        Content
+      </mat-panel-title>
+      <mat-panel-description>
+        Edit the content section
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+
+  </mat-expansion-panel>
+-->
+
+
+</mat-accordion>

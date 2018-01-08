@@ -1,0 +1,36 @@
+hr {
+  display: block;
+  margin: 10px 0 10px 0;
+  border-top: 1px solid rgba(0, 0, 0, .12);
+  width: 100%;
+  padding: 0px;
+}
+
+.row-header {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  -ms-flex-direction: row;
+  .action {
+    cursor: pointer;
+    float: right;
+    padding: 0 5px 0 0;
+  }
+}
+
+
+
+.col-xs-12 .margin {
+ 
+}
+
+.drag-over-border {}
+
+.example-fill-remaining-space {
+  // This fills the remaining space, by using flexbox. 
+  // Every toolbar row uses a flexbox row layout.
+  flex: 1 1 auto;
+}
+.toolBarHeader{
+  height: 100px !important;
+}

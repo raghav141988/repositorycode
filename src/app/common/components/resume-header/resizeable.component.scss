@@ -1,0 +1,15 @@
+#chat {
+    position: relative;
+   z-index: 9999;
+   
+}
+.chat-corner-resize {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+  
+}
+#chat-top-left-resize { top: 0px; left: 0px;   cursor: e-resize; }
+#chat-top-right-resize { top: 0px; right: 0px;    cursor: e-resize;}
+#chat-bottom-left-resize { bottom: 0px; left: 0px;    cursor: e-resize;}
+#chat-bottom-right-resize { bottom: 0px; right: 0px;    cursor: e-resize;}

@@ -1,0 +1,92 @@
+<!--component html goes here -->
+
+<ng-template *ngFor="let card of cardsList"  #cardTemplates   >
+    
+
+    <section dropDirective 
+  
+       [dragDirective]="card.index"  (startDrag)="onCardDrag($event,card.index)" 
+       (dragleaveEvent)="onDragEnd($event,card.index)" (dropEvent)="onCardDrop($event,card)">
+            <article>
+                
+                
+                <div class="sectionContent">
+                    <div   matTooltip="To swap,select and drag this section header and drop it in  to other section !" wrapperDirective (onHover) ="onHoverSection($event,card)"   [ngStyle]="{'color':(card.headerFontColor==null)? 'inherit;':card.headerFontColor,'font-size':pageSettings.headerFontSize+'px','font-family':pageSettings.headerFontStyle}" >
+                        
+                    <h1 [ngStyle]="{'border-bottom':'2px solid ' +pageSettings.colorTheme,'color':pageSettings.colorTheme}" [innerHTML]="card.title"> </h1>
+                    
+                    <div *ngIf="card.showConfig" class="action" >
+                            <i  (click)="onCardEdit($event,card)" class="material-icons md-18">edit</i>
+                         
+                            </div>
+                </div>
+                        <ng-container dynamicLoadComponent [card]="card"></ng-container>
+                </div>
+            </article>
+           
+        </section>
+
+</ng-template>
+
+
+<div id="resume" >
+    <div class="mainDetails">
+        <div  matTooltip="Click to add your picture!" id="headshot" >
+                    <div *ngIf="showPhoto" wrapperDirective (onHover) ="onUserPhotoHover($event)" class="photo" [ngStyle]="{'background-image':'url('+url+')', 'background-repeat': 'no-repeat','background-size': 'cover'}">
+                 
+                    
+                
+                      <input (change)="readUrl($event)" type="file" style="opacity: 0.0; position: relative; top:0; left: 0; bottom: 0; right:0; width: 100%; height:100%;"
+                      />
+                      <div  class="contact-inline-layout">
+                        <div *ngIf="photoHover" class="action" >
+                                <i  matTooltip="Click to delete" (click)="onPhotoHide()" class="material-icons md-18">clear</i>
+                              </div>
+                            <!--  <div *ngIf="contact.showActions" class="action" >
+                               <i (click)="onSettingsClicked(contact)" class="material-icons md-18">settings</i>
+                             </div>
+                            -->
+                             
+                   
+            </div>
+                    </div>
+                   
+        </div>
+        
+        <div id="name">
+            <h1 matTooltip="Double click on the text content to edit the text!"  textEditDirective (onDoubleClick)="toggleNameEdit()"  [innerHTML]="userName" >Joe Bloggs</h1>
+            <h2 matTooltip="Double click on the text content to edit the text!"   textEditDirective (onDoubleClick)="toggleDesigEdit()"  [innerHTML]="title"  >Job Title</h2>
+            <div *ngIf="isNameEdit" >
+                    
+                        <textarea style="width:100%" #titleText name="textInputBox" [(ngModel)]="userName" placeholder="Name">
+                                                            </textarea>
+                    
+                        <button  mat-raised-button color="primary"  (click)="toggleNameEdit()" >Done!</button>
+                    
+                    </div>
+                    <div *ngIf="isTitleEdit" >
+                            
+                                <textarea style="width:100%" #designation name="textInputBox" [(ngModel)]="title" placeholder="Description">
+                                                                    </textarea>
+                            
+                                <button  mat-raised-button color="primary"  (click)="toggleDesigEdit()" >Done!</button>
+                            
+                            </div>
+        </div>
+        
+        <div id="contactDetails" >
+         <header-contact></header-contact>
+        </div>
+        <div class="clear"></div>
+    </div>
+    
+    <div [ngStyle]="{'font-size':fontSize }" id="mainArea" >
+        
+            <ng-container  *ngFor="let card of cardsList;let i=index">
+                    <ng-container  *ngIf="getCardTemplate(i)">
+                            <template [ngTemplateOutlet]="getCardTemplate(i)"></template>
+                        </ng-container>
+                       </ng-container>
+        
+    </div>
+</div>

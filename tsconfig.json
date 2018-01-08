@@ -1,5 +1,8 @@
 {
   "compileOnSave": false,
+  "include": [
+    "src/**/*",
+    "node_modules/ng2-slimscroll/index.ts"],
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -15,5 +18,7 @@
       "es2017",
       "dom"
     ]
+   
   }
+  
 }

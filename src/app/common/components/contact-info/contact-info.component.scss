@@ -1,0 +1,23 @@
+// component css goes here
+.mat-list-icon {
+    color: rgba(0, 0, 0, 0.54);
+    color:inherit;
+    
+  }
+  .contact-info {
+    word-wrap: break-word !important;
+    color:inherit;
+   
+  }
+  .contact-inline-layout{
+    display: inline-block !important;
+    width: 100%;
+    }
+    .action {
+      cursor:pointer;
+     float:right;
+     padding:-10px 5px 0 0; 
+      .material-icons{
+        font-weight: 600;
+      }
+      }

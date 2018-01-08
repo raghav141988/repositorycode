@@ -1,0 +1,87 @@
+<!--component html goes here -->
+
+
+<ng-template *ngFor="let card of cardsList"  #cardTemplates   >
+    
+    <mat-card class="transparent-card ">
+        <mat-card-header 
+        matTooltip="To swap,select and drag this section header and drop it in  to other section !"
+        dropDirective 
+        
+           [dragDirective]="card.index"  (startDrag)="onCardDrag($event,card.index)" 
+           (dragleaveEvent)="onDragEnd($event,card.index)" (dropEvent)="onCardDrop($event,card)"
+
+        wrapperDirective (onHover) ="onHoverSection($event,card)" [ngStyle]="{'border-bottom': '2px solid '+pageSettings.colorTheme}" class="card-header">
+            <div [ngStyle]="{'font-size':pageSettings.headerFontSize+'px','color':pageSettings.colorTheme}"  mat-card-avatar  class="card-header" [className]="card.icon"></div>
+           <div  style="width:90%" [ngStyle]="{'font-size':pageSettings.headerFontSize+'px','font-family':pageSettings.headerFontStyle,'color':pageSettings.colorTheme}">  {{card.title}} </div>
+             <div  style="width:10%"  *ngIf="card.showConfig"  class="action" >
+                <i (click)="onCardEdit($event,card)" class="material-icons md-18">edit</i>
+             
+                </div>
+         </mat-card-header>
+       <div style=" margin-top: 10px ;  margin-left: 10px">
+          <ng-container dynamicLoadComponent [card]="card"></ng-container>
+       </div>
+      </mat-card>
+<!--    </div>
+  </div> -->
+  <div style="height:10px"></div>
+
+</ng-template>
+
+
+
+
+
+    
+            
+    
+    
+    <!-- NEW TEMPLATE CODE STARTS--> 
+    <div class="row template2-theme" >
+    
+      <div class='leftsideDiv' style="width:30%;background:#313127; color:#fff; height: auto;">
+        <div wrapperDirective (onHover) ="onUserPhotoHover($event)">
+        <div *ngIf="showPhoto" matTooltip="Click to add your picture!" class="centered" [ngStyle]="{'background-image':'url('+url+')', 'background-repeat': 'no-repeat','background-size': 'cover'}">
+    
+          <input (change)="readUrl($event)" type="file" style="opacity: 0.0; position: relative; top:0; left: 0; bottom: 0; right:0; width: 100%; height:100%;"
+          />
+         
+        </div>
+        <div  >
+            <div *ngIf="photoHover" class="action" >
+                    <i   matTooltip="Click to delete" (click)="onPhotoHide()" class="material-icons md-18">clear</i>
+                  </div>
+              
+       
+</div>
+      </div>
+        <ng-container  *ngFor="let card of cardsList;let i=index">
+            <ng-container  *ngIf="getCardTemplate(i) && card.cardPlacing=='left'">
+                    <template [ngTemplateOutlet]="getCardTemplate(i)"></template>
+                </ng-container>
+               </ng-container>
+                
+    
+
+
+               
+      </div>
+      
+      <div style="width:69%;  height:100%; " class="rightsideDiv"
+      
+      >
+   
+            <ng-container  *ngFor="let card of cardsList;let i=index">
+                <ng-container  *ngIf="getCardTemplate(i) && card.cardPlacing=='right'">
+                        <template [ngTemplateOutlet]="getCardTemplate(i)"></template>
+                    </ng-container>
+                   </ng-container>
+    
+      </div>
+    </div>
+    
+
+
+
+      

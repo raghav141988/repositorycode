@@ -1,0 +1,39 @@
+// component css goes here
+.side-navigation {
+    min-width: 300px;
+  color:#fff;
+background-color: #26201c;
+box-shadow: 0 0 0 0 #3f3f3f;
+   z-index:2000 !important;
+  
+}
+.menu-heading {
+    font-size: 40px;
+}
+.mat-list .mat-list-item, .mat-nav-list .mat-list-item, .mat-selection-list .mat-list-item{
+    color:#ededed;
+    background: #3d3734;
+    cursor: pointer;
+    border-bottom: 1px solid #1e1b18;
+   
+}
+.mat-list-item:hover {
+    background: #4e4e50 !important ;
+}
+.user-welcome {
+  /* color:#000 !important; */
+    font-style: italic;
+}
+li{
+    cursor: pointer !important;
+}
+.btn-primary {
+    color: #fff !important;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #FF9033;
+    border-color: #FF9033;
+    vertical-align: middle;
+    line-height:50px;
+}

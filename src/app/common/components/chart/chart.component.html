@@ -1,0 +1,62 @@
+<!--component html goes here -->
+<!--component html goes here -->
+<div class="row" *ngIf="skills" >
+<div  *ngFor="let skill of skills; let skillIndex = index">
+        
+        
+        <div  class="col" *ngIf="!skill.isEdit" >
+    <my-wrapper  (onAction)="onAction($event,skill);" [config]="skill">
+         <!-- Add chart -->
+            <div >
+        <donut-chart [skill]="skill" [chartId]="skillIndex" [color]="pageSettings.colorTheme?pageSettings.colorTheme:chartColor"></donut-chart>
+        </div>
+          </my-wrapper>
+        </div>
+        </div >
+        
+        </div>
+
+       
+          <div  *ngFor="let skill of skills; let skillIndex = index">
+                  
+        <div *ngIf="skill.isEdit">
+          <div  style="width:100%;">
+              <mat-form-field  style="width:100%;">
+                      <input matInput placeholder="Skill Name"  [(ngModel)]="skill.name">
+                    </mat-form-field>
+                  </div> 
+                  <div>
+                    <mat-form-field  style="width:100%;">
+                      <input matInput placeholder="Skill Value"  [(ngModel)]="skill.value">
+                    </mat-form-field>
+                  </div>  
+                    <div>
+                          
+                          <button (click)="save(skill);" mat-raised-button color="primary">Save</button>
+                          <button (click)="cancel(skill);" mat-raised-button>Cancel</button>
+  
+                    </div>
+
+    </div>
+  </div>
+        <div   style="width:100%;" *ngIf="addNew">
+            
+                        <form  style="width:100%;" (ngSubmit)="onNewData(f.value)" novalidate #f="ngForm">
+                            <div> 
+                    <mat-form-field  style="width:100%;">
+                            <input name="skillName" matInput placeholder="Skill Name" ngModel>
+                          </mat-form-field>
+                        </div> 
+                        <div>
+                          <mat-form-field  style="width:100%;">
+                            <input name="skillValue"  matInput placeholder="Skill Value" ngModel >
+                          </mat-form-field>
+                        </div>  
+                          <div>
+                                
+                                <button type="submit" mat-raised-button color="primary">Add</button>
+                                <button (click)="cancelForm();" mat-raised-button>Cancel</button>
+        
+                          </div>
+                        </form >
+                      </div>

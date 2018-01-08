@@ -1,0 +1,42 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+@import '_variable';
+
+
+html {
+   
+}
+body {
+	
+	background-image: url('assets/img/body-bg.jpg');
+	background-repeat:none;
+}
+
+
+	body {
+		font-size: 20px !important;
+	}
+	h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+		margin-bottom: .5rem;
+		font-family: inherit;
+		font-weight: 500;
+	     line-height: 1.5; 
+		color: inherit;
+	}
+	user agent stylesheet
+	h2 {
+		display: block;
+		font-size: 1.5em;
+		-webkit-margin-before: 0.83em;
+		-webkit-margin-after: 0.83em;
+		-webkit-margin-start: 0px;
+		-webkit-margin-end: 0px;
+		font-weight: bold;
+	}
+	.theme-background{
+background-image: url('assets/img/body-bg.jpg');
+background-repeat:none;
+
+	}

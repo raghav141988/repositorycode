@@ -1,0 +1,39 @@
+<!--component html goes here -->
+
+<div class="row"  *ngIf="materialColors"  style="overflow-y: scroll;height:400px">
+    <div class="col-md-4">
+<div  *ngFor="let material of materialColors">
+        <button mat-raised-button (click)="onPrimaryColorSelect(material);" [ngStyle]="{
+            'width': '150px',
+            'padding':'2px',
+            'color':material.fontColor,
+            'background-color': material.background
+           
+          }" > {{material.color}}</button>
+
+</div>
+</div>
+<div *ngIf="selectedPrimary" class="col-md-4">
+<div   *ngFor="let variation of selectedPrimary.variations">
+        <button mat-raised-button (click)="onColorSelect(selectedPrimary,variation);" [ngStyle]="{
+            'width': '150px',
+            'padding':'2px',
+            'color':selectedPrimary.fontColor,
+            'background-color': variation.hex
+           
+          }" > {{variation.weight}}</button>
+
+</div>
+</div>
+</div>
+
+
+
+
+
+
+       
+
+
+       
+

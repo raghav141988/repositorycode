@@ -1,0 +1,26 @@
+<div wrapperDirective (onHover) ="onHover($event)" class="inline-layout" style="width:100%; ">
+       
+<div >
+    <ng-content ></ng-content>
+    </div>
+   <div>
+          <div  *ngIf="showIcons" class="action" >
+               <i  matTooltip="Click to delete" (click)="onDeleteClicked()" class="material-icons md-18">delete</i>
+             </div>
+         <div *ngIf="showIcons" class="action" >
+              <i   matTooltip="Click to change background color/config" (click)="onSettingsClicked()" class="material-icons md-18">settings</i>
+            </div>
+ 
+            <div *ngIf="showIcons" class="action" >
+             <i  matTooltip="Click to add new" (click)="onAddNew()" class="material-icons md-18">add</i>
+           </div>
+
+             <div *ngIf="showIcons" class="action" >
+                    <i  matTooltip="Click to edit" (click)="onEditClicked()" class="material-icons md-18">edit</i>
+                  </div>
+
+                
+</div>
+    
+        
+</div>

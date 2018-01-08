@@ -1,0 +1,62 @@
+
+
+
+<!--component html goes here -->
+<div class="component-content">
+<div  class="row"  *ngIf="skillsAsChips">
+                <mat-chip-list>
+                <div     [className]="choosenData"  *ngFor="let skill of  skillsAsChips">
+                    
+                   
+                      <my-wrapper  (onAction)="onAction($event,skill);" [config]="skill">
+                    
+                      <div *ngIf="!skill.isEdit"   class="col">
+                                <mat-chip class="mat-chip"    [ngStyle]="{'color':pageSettings.fontColor?pageSettings.fontColor:fontColor,'font-size':pageSettings.contentFontSize+'px','font-family':pageSettings.contentFontStyle?pageSettings.contentFontStyle:'inherit'}">{{skill.itemName}}</mat-chip>
+                  
+                  </div> 
+                    </my-wrapper> 
+                
+                  </div>
+                </mat-chip-list>
+                    </div>
+                    <div *ngFor="let skill of skillsAsChips"  class="col-12">
+                      <ng-container  *ngIf="skill.isEdit">
+                        <div>
+                            <mat-form-field  style="width:100%;">
+                                    <input matInput placeholder="Name"  [(ngModel)]="skill.itemName">
+                                  </mat-form-field>
+                                </div> 
+                            
+                                  <div>
+                                        
+                                        <button (click)="save(skill);" mat-raised-button color="primary">Save</button>
+                                        <button (click)="cancel(skill);" mat-raised-button>Cancel</button>
+                
+                                  </div>
+                                </ng-container>
+                    </div >
+                
+                   
+                
+                    <div *ngIf="addNew">
+                        
+                                    <form (ngSubmit)="onNewData(f.value)" novalidate #f="ngForm">
+                                        <div> 
+                                <mat-form-field  style="width:100%;">
+                                        <input name="skillName" matInput placeholder="Name" ngModel>
+                                      </mat-form-field>
+                                    </div> 
+                                    
+                                      <div>
+                                            
+                                            <button type="submit" mat-raised-button color="primary">Add</button>
+                                            <button (click)="cancelForm();" mat-raised-button>Cancel</button>
+                    
+                                      </div>
+                                    </form >
+                
+                                   
+                                    
+                        </div>
+
+                </div>

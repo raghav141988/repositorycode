@@ -1,0 +1,18 @@
+// component css goes here
+@import '../../../../_variable';
+$progress-background:#ff00ff;
+.myClass{
+   font-size: 25px;
+}
+
+
+@each $name, $value in $materialColors {
+    .#{$name} {
+       $progress-background: $value;
+       color: $progress-background !important;
+       .myClass {
+       color: $progress-background !important;
+       font-size: 25px;
+      }
+    }
+  }

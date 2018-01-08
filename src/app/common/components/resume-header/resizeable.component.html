@@ -1,0 +1,13 @@
+<div  (mousedown)='onDivSelect()'  #resizeDiv [ngStyle]="{'position':elementPosition,'z-index':indexValue}" [style.top.px]='y'
+[style.left.px]='x'
+
+(mousedown)='onWindowPress($event)'
+(mousemove)='onWindowDrag($event)'>
+<div>
+<ng-content  [ngStyle]="{'position':elementPosition,'z-index':indexValue}" ></ng-content>
+</div>
+<div #topLeft (mousedown)='onCornerClick($event, topLeftResize)' id='chat-top-left-resize' class='chat-corner-resize'></div>    
+<div  #topRight   (mousedown)='onCornerClick($event, topRightResize)' id='chat-top-right-resize' class='chat-corner-resize'></div>    
+<div  #bottomLeft    (mousedown)='onCornerClick($event, bottomLeftResize)' id='chat-bottom-left-resize' class='chat-corner-resize'></div>    
+<div  #bottomRight   (mousedown)='onCornerClick($event, bottomRightResize)' id='chat-bottom-right-resize' class='chat-corner-resize'></div>    
+</div>

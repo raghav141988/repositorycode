@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Configure Section</h1>
+<div mat-dialog-content>
+  <section-edit [data]="data"></section-edit>
+  <button mat-button [mat-dialog-close]="choosenData" tabindex="2">Ok</button>
+  <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+</div>
+
+

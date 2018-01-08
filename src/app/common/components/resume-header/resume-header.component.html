@@ -1,0 +1,24 @@
+<!--component html goes here -->
+<div *ngIf="resumeHeader">
+        
+
+    <chat-window-resize>
+            <mat-toolbar  [ngStyle]="{'height':resumeHeader.height+'px','background-image':'url('+url+')'}"  color="primary" >
+                  
+                        <chat-window-resize [resize]=false [zindex]=990>
+                                <span  class="text-label" style="min-height:20px;"> 
+              {{resumeHeader.name}}
+            </span>
+        </chat-window-resize>
+            <input type='file' (change)="readUrl($event)">
+            <chat-window-resize>
+            <img [src]="url" style="height:150px;width:150px;" [ngStyle]="{'border-radius':borderRadius +'%'}">
+        </chat-window-resize>    
+             
+                   
+                   
+                        </mat-toolbar>
+
+    </chat-window-resize>
+
+    </div>

@@ -1,0 +1,72 @@
+
+<div #customCard [@cardState]="state"
+#myCardContent style="padding-bottom:2px;" [ngStyle]="{'display':displayNone }" class="inline-layout">
+<mat-card *ngIf="!isClosed" class="material-card " [ngClass]="{'drag':isDragging}" >
+
+ <!-- <mat-card-header style="" class="row-header card-header"  [draggable] [dragOverClass]="'active'"
+ [dragScope]="config.cardId"
+  [dragData]="config.cardId" [dragIndex]="config.index" droppable [dropScope]="droppableCards" (onDragStart)="onDragStart($event,config.index)" (onDrag)="onDrag($event)"
+  (onDragEnd)="onDragEnd($event)" (onDrop)="onDrop($event,config.cardId,config.index)"> -->
+  <mat-card-header  class="row-header card-header" 
+  
+  >
+
+   <div style="width:100%; ">
+     <h6>{{config.title}} </h6>
+   </div>
+    <!--<div class="action">
+     <i *ngIf="enableAction" class="material-icons md-18" [matMenuTriggerFor]="menu">more_vert</i>
+     <mat-menu #menu="matMenu">
+       <button mat-menu-item>Action 1</button>
+       <button mat-menu-item>Action 2</button>
+     </mat-menu>
+   </div>
+  <div class="action" *ngIf="config.isCardNavigationEnabled">
+     <i  *ngIf="enableNavigation" (click)="onNavigation($event)" class="material-icons md-18">arrow_forward</i>
+   </div>
+   <div class="action" *ngIf="!doEnlarge && !config.isEnlarge">
+     <i (click)="onEnlarge($event)" class="material-icons md-18" >all_out</i>
+   </div>
+   <div class="action" *ngIf="doEnlarge|| config.isEnlarge">
+     <i (click)="onMinimize($event)" class="material-icons md-18">remove</i>
+   </div>
+   <div class="action" *ngIf="config.isCardNavigationEnabled">
+     <i (click)="onClose($event)" class="material-icons md-18">close</i>
+   </div>
+  -->
+ </mat-card-header>
+
+ <!-- No Drag and Drop -->
+ <mat-card-header  class="row-header card-header" *ngIf="maximisedCard">
+
+  <div style="width:100%; ">
+    <h6>{{config.title}}{{config.cardId}} </h6>
+  </div>
+  <!--<div class="action">
+    <i *ngIf="enableAction" class="material-icons md-18">more_vert</i>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>Action 1</button>
+      <button mat-menu-item>Action 2</button>
+    </mat-menu>
+  </div>
+  <div class="action" *ngIf="config.isCardNavigationEnabled">
+    <i  *ngIf="enableNavigation" (click)="onNavigation($event)" class="material-icons md-18">arrow_forward</i>
+  </div>
+  <div class="action" *ngIf="!doEnlarge && !config.isEnlarge">
+    <i (click)="onEnlarge($event)" class="material-icons md-18" >all_out</i>
+  </div>
+  <div class="action" *ngIf="doEnlarge|| config.isEnlarge">
+    <i (click)="onMinimize($event)" class="material-icons md-18">remove</i>
+  </div>
+  <div class="action" *ngIf="config.isCardNavigationEnabled">
+    <i (click)="onClose($event)" class="material-icons md-18">close</i>
+  </div>
+-->
+</mat-card-header>
+
+ <div>
+   <ng-content></ng-content>
+ </div>
+
+</mat-card>
+</div>

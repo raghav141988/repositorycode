@@ -1,0 +1,19 @@
+export class PageSettings {
+    headerFontSize?:string;
+    colorTheme?:String;
+    fontColor?:String;
+    padding?:Padding;
+    contentFontSize?:string;
+    headerFontStyle?:string;
+    contentFontStyle?:string;
+    cssClass?:string;
+    
+}
+export class Padding {
+    padding:number;
+    top:number;
+    bottom:number;
+    left:number;
+    right:number;
+
+}

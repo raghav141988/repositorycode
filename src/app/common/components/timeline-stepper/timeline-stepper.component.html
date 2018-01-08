@@ -1,0 +1,120 @@
+<div class="stepper" *ngIf="timeLineDataSet">
+        <div *ngFor="let timeLineData of timeLineDataSet; let i=index"  class="step" >
+           
+                    <div  >
+                        <div [ngStyle]="{'background':pageSettings.colorTheme,'color':pageSettings.fontColor,'font-size':pageSettings.contentFontSize+'px','font-family':pageSettings.contentFontStyle?pageSettings.contentFontStyle:'inherit'}" class="circle">{{i+1}}</div>
+                        <div [ngStyle]="{'border-left':'1px solid '+pageSettings.colorTheme}" class="line"></div>
+                    </div>
+                    <div  wrapperDirective (onHover) ="onHoverTimeLine($event,timeLineData)">
+                        <div [ngStyle]="{'color':pageSettings.colorTheme,'font-size':pageSettings.contentFontSize+'px','font-family':pageSettings.contentFontStyle?pageSettings.contentFontStyle:'inherit'}" class="title">{{timeLineData.title.toUpperCase( )}} /  <span [ngStyle]="{'color':pageSettings.colorTheme,'font-size':pageSettings.contentFontSize}" class="description"> {{timeLineData.startTime}} -  {{timeLineData.endTime}}</span></div>
+                        
+                        <div [ngStyle]="{'font-size':pageSettings.contentFontSize+'px','font-family':pageSettings.contentFontStyle?pageSettings.contentFontStyle:'inherit'}" class="body"      [innerHtml]="timeLineData.desc">
+                        </div>
+                        <div *ngIf="timeLineData.isEdit" >
+                                <!--
+                                    <textarea style="width:100%" #descTextArea name="textInputBox" [value]="timeLineData.desc" placeholder="TimeLine desc">
+                                                                        </textarea>
+                                
+                                    <button  mat-raised-button color="primary"  (click)="toggleTextEdit(timeLineData)" >Done!</button>
+                                                                -->
+                                </div>
+                        <div  class="timeline-inline-layout">
+                                <div  *ngIf="timeLineData.showActions" class="action" >
+                                        <i  matTooltip="Click to delete" (click)="onDeleteClicked(timeLineData)" class="material-icons md-18">delete</i>
+                                      </div>
+                                     <!-- <div *ngIf="timeLineData.showActions" class="action" >
+                                       <i (click)="onSettingsClicked(timeLineData)" class="material-icons md-18">settings</i>
+                                     </div>
+                                -->
+                                     <div *ngIf="timeLineData.showActions" class="action" >
+                                      <i  matTooltip="Click to add new" (click)="onAddNew(timeLineData)" class="material-icons md-18">add</i>
+                                    </div>
+                         
+                                      <div *ngIf="timeLineData.showActions" class="action" >
+                                             <i  matTooltip="Click to edit" (click)="onEditClicked(timeLineData)" class="material-icons md-18">edit</i>
+                                           </div>
+                            </div>
+                    </div>
+               
+                </div>
+            
+            </div>
+
+            <div *ngIf="addNew" style="width:100%;">
+                    <!-- ADD NEW TIME LINE -->
+                                <form  style="width:100%;" (ngSubmit)="onNewData(f.value)" novalidate #f="ngForm">
+                                    <div> 
+                            <mat-form-field  style="width:100%;">
+                                    <input [autoFocus]="needsFocus" name="title" matInput placeholder="Title" ngModel>
+                                  </mat-form-field>
+                                </div>
+                                <div>
+                                        <mat-form-field  style="width:100%;">
+                                                <input name="startDate"  matInput [matDatepicker]="startpicker" placeholder="Start Date" ngModel>
+                                                <mat-datepicker-toggle matSuffix [for]="startpicker"></mat-datepicker-toggle>
+                                                <mat-datepicker #startpicker></mat-datepicker>
+                                              </mat-form-field>
+                                    </div> 
+                                    <div>
+                                            <mat-form-field  style="width:100%;">
+                                                    <input name="endDate"  matInput [matDatepicker]="endpicker" placeholder="End Date" ngModel>
+                                                    <mat-datepicker-toggle matSuffix [for]="endpicker"></mat-datepicker-toggle>
+                                                    <mat-datepicker #endpicker></mat-datepicker>
+                                                  </mat-form-field>
+                                        </div> 
+                                <div>
+                                 
+                                                <textarea style="width:100%" #descTextArea name="textInputBox" [value]="'Add your description'" placeholder="TimeLine desc">
+                                        </textarea>
+
+                                 
+                                </div>  
+                                  <div>
+                                        
+                                        <button type="submit" mat-raised-button color="primary">Add</button>
+                                        <button (click)="cancelForm();" mat-raised-button>Cancel</button>
+                
+                                  </div>
+                                </form >
+                    </div>
+            <div >
+                    <!-- EDIT THE EXISTING  TIME LINE -->
+                    <div *ngFor="let timeLineData of timeLineDataSet; let i=index"  >
+                    <div  *ngIf="timeLineData.isEdit && !isDbClick" style="width:100%;">
+                            <!-- ADD NEW TIME LINE -->
+                                       
+                                            <div> 
+                                    <mat-form-field  style="width:100%;">
+                                            <input [autoFocus]="needsFocus" name="title" matInput placeholder="Title"  [(ngModel)]="timeLineData.title">
+                                          </mat-form-field>
+                                        </div>
+                                        <div>
+                                                <mat-form-field  style="width:100%;">
+                                                        <input name="startDate"  matInput [matDatepicker]="startpicker" placeholder="Start Date" (ngModelChange)="startDateChange(timeLineData,$event)" [ngModel]="getStartTime(timeLineData)" >
+                                                        <mat-datepicker-toggle matSuffix [for]="startpicker"></mat-datepicker-toggle>
+                                                        <mat-datepicker #startpicker></mat-datepicker>
+                                                      </mat-form-field>
+                                            </div> 
+                                            <div>
+                                                    <mat-form-field  style="width:100%;">
+                                                            <input name="endDate"  matInput [matDatepicker]="endpicker" placeholder="End Date"  (ngModelChange)="endDateChange(timeLineData,$event)"  [ngModel]="getEndTime(timeLineData)">
+                                                            <mat-datepicker-toggle matSuffix [for]="endpicker"></mat-datepicker-toggle>
+                                                            <mat-datepicker #endpicker></mat-datepicker>
+                                                          </mat-form-field>
+                                                </div> 
+                                        <div>
+                                       
+                                                        <textarea style="width:100%" #descTextArea name="textInputBox" [value]="timeLineData.desc" placeholder="TimeLine desc"></textarea>
+                                         
+                                        </div>  
+                                          <div>
+                                                
+                                                <button (click)="editComplete(timeLineData)" mat-raised-button color="primary">Done</button>
+                                                <button (click)="cancelTimeLineEdit(timeLineData);" mat-raised-button>Cancel</button>
+                        
+                                          </div>
+                                      
+                            </div>
+
+         </div>
+        </div>

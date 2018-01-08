@@ -1,0 +1,98 @@
+
+    <div class="example-container" [class.example-is-mobile]="mobileQuery.matches" >
+        <div id="page-top" >
+            
+                
+                <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+                  <div class="container-fluid">
+                    <!--<i  style="color:#fff;width:50px;cursor: pointer"  class="material-icons menu-icons">menu</i>-->
+                    <a class="navbar-brand js-scroll-trigger" ><img (click)="onHomeClick()" style="width:200px;height:80px;cursor:pointer" src="assets/img/logo.png" ></a>
+                    
+                    
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                      Menu
+                      <i class="fa fa-bars"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarResponsive">
+                      <ul class="navbar-nav  ml-auto">
+                          <li class="nav-item">
+                              <a style="cursor: pointer;" matTooltip="Click to Save your content"  class="nav-link js-scroll-trigger" ><i (click)="save()" class="material-icons menu-icons">save</i></a>
+                            </li>
+        
+                            <li class="nav-item">
+                                    <a style="cursor: pointer;" matTooltip="Click to Download your resume in PDF"  class="nav-link js-scroll-trigger" ><i (click)="makePdf()" class="material-icons menu-icons">file_download</i></a>
+                                  </li>
+                                
+                          <li  *ngIf="!userDetails" class="nav-item">
+                              <a (click)="login();" class="nav-link js-scroll-trigger" >Login</a>
+                            </li>
+                            
+                           
+        
+                          
+                        <li class="nav-item">
+                          <a  (click)="onNavClick('themes')"  class="nav-link js-scroll-trigger" >Themes</a>
+                        </li>
+                        <li *ngIf="userDetails"  class="nav-item">
+                            <a (click)="openMySavedWork();" class="nav-link js-scroll-trigger" >My Saved Work</a>
+                          </li>
+                             <li *ngIf="userDetails" class="nav-item">
+                          <a class="nav-link js-scroll-trigger user-welcome" >Welcome {{userDetails.displayName}} !</a>
+                        </li>
+                        <li *ngIf="userDetails" class="nav-item">
+                            <a  matTooltip="Click to logout" class="nav-link js-scroll-trigger" (click)="logout()"><i class="material-icons">power_settings_new</i></a>
+                          </li>
+                      </ul>
+                    </div>
+                  </div>
+                </nav>
+            </div>
+      
+        <mat-sidenav-container class="example-sidenav-container"
+                               [style.marginTop.px]="mobileQuery.matches ? 56 : 100">
+          <mat-sidenav #snav opened="true" [mode]="mobileQuery.matches ? 'over' : 'side'"
+                       [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+           
+                       <side-nav-content
+                       
+                       (addOrRemoveSection)="addOrRemoveSection($event)"
+                       ></side-nav-content>
+        
+         </mat-sidenav>
+         
+      
+          <mat-sidenav-content 
+          
+          style="background-image: url('assets/img/body-bg.jpg');
+          background-repeat:none;"
+          >
+              <div [ngStyle] ="{  'width': maxWidth,'padding-top':'5px',
+              'margin': 'auto',
+             
+              'background-color': '#fff'}" >
+              <div  #resumeDiv class="resume-page" >
+                  <router-outlet (activate)="onActivate($event)" ></router-outlet>
+</div>
+</div>
+          </mat-sidenav-content>
+        </mat-sidenav-container>
+      </div>
+      
+      <ngx-image-gallery 
+      [images]="images" 
+      [conf]="conf"
+      (onOpen)="galleryOpened($event)"
+      (onClose)="galleryClosed()"
+      (onImageClicked)="galleryImageClicked($event)"
+      (onImageChange)="galleryImageChanged($event)"
+      (onDelete)="deleteImage($event)"
+      ></ngx-image-gallery>
+
+    
+      
+      
+      <!-- Copyright 2017 Google Inc. All Rights Reserved.
+          Use of this source code is governed by an MIT-style license that
+          can be found in the LICENSE file at http://angular.io/license -->
+
+

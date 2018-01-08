@@ -1,0 +1,89 @@
+<ng-template #cardTemplate>
+    <chat-window-resize>
+        
+
+  <custom-card  (onCardDrop)="onCardDrop($event)" (onCardDrag)="onCardDrag($event)" (onActionIconClick)="onActionClick()" (onEnlargeClick)="onEnlarge($event)"(onMinimizeClick)="onMinimize($event)" (onNavigationClick)="onNavigationClick()"
+[config]="CARD_DETAILS" [enableAction]="true" [enableNavigation]="true" [maximisedCard]="maximisedCard">
+
+   
+</custom-card>
+</chat-window-resize>
+   </ng-template>
+
+<ng-template #card1Template>
+  <chat-window-resize>
+<custom-card  (onCardDrop)="onCardDrop($event)" (onCardDrag)="onCardDrag($event)"  (onActionIconClick)="onActionClick()" (onEnlargeClick)="onEnlarge($event)"(onMinimizeClick)="onMinimize($event)" (onNavigationClick)="onNavigationClick()"
+[config]="CARD_DETAILS1" [enableAction]="true" [enableNavigation]="true" [maximisedCard]="maximisedCard">
+<timeline></timeline>
+
+</custom-card>
+</chat-window-resize>
+</ng-template>
+<ng-template #card2Template>
+    <chat-window-resize>
+ <custom-card  (onCardDrop)="onCardDrop($event)" (onCardDrag)="onCardDrag($event)"  (onActionIconClick)="onActionClick()"(onEnlargeClick)="onEnlarge($event)"(onMinimizeClick)="onMinimize($event)" (onNavigationClick)="onNavigationClick()"
+[config]="CARD_DETAILS2" [enableAction]="true" [enableNavigation]="true" [maximisedCard]="maximisedCard">
+<skill-component></skill-component>
+
+</custom-card>
+</chat-window-resize>
+</ng-template>
+
+<ng-template #card3Template>
+    <chat-window-resize>
+<custom-card  (onCardDrop)="onCardDrop($event)" (onCardDrag)="onCardDrag($event)"  (onActionIconClick)="onActionClick()" (onEnlargeClick)="onEnlarge($event)"(onMinimizeClick)="onMinimize($event)"(onNavigationClick)="onNavigationClick()"
+[config]="CARD_DETAILS3" [enableAction]="true" [enableNavigation]="true" [maximisedCard]="maximisedCard">
+<skill-chart></skill-chart>
+</custom-card>
+</chat-window-resize>
+</ng-template>
+
+<ng-template #card4Template>
+    <chat-window-resize>
+<custom-card  (onCardDrop)="onCardDrop($event)" (onCardDrag)="onCardDrag($event)"  (onActionIconClick)="onActionClick()" (onEnlargeClick)="onEnlarge($event)"(onMinimizeClick)="onMinimize($event)"(onNavigationClick)="onNavigationClick()"
+[config]="CARD_DETAILS4" [enableAction]="true" [enableNavigation]="false" [maximisedCard]="maximisedCard">
+<chip-component></chip-component>
+</custom-card>
+</chat-window-resize>
+</ng-template>
+
+<ng-template #card5Template>
+    <chat-window-resize>
+  <custom-card  (onCardDrop)="onCardDrop($event)" (onCardDrag)="onCardDrag($event)"  (onActionIconClick)="onActionClick()" (onEnlargeClick)="onEnlarge($event)"(onMinimizeClick)="onMinimize($event)"(onNavigationClick)="onNavigationClick()"
+  [config]="CARD_DETAILS5" [enableAction]="true" [enableNavigation]="false" [maximisedCard]="maximisedCard">
+  
+  </custom-card>
+</chat-window-resize>
+  </ng-template>
+
+<ng-template #card6Template>
+    <chat-window-resize>
+    <custom-card  (onCardDrop)="onCardDrop($event)" (onCardDrag)="onCardDrag($event)"  (onActionIconClick)="onActionClick()" (onEnlargeClick)="onEnlarge($event)"(onMinimizeClick)="onMinimize($event)"(onNavigationClick)="onNavigationClick()"
+    [config]="CARD_DETAILS6" [enableAction]="true" [enableNavigation]="false" [maximisedCard]="maximisedCard">
+   
+    </custom-card>
+  </chat-window-resize>
+    </ng-template>
+
+
+
+
+
+    
+    <div class="row" style="padding:0px!important;">
+      
+      <div class="col-3" style="padding-right:5px!important;">
+        <template [ngTemplateOutlet]="cardTemplate"></template>
+        <template [ngTemplateOutlet]="card2Template"></template>
+        <template [ngTemplateOutlet]="card4Template"></template>
+    
+      </div>
+    
+      <div class="col-9" style="padding-left:5px!important;">
+      <template [ngTemplateOutlet]="card1Template"></template>
+      <template [ngTemplateOutlet]="card3Template"></template>
+      <template [ngTemplateOutlet]="card5Template"></template>
+    
+    </div>
+    </div>
+    
