@@ -9,7 +9,8 @@ export class FocusDirective  {
 
   ngAfterViewInit() {
    if(focus){
-    this._elementRef.nativeElement.focus()}
+    this._elementRef.nativeElement.focus()
+  }
   }
 
 }

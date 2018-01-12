@@ -1,3 +1,4 @@
+import { editorConfig } from './../../../../editor-config';
 import { TemplateSettingService } from './../template-setting-service';
 import { Section } from './../../../../../templates/side-nav-content/Section';
 import { TemplateService } from './../service/template.service';
@@ -15,7 +16,9 @@ import { CardConfig } from './../../CardConfig';
 import { Subscription } from 'rxjs/Subscription';
 import { Component, ViewChild, Type, ElementRef, ViewChildren,TemplateRef,Input,ChangeDetectorRef } from '@angular/core';
 import { PageSettings } from '../PageSettings';
-declare var nicEditors:any;
+import { BaseTemplateComponent } from '../base-template/base-template.component';
+declare var jquery: any;
+declare var $: any;
 
 @Component({
     moduleId: module.id,
@@ -24,91 +27,66 @@ declare var nicEditors:any;
     templateUrl: 'template2.component.html',
     styleUrls: ['template2.component.scss']
 })
-export class Template2Component {
+export class Template2Component extends BaseTemplateComponent{
   themeName="template2";
-  photoHover:boolean;
-  showPhoto:boolean=true;
- 
-  isSecModified=false;
-  subscription: Subscription;
-  pageSettings:PageSettings={};
+url:string="assets/img/headshot.jpg";
 
-  /* DECLARE EDITING IN TEXT AREA VARIABLES */
-  isDbClick=false;
-  converted=false;
-  //@ViewChild('descTextArea') myTextArea:ElementRef;
-
-  /* HEADER CONFIGURATION */
-  fontHeaderColor="#fff";
-
-/* DECLARE ALL THE VARIABLES OF THE Template1Component */
-      url:string="assets/img/headshot.jpg";
-      cardStartIndex:any;
-/* CARD TEMPLATES */    
-  //  @ViewChild('cardContainer') cards: any;
-
-@ViewChildren('cardTemplates') cardTemplates:any;
-
-  
-/* CARD CONFIGURATION*/
-
-
-
-
-
-/* CARD MAPPING FROM ID TO TEMPLATE */
-cardsList:CardConfig[];
-
-cardToTemplateMaping: { [type: number]: Type<ViewChild> } = {};
  dragStart=false;
 /* CONTACT INFO TABLE */
 
    getCardTemplate(cardId: number ) {
-           if(!this.dragStart){
-            //   console.log('Template to fetch for '+cardId);
-              // console.log(this.cardToTemplateMaping[cardId ]);
-        
-    return this.cardToTemplateMaping[cardId ];
-           }
+    if (!this.dragStart) {
+      
+            // console.log(this.cardToTemplateMaping[cardId ]);
+      
+            if (this.cardToTemplateMaping && this.cardToTemplateMaping[cardId]) {
+      
+              return this.cardToTemplateMaping[cardId];
+            } else {
+              return null;
+            }
+          }
   }
-  ngAfterViewInit(){
-    
-    this.cardTemplates.toArray().forEach((el,index) => {
-        this.cardToTemplateMaping[index] = el;
-      });
-   
-  
- }
+ 
  ngAfterViewChecked(){
  this.changeDetector.detectChanges();
 }
 
   ngOnInit(){
+    super.ngOnInit();
     this.cardsList= this.service.getCardsListByTemplate('template2');
-    this.pageSettings=this.service.getSavedPageSettings();
-    if(this.pageSettings===undefined){
-      
-       this.pageSettings={};
-     }
+    
 }
 
 ngDoCheck(){
-  if( this.cardTemplates && this.isSecModified ){
-    this.cardTemplates.toArray().forEach((el,index) => {
+  if (this.cardTemplates && this.isSecModified) {
+    this.cardTemplates.toArray().forEach((el, index) => {
       this.cardToTemplateMaping[index] = el;
-    
-    
- 
+
+
+
     });
-    this.isSecModified=false;
-  }    
+    this.isSecModified = false;
+  }
+
+  if (this.titleText && !this.nameConverted) {
+
+    $('.summernote').summernote(editorConfig);
+
+    this.nameConverted = true;
+  }
+  if (this.designation && !this.titleConverted) {
+
+
+    $('.summernote').summernote(editorConfig);
+    this.titleConverted = true;
+  }
 }
  /* FROM THE TEMPLATE HANDLE EACH SECTION SETTING */   
-constructor(public dialog: MatDialog,private changeDetector: ChangeDetectorRef,private service:TemplateService,public templateSettings:TemplateSettingService) {
-  this.subscription = this.templateSettings.getSettingsSubscriber().subscribe(pageSettings => { this.pageSettings = pageSettings; 
-    
-      
-      });
+constructor(public dialog: MatDialog,private changeDetector: ChangeDetectorRef,public service:TemplateService,public templateSettings:TemplateSettingService) {
+  super(dialog, service, templateSettings);
+  
+ 
 }
 
     openDialog(cardDetails:CardConfig): void {
@@ -144,6 +122,10 @@ constructor(public dialog: MatDialog,private changeDetector: ChangeDetectorRef,p
      
 
      }
+       /* HANDLE THE CARD EDIT CLICK */
+onCardEdit(event:any,cardDetails:CardConfig){
+  this.openDialog(cardDetails);
+}
      onDragEnd(event:any,cardIndex:string){
        
       
@@ -192,55 +174,16 @@ constructor(public dialog: MatDialog,private changeDetector: ChangeDetectorRef,p
        }
      
        
-/* HANDLING SECTION HOVER */
-onHoverSection(event:any, config:CardConfig){
-  config.showConfig=event;
- 
-}
-/* HANDLE THE CARD EDIT CLICK */
-onCardEdit(event:any,cardDetails:CardConfig){
-  this.openDialog(cardDetails);
-}
+
+
 addNewSection(section:Section,component:ComponentType){
   
-                let newCard:CardConfig ={
-  
-                  title:section.name,
-                  cardClass: 'col-md-6', 
-                  isCardNavigationEnabled: true, 
-                  isDraggable: true,
-                   isDroppable: true, 
-                   cardId: ""+this.cardsList.length, 
-                   index:""+(this.cardsList.length), 
-                   isEnlarge: false, 
-                   type:component,
-                  cardPlacing: 'right'
-                };
-  this.cardsList.push(newCard);
-  this.isSecModified=true;
-  this.changeDetector.detectChanges();  
+  super.addNewSection(section, component);
+  this.changeDetector.detectChanges();
   
               }
 getThemeName():string{
   return this.themeName;
  }
- geTemplateContent():any{
-  var templateContent ={
-    sectionContent:this.cardsList,
-    pageSettings:{}
-  }
-  return templateContent;
-}
-onUserPhotoHover(event:any){
-  console.log(event);
-  this.photoHover=event;
-  
-}
-onPhotoHide(){
-  this.showPhoto=false;
-}
-ngOnDestroy() {
-  // unsubscribe to ensure no memory leaks
-  this.subscription.unsubscribe();
-}
+ 
 }

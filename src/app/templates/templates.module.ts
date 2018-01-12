@@ -14,6 +14,7 @@ import { routing }       from './templates.routing';
 import { TemplatesComponent } from './templates.component';
 import { SavedTemplateComponent } from '../common/components/layouts/templates/saved-template/saved-template.component';
 import { NgxImageGalleryModule } from 'ngx-image-gallery';
+import { BaseTemplateComponent } from '../common/components/layouts/templates/base-template/base-template.component';
 
 
 @NgModule({
@@ -21,7 +22,7 @@ import { NgxImageGalleryModule } from 'ngx-image-gallery';
 CommonSharedModule,routing,MaterialModule,NgxImageGalleryModule
     ],
     declarations: [
-   
+        BaseTemplateComponent,
         TemplatesComponent,
         Template1Component,
         Template2Component,

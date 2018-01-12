@@ -1,3 +1,5 @@
+import { NoSanitizePipe } from './components/pipe/no-sanitize.pipe';
+import { SafeHtmlDirective } from './components/directive/safe-html-directive';
 import { TemplateSettingService } from './components/layouts/templates/template-setting-service';
 
 import { HeaderContactComponent } from './components/header-contact/header-contact.component';
@@ -51,6 +53,9 @@ import { WrapperComponent } from './components/wrapper/wrapper.component';
 import { DonutChartComponent } from './components/chart/donut-chart/donut-chart.component';
 import { NgxImageGalleryModule } from 'ngx-image-gallery';
 import { FocusDirective } from './components/timeline-stepper/focus.directive';
+import { BaseComponentComponent } from './components/base-component/base-component.component';
+import { BaseSkillComponent } from './components/base-skill/base-skill.component';
+import { BaseTimelineComponent } from './components/base-timeline/base-timeline.component';
 
 @NgModule({
     imports: [
@@ -69,7 +74,11 @@ import { FocusDirective } from './components/timeline-stepper/focus.directive';
     
         ResumeContentSelectorModule
       ],
-      declarations:[Card,Layouts,ResumeHeaderComponent,
+      declarations:[
+        BaseTimelineComponent,
+        BaseComponentComponent,
+        BaseSkillComponent,
+        Card,Layouts,ResumeHeaderComponent,NoSanitizePipe,
    FocusDirective,
       SkillComponent,
       ChartComponent,
@@ -78,7 +87,7 @@ import { FocusDirective } from './components/timeline-stepper/focus.directive';
       DonutChartComponent,
       ResizableComponent,
       FontColorChooserComponent,
-     
+      SafeHtmlDirective,
       ChipComponent,
     
     
@@ -131,7 +140,10 @@ import { FocusDirective } from './components/timeline-stepper/focus.directive';
     SlimScrollModule,
     SimpleTimelineComponent,
     HeaderContactComponent,
- 
+    NoSanitizePipe,
+    BaseComponentComponent,
+    BaseSkillComponent,
+    BaseTimelineComponent
     //DatePickerModule
     ]
   })

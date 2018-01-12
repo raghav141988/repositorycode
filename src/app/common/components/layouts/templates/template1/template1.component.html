@@ -3,17 +3,14 @@
 <ng-template *ngFor="let card of cardsList"  #cardTemplates   >
     
 
-    <section dropDirective 
-  
-       [dragDirective]="card.index"  (startDrag)="onCardDrag($event,card.index)" 
-       (dragleaveEvent)="onDragEnd($event,card.index)" (dropEvent)="onCardDrop($event,card)">
+    <section >
             <article>
                 
                 
                 <div class="sectionContent">
                     <div   matTooltip="To swap,select and drag this section header and drop it in  to other section !" wrapperDirective (onHover) ="onHoverSection($event,card)"   [ngStyle]="{'color':(card.headerFontColor==null)? 'inherit;':card.headerFontColor,'font-size':pageSettings.headerFontSize+'px','font-family':pageSettings.headerFontStyle}" >
                         
-                    <h1 [ngStyle]="{'border-bottom':'2px solid ' +pageSettings.colorTheme,'color':pageSettings.colorTheme}" [innerHTML]="card.title"> </h1>
+                    <h1 [ngStyle]="{'border-bottom':'2px solid ' +pageSettings.colorTheme,'color':pageSettings.colorTheme}" [innerHTML]="card.title| noSanitize"> </h1>
                     
                     <div *ngIf="card.showConfig" class="action" >
                             <i  (click)="onCardEdit($event,card)" class="material-icons md-18">edit</i>
@@ -54,21 +51,19 @@
         </div>
         
         <div id="name">
-            <h1 matTooltip="Double click on the text content to edit the text!"  textEditDirective (onDoubleClick)="toggleNameEdit()"  [innerHTML]="userName" >Joe Bloggs</h1>
-            <h2 matTooltip="Double click on the text content to edit the text!"   textEditDirective (onDoubleClick)="toggleDesigEdit()"  [innerHTML]="title"  >Job Title</h2>
+            <h1 matTooltip="Double click on the text content to edit the text!"  textEditDirective (onDoubleClick)="toggleNameEdit()"  [innerHTML]="userName| noSanitize" >Joe Bloggs</h1>
+            <h2 matTooltip="Double click on the text content to edit the text!"   textEditDirective (onDoubleClick)="toggleDesigEdit()"  [innerHTML]="title| noSanitize"  >Job Title</h2>
             <div *ngIf="isNameEdit" >
                     
-                        <textarea style="width:100%" #titleText name="textInputBox" [(ngModel)]="userName" placeholder="Name">
-                                                            </textarea>
-                    
+                       
+                                                            <div #titleText class="summernote" placeholder="userName" [innerHTML]="userName"></div>
                         <button  mat-raised-button color="primary"  (click)="toggleNameEdit()" >Done!</button>
                     
                     </div>
                     <div *ngIf="isTitleEdit" >
                             
-                                <textarea style="width:100%" #designation name="textInputBox" [(ngModel)]="title" placeholder="Description">
-                                                                    </textarea>
-                            
+               
+                                                                    <div #designation class="summernote" placeholder="title" [innerHTML]="title"></div>
                                 <button  mat-raised-button color="primary"  (click)="toggleDesigEdit()" >Done!</button>
                             
                             </div>

@@ -8,7 +8,8 @@ import {
 } from '@angular/animations';
 import { ISlimScrollOptions } from 'ng2-slimscroll';
 
-
+declare var jquery:any;
+declare var $ :any;
 
 @Component({
   selector: 'app-root',
@@ -48,7 +49,6 @@ ngOnInit(){
   
 }
   
-
 
 
 

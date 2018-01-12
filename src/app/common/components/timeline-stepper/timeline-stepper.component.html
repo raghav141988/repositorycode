@@ -8,7 +8,7 @@
                     <div  wrapperDirective (onHover) ="onHoverTimeLine($event,timeLineData)">
                         <div [ngStyle]="{'color':pageSettings.colorTheme,'font-size':pageSettings.contentFontSize+'px','font-family':pageSettings.contentFontStyle?pageSettings.contentFontStyle:'inherit'}" class="title">{{timeLineData.title.toUpperCase( )}} /  <span [ngStyle]="{'color':pageSettings.colorTheme,'font-size':pageSettings.contentFontSize}" class="description"> {{timeLineData.startTime}} -  {{timeLineData.endTime}}</span></div>
                         
-                        <div [ngStyle]="{'font-size':pageSettings.contentFontSize+'px','font-family':pageSettings.contentFontStyle?pageSettings.contentFontStyle:'inherit'}" class="body"      [innerHtml]="timeLineData.desc">
+                        <div [ngStyle]="{'font-size':pageSettings.contentFontSize+'px','font-family':pageSettings.contentFontStyle?pageSettings.contentFontStyle:'inherit'}" class="body"      [innerHtml]="timeLineData.desc| noSanitize">
                         </div>
                         <div *ngIf="timeLineData.isEdit" >
                                 <!--
@@ -64,8 +64,8 @@
                                         </div> 
                                 <div>
                                  
-                                                <textarea style="width:100%" #descTextArea name="textInputBox" [value]="'Add your description'" placeholder="TimeLine desc">
-                                        </textarea>
+                                                <div style="width:100%" class="summernote" #descTextArea [innerHTML]="'Add your description'" placeholder="TimeLine desc">
+                                                </div>
 
                                  
                                 </div>  
@@ -104,7 +104,7 @@
                                                 </div> 
                                         <div>
                                        
-                                                        <textarea style="width:100%" #descTextArea name="textInputBox" [value]="timeLineData.desc" placeholder="TimeLine desc"></textarea>
+                                                        <div class="summernote" style="width:100%" #descTextArea  [innerHTML]="timeLineData.desc" placeholder="TimeLine desc"></div>
                                          
                                         </div>  
                                           <div>

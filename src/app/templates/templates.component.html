@@ -66,14 +66,14 @@
           style="background-image: url('assets/img/body-bg.jpg');
           background-repeat:none;"
           >
-              <div [ngStyle] ="{  'width': maxWidth,'padding-top':'5px',
-              'margin': 'auto',
-             
-              'background-color': '#fff'}" >
-              <div  #resumeDiv class="resume-page" >
-                  <router-outlet (activate)="onActivate($event)" ></router-outlet>
-</div>
-</div>
+                <div [ngStyle] ="{  'width': maxWidth,'padding-top':'5px',
+                'margin': 'auto',
+              
+                'background-color': '#fff'}" >
+                <div  #resumeDiv class="resume-page" >
+                    <router-outlet (activate)="onActivate($event)" ></router-outlet>
+  </div>
+  </div>
           </mat-sidenav-content>
         </mat-sidenav-container>
       </div>

@@ -1,3 +1,4 @@
+import { BaseComponentComponent } from './../base-component/base-component.component';
 import { TemplateSettingService } from './../layouts/templates/template-setting-service';
 import { TemplateService } from './../layouts/templates/service/template.service';
 import { FontColorChooserDialog } from './../font-color-chooser/chooser.dialog';
@@ -16,50 +17,31 @@ import { PageSettings } from '../layouts/templates/PageSettings';
     templateUrl: 'chart.component.html',
     styleUrls: ['chart.component.scss']
 })
-export class ChartComponent {
-    subscription: Subscription;
-    pageSettings:PageSettings={};
-   card:CardConfig;
-    autoTicks = false;
-    disabled = false;
-    invert = false;
+export class ChartComponent extends BaseComponentComponent{
+   
+   
+    
     max = 10;
     min = 0;
-    showTicks = false;
-    step = 1;
-    thumbLabel = false;
+   
     value = 0;
-    vertical = false;
+   
     addNew=false;
     chartColor="inherit";
    skills: Skill[] ;
     constructor(public dialog: MatDialog,public templateService:TemplateService,public templateSettings:TemplateSettingService) {
-        this.subscription = this.templateSettings.getSettingsSubscriber().subscribe(pageSettings => { this.pageSettings = pageSettings; 
-           
-            
-            });
+       super(templateService,templateSettings);
     }
     ngOnInit(){
         if(this.card.cardData){
             this.skills=this.card.cardData;
-            this.pageSettings=this.templateService.getSavedPageSettings();
-            if(this.pageSettings===undefined){
-                
-                 this.pageSettings={};
-               }
+          
         }else {
         this.skills=this.templateService.getSkillsForChart();
-        this.card.cardData=this.skills;
         }
     }
-    get tickInterval(): number | 'auto' {
-        return this.showTicks ? (this.autoTicks ? 'auto' : this._tickInterval) : 0;
-    }
-    set tickInterval(v) {
-        this._tickInterval = Number(v);
-    }
-    private _tickInterval = 1;
-
+  
+  
     save(skill: Skill) {
         skill.isEdit = false;
     }
@@ -99,10 +81,6 @@ export class ChartComponent {
        this.skills.push(new Skill(formData.skillName,formData.skillValue));
        this.addNew=false;
      }
-     ngOnDestroy() {
-        // unsubscribe to ensure no memory leaks
-        this.subscription.unsubscribe();
-    }
-
+   
      
 }

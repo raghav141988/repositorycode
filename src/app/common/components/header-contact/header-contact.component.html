@@ -11,23 +11,7 @@
                         
                          
                           <span  style="text-align: right; " >{{contact.value}}  </span>
-                          <div  class="contact-inline-layout">
-                                <span  *ngIf="contact.showActions" class="action" >
-                                        <i matTooltip="Click to delete" (click)="onDeleteClicked(contact)" class="material-icons md-18">delete</i>
-                                      </span>
-                                     <!-- <span *ngIf="contact.showActions" class="action" >
-                                       <i (click)="onSettingsClicked(contact)" class="material-icons md-18">settings</i>
-                                     </span>
-                                    -->
-                                     <span *ngIf="contact.showActions" class="action" >
-                                      <i matTooltip="Click to add new" (click)="onAddNew(contact)" class="material-icons md-18">add</i>
-                                    </span>
                          
-                                      <span *ngIf="contact.showActions" class="action" >
-                                             <i matTooltip="Click to edit" (click)="onEditClicked(contact)" class="material-icons md-18">edit</i>
-                                           </span>
-                           
-                    </div>
                           
           
 
@@ -82,7 +66,23 @@
                         </div>
 </ul>
 
-          
+<div  class="contact-inline-layout">
+    <span   class="action" >
+            <i matTooltip="Click to delete" (click)="onDeleteClicked(contact)" class="material-icons md-18">delete</i>
+          </span>
+         <!-- <span *ngIf="contact.showActions" class="action" >
+           <i (click)="onSettingsClicked(contact)" class="material-icons md-18">settings</i>
+         </span>
+        -->
+         <span class="action" >
+          <i matTooltip="Click to add new" (click)="onAddNew(contact)" class="material-icons md-18">add</i>
+        </span>
+
+          <span class="action" >
+                 <i matTooltip="Click to edit" (click)="onEditClicked(contact)" class="material-icons md-18">edit</i>
+               </span>
+
+</div>
          
 
      
