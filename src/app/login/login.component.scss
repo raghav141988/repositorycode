@@ -1,0 +1,89 @@
+#lock {
+    width:30%;
+    margin: 1em auto 2em auto;
+    display:block;
+}
+
+#fb {
+   
+    color:#fff;
+}
+
+#google {
+    border: 1px solid #95989A;
+  
+}
+
+#email {
+  
+}
+
+
+    #page {
+        padding:1em;
+    }
+    #toolbar {
+        width:90%;
+        margin-left: -45%;
+    }
+    #fb {
+        background:#3B5998 url('../../assets/img/facebook.svg') no-repeat 14px 6px;
+        background-size: 47px;
+    }
+
+    #google {
+       
+        background: #fff  url('../../assets/img/google.svg') no-repeat 25px;
+        background-size: 25px;
+    }
+
+    #email {
+        background: #ECECEC  url('../../assets/img/email.svg') no-repeat 25px;
+        background-size: 25px;
+    }
+
+    .login-form {
+        background:white;
+        padding:2.5em;
+       
+        
+        
+    }
+    
+    button {
+        padding:1em;
+        width:100%;
+        cursor:pointer;
+        margin-bottom:15px;
+        font-size:1.3em;
+    }
+    
+    .basic-btn {
+        background: #3B8598;
+        color:white;
+    }
+    
+    input.txt {
+        background:#fff !important;
+        padding:1.3em 1em;
+        font-size:1.3em;
+        border: 1px solid #BBBBBB;
+    }
+    
+    h2 {
+        margin: 1.7em 0 .9em 0;
+    }
+    
+    .alc {
+        text-align:center;
+        display:block;
+        margin: 15px 0;
+    }
+    
+    .error {
+        background:#f1f0ef;
+        padding:1em;
+        width:100%;
+        display:block;
+        margin-bottom:20px;
+    }

@@ -2,28 +2,20 @@
 
 .row.template2-theme {
     margin:auto; 
-     min-height:100vh; 
-     font-size: 20px !important;
+   
+     font-size: inherit !important;
      font-family: 'Roboto'  !important;
      padding:5px;
 }
 
-.leftsideDiv {
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-    -webkit-transition: -webkit-transform 0.6s ease-in;
-        transition: -webkit-transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-        transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
-        transition: transform 0.6s ease-in, -webkit-transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
-        font-size: inherit;
-        font-family:inherit;
-}
+
 .centered{
     margin: auto;
-    width: 150px;
+    width: 100px;
     background: #fff;
     border-radius: 50%;
     padding: 20px 10px 10px 10px;
-    height: 150px;
+    height: 100px;
     text-align: center;
   
     vertical-align: middle;
@@ -34,26 +26,24 @@ margin-left: 5px;
 font-size: inherit;
 font-family:inherit;
 }
-.rightsideDiv .cardHeader{
-    margin: auto;
-    width: 100%;
-    margin-left: 60px;
-   
-    vertical-align: middle;
-}
 
 
 .leftsideDiv .cardHeader{
-    margin: auto;
-    width: 100%;
-    margin-left: 60px;
-    color:#fff;
-    vertical-align: middle;
+    margin: auto!important;
+    width: 100%!important;
+    margin-left: 60px!important;
+    color:#fff!important;
+    vertical-align: middle!important;
+}
+.mat-card-header{
+    background: inherit !important;
+    color:inherit!important;
 }
 .transparent-card {
-   background: inherit;
-   color:inherit;
+   background: inherit !important;
+   color:inherit!important;
 }
+
 .inline-layout{
 	display: inline-block !important;
 	width: 100%;
@@ -81,12 +71,43 @@ font-family:inherit;
         }
 
         .rightsideDiv .card-header{
-         
+            margin: auto;
+            width: 100%;
+            margin-left: 60px;
+           
+            vertical-align: middle;
             margin: inherit;
-              border-bottom: 2px solid  #000;
+              border-bottom: 2px solid  #000 !important;
               background: inherit;
               padding: 0;
               font-weight: 600;
           
             
             }
+.A4 {
+                background: white;
+               
+               
+                margin: 0 auto;
+                padding: 10px 25px;
+                margin-bottom: 0.5cm;
+                box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+               
+                box-sizing: border-box;
+                font-size: inherit;
+              }
+            
+    #A4Area {
+        background: white;
+        width: 21cm;
+        height: 29.7cm;
+      
+        margin: 0 auto;
+        padding: 10px 25px;
+        margin-bottom: 0.5cm;
+        box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+        overflow-y: scroll;
+        box-sizing: border-box;
+        font-size: inherit;
+       
+    }

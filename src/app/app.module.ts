@@ -1,3 +1,10 @@
+import { ProgressSpinnerComponent } from './progress-spinner/progress-spinner.component';
+
+import { LoginComponent } from './login/login.component';
+import { UserTemplateModule } from './templates/user-template/user-template-module';
+import { UserDetailsService } from './user-details-service';
+
+
 import { AuthService } from './providers/auth.service.ts.service';
 
 import { TemplatesModule } from './templates/templates.module';
@@ -13,10 +20,11 @@ import { SectionEditDialog } from './common/components/section-edit/section-edit
 import { FontColorChooserDialog } from './common/components/font-color-chooser/chooser.dialog';
 import { CommonSharedModule } from './common/common.shared.module';
 
-import { TimelineModule } from './common/components/timeline/timeline.module';
+
 import { MaterialModule } from './material/material.module';
+import { GestureConfig } from '@angular/material';
 import { ResumeTemplateModule } from './resume-template/resume-template.module';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule ,HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
 import { RouterModule,Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
@@ -30,8 +38,15 @@ import { NgxImageGalleryModule } from 'ngx-image-gallery';
 //ANGULAR MATERIAL 
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { LoginPageComponent } from './login-page/login-page.component';
+
 import { ConfirmDialog } from './templates/confirm-dialog';
+import { LoginDialog } from './login/login-dialog';
+import { ProgressSpinnerService } from './progress-spinner/progress-spinner.service';
+import { BaseComponentComponent } from './common/components/base-component/base-component.component';
+import { BaseTemplateComponent } from './common/components/layouts/templates/base-template/base-template.component';
+import { BaseRatingComponent } from './common/components/base-rating/base-rating.component';
+import { BaseTimelineComponent } from './common/components/base-timeline/base-timeline.component';
+import { BaseSkillComponent } from './common/components/base-skill/base-skill.component';
 
 // MATERIAL MODULE DECLARED
 //CARSOUSAL MODULE
@@ -43,7 +58,7 @@ export const firebaseConfig = {
   authDomain: "cresumeker.firebaseapp.com",
   databaseURL: "https://cresumeker.firebaseio.com",
   projectId: "cresumeker",
-  storageBucket: "cresumeker.appspot.com",
+  storageBucket: "gs://cresumeker.appspot.com",
   messagingSenderId: "1015623460345"
 
 };
@@ -52,7 +67,7 @@ const routes: Routes = [
     
   { path: '',redirectTo: 'home', pathMatch: 'full'},
   { path: 'home', component: HomeComponent },
-
+  
   { path: 'themes', component: TemplateChooserComponent },
   
  ];
@@ -60,16 +75,19 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
-    FontColorChooserDialog,
-    SectionEditDialog,
-    ConfirmDialog,
-  
-    LoginPageComponent
+    ProgressSpinnerComponent,
+    
+    
+    
+    LoginComponent,
+    LoginDialog,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     MaterialModule,
 TemplatesModule,
+UserTemplateModule,
 NgxImageGalleryModule,
 AngularFireModule.initializeApp(firebaseConfig),
 AngularFireDatabaseModule,
@@ -78,8 +96,8 @@ AngularFireAuthModule,
    
     /* ALL CUSTOM MODULES ADDED */
     ResumeTemplateModule,
-    BrowserAnimationsModule,
-    TimelineModule,
+   
+   
     
     ResumeContentSelectorModule,
     CommonSharedModule
@@ -87,12 +105,16 @@ AngularFireAuthModule,
    
   ],
 
-  providers: [AuthService],
-entryComponents:[FontColorChooserDialog,SectionEditDialog,ConfirmDialog],
-  bootstrap: [AppComponent,FontColorChooserDialog,SectionEditDialog,ConfirmDialog]
+  providers: [UserDetailsService,ProgressSpinnerService,AuthService,{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }],
+entryComponents:[LoginComponent,LoginDialog],
+  bootstrap: [AppComponent]
   
 })
 export class AppModule {
 
   
  }
+/*
+ @NgModule({ declarations: [BaseComponentComponent,BaseSkillComponent, SectionEditDialog,FontColorChooserDialog, BaseTemplateComponent,BaseRatingComponent,BaseTimelineComponent] })
+ export class IgnoreModule {}
+*/

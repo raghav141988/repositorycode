@@ -1,17 +1,25 @@
+import { TemplateSettingService } from './../layouts/templates/template-setting-service';
 /* tslint:disable:member-ordering */
+
 import { Directive, ElementRef, HostListener, Input,Output,EventEmitter } from '@angular/core';
+
 
 @Directive({
   selector: '[wrapperDirective]'
 })
 export class WrapperDirective {
+
     @Output() onHover = new EventEmitter<any>();
-  constructor(private el: ElementRef) { }
+  constructor(private el: ElementRef) {
+    
+   }
 
 
   @HostListener('mouseenter') onMouseEnter() {
    
+  
     this.onHover.emit(true);
+   
   }
 
   @HostListener('mouseleave') onMouseLeave() {

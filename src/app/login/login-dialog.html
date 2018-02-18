@@ -1,0 +1,10 @@
+<div mat-dialog-title class="dialog-header"></div>
+<div mat-dialog-content>
+        <p style="padding:10px;height:20px;">{{data}}</p>
+ <app-login (onLogin)="closeDialog($event)"></app-login>
+ <div mat-dialog-actions>
+ <button mat-button (click)="onNoClick()" >Close</button>
+</div>
+</div>
+
+

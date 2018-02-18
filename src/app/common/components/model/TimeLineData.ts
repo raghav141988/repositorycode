@@ -6,6 +6,7 @@ export class TimeLineData  {
     title:string;
     startTime:string;
     endTime:string;
+    isTillPresent?:boolean;
     desc:string;
     isEdit:boolean;
     isDelete:boolean;

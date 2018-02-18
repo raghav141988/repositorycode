@@ -1,85 +1,110 @@
 <!--component html goes here -->
 
-<ng-template *ngFor="let card of cardsList"  #cardTemplates   >
-        
 
-        <section dropDirective 
-      
-           [dragDirective]="card.index"  (startDrag)="onCardDrag($event,card.index)" 
-           (dragleaveEvent)="onDragEnd($event,card.index)" (dropEvent)="onCardDrop($event,card)">
-                <article>
-                    <div   matTooltip="To swap,select and drag this section header and drop it in  to other section !" wrapperDirective (onHover) ="onHoverSection($event,card)"   [ngStyle]="{'color':(card.headerFontColor==null)? 'inherit;':card.headerFontColor}" class="sectionTitle">
+
+<ng-template #headerTemplate>
+        <div class="bubble">
+                <div class="rectangle" [ngStyle]="{'background':(pageSettings.colorTheme)?pageSettings.colorTheme:'#7f9db9'}"> <h1 class="header-title" matTooltip="Double click on the text content to edit the text!"  textEditDirective (onDoubleClick)="toggleNameEdit()"  [innerHTML]="userName| noSanitize" >Joe Bloggs</h1>
+                    <h2 class="header-title" matTooltip="Double click on the text content to edit the text!"   textEditDirective (onDoubleClick)="toggleDesigEdit()"  [innerHTML]="title| noSanitize"  >Job Title</h2>
+                    <div *ngIf="isNameEdit" >
                             
-                        <h1 [ngStyle]="{'color':(card.headerFontColor==null)? 'inherit;':card.headerFontColor,'font-size':pageSettings.headerFontSize+'px','font-family':pageSettings.headerFontStyle,'color':pageSettings.colorTheme}"  [innerHTML]="card.title"> </h1>
-                        
-                        <div *ngIf="card.showConfig" class="action" >
-                                <i  (click)="onCardEdit($event,card)" class="material-icons md-18">edit</i>
-                             
+                                <textarea class="summernote" style="width:100%" #titleText name="textInputBox" [(ngModel)]="userName" placeholder="Name">
+                                                                    </textarea>
+                            
+                                <button  mat-raised-button color="primary"  (click)="toggleNameEdit()" >Done!</button>
+                            
+                            </div>
+                            <div *ngIf="isTitleEdit" >
+                                    
+                                        <textarea class="summernote" style="width:100%" #designation name="textInputBox" [(ngModel)]="title" placeholder="Description">
+                                                                            </textarea>
+                                    
+                                        <button  mat-raised-button color="primary"  (click)="toggleDesigEdit()" >Done!</button>
+                                    
+                                    </div>
                                 </div>
-                    </div>
-                    
-                    <div class="sectionContent">
-                            <ng-container dynamicLoadComponent [card]="card"></ng-container>
-                    </div>
-                </article>
-                <div class="clear"></div>
-            </section>
-
+                <div [ngStyle]="{'border-color': (pageSettings.colorTheme)? 'transparent '+ pageSettings.colorTheme +' transparent transparent' : 'transparent #7d90a3 transparent transparent'}" class="triangle-l"></div>
+                <div [ngStyle]="{'border-color': (pageSettings.colorTheme)? 'transparent transparent transparent' + pageSettings.colorTheme : 'transparent transparent transparent #7d90a3'}" class="triangle-r"></div>
+            </div>
 </ng-template>
 
+<ng-template #bodyTemplate>
 
-<div id="resume">
-        <div class="mainDetails">
-            <div id="headshot" >
-                    <div *ngIf="showPhoto" wrapperDirective (onHover) ="onUserPhotoHover($event)" class="photo" [ngStyle]="{'background-image':'url('+url+')', 'background-repeat': 'no-repeat','background-size': 'cover'}">
-                            
-                            <div *ngIf="photoHover" class="action" >
-                                    <i  matTooltip="Click to delete" (click)="onPhotoHide()" class="material-icons md-18">clear</i>
-                                  </div>
-                                  <input (change)="readUrl($event)" type="file" style="opacity: 0.0; position: relative; top:0; left: 0; bottom: 0; right:0; width: 100%; height:100%;"
-                                  />
-                    
-                </div>
-                           
-                                
-                                
+        <ng-container  *ngFor="let card of cardsList;let i=index">
+                <section [ngStyle]="{'cursor': (showContent==false)?'move':'default'}" [attr.data-id]="card.index" [attr.data-index]="i" >
+                          <article>
+                              <div   [@stateAnimation]="card.isEdit" *ngIf="!card.isEdit"  wrapperDirective (onHover) ="onHoverSection($event,card)"   [ngStyle]="{'color':(card.headerFontColor==null)? 'inherit;':card.headerFontColor}" class="sectionTitle">
+                                      
+                                  <h1 [ngStyle]="{'font-size':pageSettings.headerFontSize+'px','font-family':pageSettings.headerFontStyle,'color':pageSettings.colorTheme}"  [innerHTML]="card.title"> </h1>
+                                  
+                                  <div *ngIf="card.showConfig" class="action" >
+                                    <i  matTooltip="edit" (click)="onCardEdit($event,card)" class="material-icons md-18">edit</i>
+                                    <i   matTooltip="delete"  (click)="onCardDelete($event,card)" class="material-icons md-18">delete</i>
+                                  
+                                 
+                                          </div>
+                              </div>
+                              <ng-container *ngIf="card.isEdit">
+                                    <mat-form-field [@stateAnimation]="card.isEdit"  style="width:100%;">
+                                            <input  name="section" matInput placeholder="Section Title" [(ngModel)]="card.title">
+                                            <button  matSuffix (click)="OnEditComplete(event,card)" mat-icon-button color="primary">
+                                                    <mat-icon style="font-size: 28px;" aria-label="done">done</mat-icon>
+                                                  </button>
+                                          </mat-form-field>
+                                         
+                                        </ng-container>
                               
-                   </div>
-            
-            <div id="name">
-                <h1 matTooltip="Double click on the text content to edit the text!"  textEditDirective (onDoubleClick)="toggleNameEdit()"  [innerHTML]="userName" >Joe Bloggs</h1>
-                <h2 matTooltip="Double click on the text content to edit the text!"   textEditDirective (onDoubleClick)="toggleDesigEdit()"  [innerHTML]="title"  >Job Title</h2>
-                <div *ngIf="isNameEdit" >
-                        
-                            <textarea style="width:100%" #titleText name="textInputBox" [(ngModel)]="userName" placeholder="Name">
-                                                                </textarea>
-                        
-                            <button  mat-raised-button color="primary"  (click)="toggleNameEdit()" >Done!</button>
-                        
-                        </div>
-                        <div *ngIf="isTitleEdit" >
-                                
-                                    <textarea style="width:100%" #designation name="textInputBox" [(ngModel)]="title" placeholder="Description">
-                                                                        </textarea>
-                                
-                                    <button  mat-raised-button color="primary"  (click)="toggleDesigEdit()" >Done!</button>
-                                
-                                </div>
+                              <div class="sectionContent">
+                                      <ng-container  dynamicLoadComponent [card]="card" [pageSettings]="pageSettings"></ng-container>
+                              </div>
+                          </article>
+                          <div class="clear"></div>
+                      </section>
+          
+                       </ng-container>
+</ng-template>
+
+<div class='top-header' style="width:21cm;margin:0 auto;" *ngIf="pageSettings.isPreviewMode" >
+
+        <div class="container-preview">
+                
+                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                
+                  </div>
+                  
+                  
+              
+                
+          
+    
+            <div [@listAnimation]="cardsList.length"   id="mainArea" >
+                
+                    <ng-container *ngTemplateOutlet="bodyTemplate"></ng-container>
+                
             </div>
+
+
+    </div>
+
+  
+<div   *ngIf="!pageSettings.isPreviewMode"  id="resume">
+       
+
+    <div id="container">
             
-            <div id="contactDetails" >
-             <header-contact></header-contact>
-            </div>
-            <div class="clear"></div>
-        </div>
-        
-        <div id="mainArea" >
+            <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+          
+              </div>
+              
+              
+          
             
-                <ng-container  *ngFor="let card of cardsList;let i=index">
-                        <ng-container  *ngIf="getCardTemplate(i)">
-                                <template [ngTemplateOutlet]="getCardTemplate(i)"></template>
-                            </ng-container>
-                           </ng-container>
+      
+
+        <div [@listAnimation]="cardsList.length"[dragula]="'right'"   class="contentArea" >
+                <ng-container *ngTemplateOutlet="bodyTemplate"></ng-container>
+               
             
         </div>
     </div>
+   

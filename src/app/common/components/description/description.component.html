@@ -1,19 +1,21 @@
 <!--component html goes here -->
+<div *ngIf="showContent">
 <div *ngIf="content.description">
 <div *ngIf="!isTextEdit">
-        <div   [ngStyle]="{'font-size':pageSettings.contentFontSize+'px','font-family':pageSettings.contentFontStyle?pageSettings.contentFontStyle:'inherit'}"  matTooltip="Double click on the text content to edit the text!" textEditDirective (onDoubleClick)="toggleTextEdit()"  [innerHTML]="content.description| noSanitize"></div>
+    <div wrapperDirective (onHover)="onHoverSection($event)">
+        <div [@stateAnimation]="isTextEdit"  [ngStyle]="{'font-size':pageSettings.contentFontSize+'px','font-family':pageSettings.contentFontStyle?pageSettings.contentFontStyle:'inherit'}"    [innerHTML]="content.description| noSanitize"></div>
+       
+        <i *ngIf="onHover"  (click)="onEdit($event)" class="action material-icons">edit</i>
     </div>
-
+</div>
 </div>
 <div *ngIf="content.description">
 <div *ngIf="isTextEdit" >
-
-   <!-- <textarea style="width:100%" #myTextArea name="textInputBox" [value]="content.description" placeholder="Add Description">
-                                        </textarea>
-                                    -->
-                                        <div #myTextArea class="summernote" [innerHTML]="content.description"></div>
+<div [@stateAnimation]="isTextEdit">
+ <div  #myTextArea class="summernote" [innerHTML]="content.description| noSanitize"></div>
 
     <button  mat-raised-button color="primary"  (click)="toggleTextEdit()" >Done!</button>
-
+</div>
+</div>
 </div>
 </div>

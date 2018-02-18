@@ -10,7 +10,7 @@ import { Directive, ElementRef, Input, OnChanges, Sanitizer, SecurityContext,
   
     ngOnChanges(changes: SimpleChanges): any {
       if ('safeHtml' in changes) {
-          console.log(this.safeHtml);
+         
         this.elementRef.nativeElement.innerHTML =
           this.sanitizer.sanitize(SecurityContext.HTML, this.safeHtml);
       }

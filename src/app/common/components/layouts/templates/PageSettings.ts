@@ -7,7 +7,9 @@ export class PageSettings {
     headerFontStyle?:string;
     contentFontStyle?:string;
     cssClass?:string;
-    
+    showContent?:boolean=true;
+    isPreviewMode?:boolean;
+    isSharedReadOnlyMode?:boolean;
 }
 export class Padding {
     padding:number;

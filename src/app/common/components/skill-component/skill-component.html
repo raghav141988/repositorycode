@@ -1,15 +1,18 @@
 <!--component html goes here -->
+<div *ngIf="showContent">
 <div class="component-content">
-<div  class="row"  *ngIf="skills">
+<div  *ngIf="skills"  >
+  <div    [@listAnimation]="skills.length" class="row">
 <div  [className]="choosenData"  *ngFor="let skill of skills">
     
    
-      <my-wrapper  (onAction)="onAction($event,skill);" [config]="skill">
+      <my-wrapper   (onAction)="onAction($event,skill);" [config]="skill">
     
-      <div *ngIf="!skill.isEdit"  class="col">
+      <div  [@stateAnimation]="skill.isEdit" *ngIf="!skill.isEdit"  class="col">
           <span 
           [ngStyle]="{'font-size':pageSettings.contentFontSize+'px','font-family':pageSettings.contentFontStyle?pageSettings.contentFontStyle:'inherit'}" 
-          style="display:inline-block; min-width:100px;">{{skill.name}} </span>   <mat-progress-bar style="height:15px; min-width: 75px ;display:inline-block; "
+          style="display:inline-block; min-width:100px;">{{skill.name}} </span>  
+           <mat-progress-bar style="height:15px; min-width: 75px ;display:inline-block; "
       
      
         [mode]="'determinate'"
@@ -18,46 +21,59 @@
     </mat-progress-bar>
   
   </div> 
+
     </my-wrapper> 
 
   </div>
-    
+</div>
     </div>
   </div>
     <div *ngFor="let skill of skills"  class="col-12">
-      <ng-container  *ngIf="skill.isEdit">
-        <div>
+      <ng-container *ngIf="skill.isEdit">
+        <div  [@stateAnimation]="skill.isEdit" >
+        <div >
             <mat-form-field  style="width:100%;">
-                    <input matInput placeholder="Skill Name"  [(ngModel)]="skill.name">
+                    <input [autoFocus]="needsFocus" matInput placeholder="Skill Name"  [(ngModel)]="skill.name">
                   </mat-form-field>
                 </div> 
                 <div>
                   <mat-form-field  style="width:100%;">
-                    <input matInput placeholder="Skill Value"  [(ngModel)]="skill.value">
+                    
+                    <input matInput type="number" placeholder="Skill Value" [(ngModel)]="skill.value" min="0" max="10">
+
+                    <mat-hint align="start"><strong>Enter value between 1 to 10</strong> </mat-hint>
+                    <mat-error *ngIf="skill.value>10">Please enter value between 1 to 10</mat-error>
+
                   </mat-form-field>
                 </div>  
                   <div>
                         
                         <button (click)="save(skill);" mat-raised-button color="primary">Save</button>
-                        <button (click)="cancel(skill);" mat-raised-button>Cancel</button>
+                     
 
                   </div>
+                </div>
                 </ng-container>
     </div >
-
+  </div>
    
 
     <div *ngIf="addNew">
-        
+        <div  [@stateAnimation]="addNew">
                     <form (ngSubmit)="onNewData(f.value)" novalidate #f="ngForm">
                         <div> 
                 <mat-form-field  style="width:100%;">
-                        <input name="skillName" matInput placeholder="Skill Name" ngModel>
+                        <input [autoFocus]="needsFocus"  name="skillName" matInput placeholder="Skill Name" ngModel>
                       </mat-form-field>
                     </div> 
                     <div>
                       <mat-form-field  style="width:100%;">
-                        <input name="skillValue"  matInput placeholder="Skill Value" ngModel >
+                       
+                        <input name="skillValue" matInput type="number" placeholder="Skill Value"ngModel min="0" max="10">
+                        
+                                            <mat-hint align="start"><strong>Enter value between 1 to 10</strong> </mat-hint>
+                                    
+                        
                       </mat-form-field>
                     </div>  
                       <div>
@@ -71,3 +87,4 @@
                    
                     
         </div>
+      </div>

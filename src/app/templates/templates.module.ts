@@ -1,3 +1,9 @@
+import { SharedTemplateComponent } from './shared-template/shared-template.component';
+import { ConfirmDialog } from './confirm-dialog';
+import { ResumeTitleDialog } from './resume-name-dialog';
+
+import { PreviewTemplateComponent } from './../common/components/layouts/templates/preview-template/preview-template.component';
+import { Template6Component } from './../common/components/layouts/templates/template6/template6.component';
 import { TemplateService } from './../common/components/layouts/templates/service/template.service';
 import { SideNavContentComponent } from './side-nav-content/side-nav-content.component';
 import { MaterialModule } from './../material/material.module';
@@ -12,26 +18,35 @@ import { NgModule } from '@angular/core';
 import { routing }       from './templates.routing';
 // This Module's Components
 import { TemplatesComponent } from './templates.component';
-import { SavedTemplateComponent } from '../common/components/layouts/templates/saved-template/saved-template.component';
+
 import { NgxImageGalleryModule } from 'ngx-image-gallery';
 import { BaseTemplateComponent } from '../common/components/layouts/templates/base-template/base-template.component';
+import { DragulaModule } from 'ng2-dragula/components/dragular.module';
+
 
 
 @NgModule({
     imports: [
-CommonSharedModule,routing,MaterialModule,NgxImageGalleryModule
+CommonSharedModule,routing,MaterialModule,NgxImageGalleryModule,
+DragulaModule
     ],
     declarations: [
-        BaseTemplateComponent,
+        
         TemplatesComponent,
         Template1Component,
         Template2Component,
         Template3Component,
         Template4Component,
         Template5Component,
-        SavedTemplateComponent,
-        SideNavContentComponent
+        Template6Component,
+      SharedTemplateComponent,
+        SideNavContentComponent,
+        ResumeTitleDialog,
+        ConfirmDialog,
+        PreviewTemplateComponent
+      
     ],
+    entryComponents:[ResumeTitleDialog,ConfirmDialog],
     providers:[TemplateService],
     exports: [
         TemplatesComponent,

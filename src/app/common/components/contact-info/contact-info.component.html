@@ -1,72 +1,44 @@
 <!--component html goes here -->
-
+<div [@listAnimation]="contactTypes.length"  wrapperDirective (onHover)="onHoverContact($event)"  *ngIf="!edit&& showContent">
+  
+   
+ 
+   
+   
     
-        <div style="padding-top:5px" *ngFor="let contact of contactTypes">
+           
+        <div   style="padding-top:5px" *ngFor="let contact of contactTypes">
         
           
-            <div  wrapperDirective (onHover) ="onHoverContact($event,contact)">
-             <div class="contact-info" >
-                <div  >
+            <div *ngIf="!contact.isEdit" [ngStyle]="{'font-size':pageSettings.contentFontSize+'px','font-family':pageSettings.contentFontStyle?pageSettings.contentFontStyle:'inherit'}" [@stateAnimation]="contact.isEdit" class="contact-info"  >
+            
                    
-                  <i  style="font-size: 18px" [className]="contact.icon"></i> 
+                  <i   [className]="contact.icon"></i> 
                 
-                  <span style="font-size: 18px">&nbsp;&nbsp;{{contact.contactType}}</span></div>
-              <div style=" white-space: normal !important;padding-left: 10px;" >{{contact.value}}
-
-                  
-              </div>
-              <div  class="contact-inline-layout">
-                  <div  *ngIf="contact.showActions" class="action" >
-                          <i  matTooltip="Click to delete" (click)="onDeleteClicked(contact)" class="material-icons md-18">delete</i>
-                        </div>
-                      <!--  <div *ngIf="contact.showActions" class="action" >
-                         <i (click)="onSettingsClicked(contact)" class="material-icons md-18">settings</i>
-                       </div>
-                      -->
-                       <div *ngIf="contact.showActions" class="action" >
-                        <i  matTooltip="Click to add new" (click)="onAddNew(contact)" class="material-icons md-18">add</i>
-                      </div>
-           
-                        <div *ngIf="contact.showActions" class="action" >
-                               <i  matTooltip="Click to edit" (click)="onEditClicked(contact)" class="material-icons md-18">edit</i>
-                             </div>
-             
-      </div>
-                </div> 
+                 <div><span >&nbsp;&nbsp;{{contact.contactType}}</span></div> 
+                  <div style=" white-space: normal !important;padding-left: 10px;" >{{contact.value}}</div> 
+            
                 
 
                     <mat-divider></mat-divider>
               </div>
-              <div *ngIf="contact.isEdit" >
-                  
-                  <div>
-                      <mat-form-field>
-                              <input matInput placeholder="Name"  [(ngModel)]="contact.contactType">
-                            </mat-form-field>
-                          </div> 
-                          <div>
-                            <mat-form-field>
-                              <input matInput placeholder=" Value"  [(ngModel)]="contact.value">
-                            </mat-form-field>
-                          </div>  
-                            <div>
-                                  
-                                  <button (click)="save(contact);" mat-raised-button color="primary">Save</button>
-                                  <button (click)="cancel(contact);" mat-raised-button>Cancel</button>
-          
-                            </div>
-                         
-                  </div>
-
-                  
+             
               </div>
-
-              <div *ngIf="addNew">
+              <i *ngIf="showActions" matTooltip="Click to add new" (click)="onAddNew()" class="material-icons md-18 action">add</i>
+              
+          
+              
+                       <i *ngIf="showActions" matTooltip="Click to edit" (click)="onEditClicked()" class="material-icons md-18 action">edit</i>
+                   
+           
+            
+                      </div>        
+              <div [@stateAnimation]="addNew"  *ngIf="addNew">
                   
                               <form (ngSubmit)="onNewData(f.value)" novalidate #f="ngForm">
                                   <div> 
                           <mat-form-field>
-                                  <input name="contactName" matInput placeholder="Title" ngModel>
+                                  <input [autoFocus]=true name="contactName" matInput placeholder="Title" ngModel>
                                 </mat-form-field>
                               </div> 
                               <div>
@@ -77,7 +49,7 @@
                                 <div>
                                       
                                       <button type="submit" mat-raised-button color="primary">Add</button>
-                                      <button (click)="cancelForm();" mat-raised-button>Cancel</button>
+                                      <button color="primary" (click)="cancelForm();" mat-raised-button>Cancel</button>
               
                                 </div>
                               </form >
@@ -85,7 +57,34 @@
                              
                               
                   </div>
-             
+                  <div *ngIf="edit">
+                      
+                       <div [@stateAnimation]="edit">
+                          <div *ngFor="let contact of contactTypes">
+                            <mat-form-field *ngIf="contact.typeOfUI==0">
+                              <input name="contactName" matInput placeholder={{contact.contactType}} [(ngModel)]="contact.value">
+                      
+                            </mat-form-field>
+                        
+                          <mat-form-field *ngIf="contact.typeOfUI==1">
+                              <textarea name="contactName" matInput placeholder={{contact.contactType}} [(ngModel)]="contact.value"></textarea>
+                      
+                            </mat-form-field>
+
+                            <span style="cursor:pointer;">
+                              <i matTooltip="Click to delete" (click)="onDeleteClicked(contact)" class="material-icons md-18">delete</i>
+                            </span>
+                      
+                          </div>
+                      
+                      
+                          <div>
+                      
+                            <button (click)="save();" mat-raised-button color="primary">Ok</button>
+                      
+                      
+                          </div>
+                        </div>
 
      
    

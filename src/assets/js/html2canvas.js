@@ -1,5 +1,5 @@
 /*!
- * html2canvas 1.0.0-alpha.8 <https://html2canvas.hertzen.com>
+ * html2canvas 1.0.0-alpha.9 <https://html2canvas.hertzen.com>
  * Copyright (c) 2018 Niklas von Hertzen <https://hertzen.com>
  * Released under MIT License
  */
@@ -469,16 +469,32 @@ var calculatePaddingBoxPath = exports.calculatePaddingBoxPath = function calcula
 };
 
 var parseBoundCurves = exports.parseBoundCurves = function parseBoundCurves(bounds, borders, borderRadius) {
-    var HALF_WIDTH = bounds.width / 2;
-    var HALF_HEIGHT = bounds.height / 2;
-    var tlh = borderRadius[CORNER.TOP_LEFT][H].getAbsoluteValue(bounds.width) < HALF_WIDTH ? borderRadius[CORNER.TOP_LEFT][H].getAbsoluteValue(bounds.width) : HALF_WIDTH;
-    var tlv = borderRadius[CORNER.TOP_LEFT][V].getAbsoluteValue(bounds.height) < HALF_HEIGHT ? borderRadius[CORNER.TOP_LEFT][V].getAbsoluteValue(bounds.height) : HALF_HEIGHT;
-    var trh = borderRadius[CORNER.TOP_RIGHT][H].getAbsoluteValue(bounds.width) < HALF_WIDTH ? borderRadius[CORNER.TOP_RIGHT][H].getAbsoluteValue(bounds.width) : HALF_WIDTH;
-    var trv = borderRadius[CORNER.TOP_RIGHT][V].getAbsoluteValue(bounds.height) < HALF_HEIGHT ? borderRadius[CORNER.TOP_RIGHT][V].getAbsoluteValue(bounds.height) : HALF_HEIGHT;
-    var brh = borderRadius[CORNER.BOTTOM_RIGHT][H].getAbsoluteValue(bounds.width) < HALF_WIDTH ? borderRadius[CORNER.BOTTOM_RIGHT][H].getAbsoluteValue(bounds.width) : HALF_WIDTH;
-    var brv = borderRadius[CORNER.BOTTOM_RIGHT][V].getAbsoluteValue(bounds.height) < HALF_HEIGHT ? borderRadius[CORNER.BOTTOM_RIGHT][V].getAbsoluteValue(bounds.height) : HALF_HEIGHT;
-    var blh = borderRadius[CORNER.BOTTOM_LEFT][H].getAbsoluteValue(bounds.width) < HALF_WIDTH ? borderRadius[CORNER.BOTTOM_LEFT][H].getAbsoluteValue(bounds.width) : HALF_WIDTH;
-    var blv = borderRadius[CORNER.BOTTOM_LEFT][V].getAbsoluteValue(bounds.height) < HALF_HEIGHT ? borderRadius[CORNER.BOTTOM_LEFT][V].getAbsoluteValue(bounds.height) : HALF_HEIGHT;
+    var tlh = borderRadius[CORNER.TOP_LEFT][H].getAbsoluteValue(bounds.width);
+    var tlv = borderRadius[CORNER.TOP_LEFT][V].getAbsoluteValue(bounds.height);
+    var trh = borderRadius[CORNER.TOP_RIGHT][H].getAbsoluteValue(bounds.width);
+    var trv = borderRadius[CORNER.TOP_RIGHT][V].getAbsoluteValue(bounds.height);
+    var brh = borderRadius[CORNER.BOTTOM_RIGHT][H].getAbsoluteValue(bounds.width);
+    var brv = borderRadius[CORNER.BOTTOM_RIGHT][V].getAbsoluteValue(bounds.height);
+    var blh = borderRadius[CORNER.BOTTOM_LEFT][H].getAbsoluteValue(bounds.width);
+    var blv = borderRadius[CORNER.BOTTOM_LEFT][V].getAbsoluteValue(bounds.height);
+
+    var factors = [];
+    factors.push((tlh + trh) / bounds.width);
+    factors.push((blh + brh) / bounds.width);
+    factors.push((tlv + blv) / bounds.height);
+    factors.push((trv + brv) / bounds.height);
+    var maxFactor = Math.max.apply(Math, factors);
+
+    if (maxFactor > 1) {
+        tlh /= maxFactor;
+        tlv /= maxFactor;
+        trh /= maxFactor;
+        trv /= maxFactor;
+        brh /= maxFactor;
+        brv /= maxFactor;
+        blh /= maxFactor;
+        blv /= maxFactor;
+    }
 
     var topWidth = bounds.width - trh;
     var rightHeight = bounds.height - brv;
@@ -3340,7 +3356,7 @@ var html2canvas = function html2canvas(element, conf) {
     // eslint-disable-next-line no-console
     if ((typeof console === 'undefined' ? 'undefined' : _typeof(console)) === 'object' && typeof console.log === 'function') {
         // eslint-disable-next-line no-console
-        console.log('html2canvas ' + "1.0.0-alpha.8");
+        console.log('html2canvas ' + "1.0.0-alpha.9");
     }
 
     var config = conf || {};
@@ -6269,6 +6285,15 @@ var DocumentCloner = exports.DocumentCloner = function () {
                     });
                 });
                 return tempIframe;
+            }
+
+            if (node instanceof HTMLStyleElement && node.sheet && node.sheet.cssRules) {
+                var css = [].slice.call(node.sheet.cssRules, 0).reduce(function (css, rule) {
+                    return css + rule.cssText;
+                }, '');
+                var style = node.cloneNode(false);
+                style.textContent = css;
+                return style;
             }
 
             return node.cloneNode(false);

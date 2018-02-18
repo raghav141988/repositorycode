@@ -1,0 +1,134 @@
+
+<!--component html goes here -->
+
+    
+<ng-template #headerTemplate>
+                <div id="headshot" >
+                                <div *ngIf="showPhoto" wrapperDirective (onHover) ="onUserPhotoHover($event)" class="photo" [ngStyle]="{'background-image':'url('+url+')', 'background-repeat': 'no-repeat','background-size': 'cover'}">
+                                        
+                                        <div *ngIf="photoHover" class="action" >
+                                                <i  matTooltip="Click to delete" (click)="onPhotoHide()" class="material-icons md-18">clear</i>
+                                              </div>
+                                              <input (change)="readUrl($event)" type="file" style="opacity: 0.0; position: relative; top:0; left: 0; bottom: 0; right:0; width: 100%; height:100%;"
+                                              />
+                                
+                            </div>
+                                       
+                                            
+                                            
+                                          
+                               </div>
+                        
+                    
+                    <div @explainerAnim id="name">
+                        <h1 class="header-title" matTooltip="Double click on the text content to edit the text!"  textEditDirective (onDoubleClick)="toggleNameEdit()"  [innerHTML]="userName|noSanitize" >Joe Bloggs</h1>
+                        <h2 class="header-title" matTooltip="Double click on the text content to edit the text!"   textEditDirective (onDoubleClick)="toggleDesigEdit()"   [innerHTML]="title| noSanitize"  >Job Title</h2>
+                        <div *ngIf="isNameEdit" >
+                                
+                                    <textarea class="summernote" style="width:100%" #titleText name="textInputBox" [(ngModel)]="userName" placeholder="Name">
+                                                                        </textarea>
+                                
+                                    <button  mat-raised-button color="primary"  (click)="toggleNameEdit()" >Done!</button>
+                                
+                                </div>
+                                <div *ngIf="isTitleEdit" >
+                                        
+                                            <textarea class="summernote" style="width:100%" #designation name="textInputBox" [(ngModel)]="title" placeholder="Description">
+                                                                                </textarea>
+                                        
+                                            <button  mat-raised-button color="primary"  (click)="toggleDesigEdit()" >Done!</button>
+                                        
+                                        </div>
+                    </div>
+                    
+                    <div  *ngIf="headerContactTypes" id="contactDetails" >
+                     <header-contact [contactTypes]="headerContactTypes"></header-contact>
+                    </div>
+                    <div class="clear"></div>
+
+</ng-template>
+    <ng-template #bodyTemplate>
+                <ng-container  *ngFor="let card of cardsList;let i=index">
+                                <div [ngStyle]="{'cursor': (showContent==false)?'move':'default'}" [attr.data-id]="card.index" [attr.data-index]="i" >
+                                <dd class="clear"></dd>
+                                
+                                <dt  [@stateAnimation]="card.isEdit" *ngIf="!card.isEdit" [ngStyle]="{'font-size':pageSettings.headerFontSize+'px','font-family':pageSettings.headerFontStyle,'color':pageSettings.colorTheme}" 
+                               
+                                
+                                wrapperDirective (onHover) ="onHoverSection($event,card)"   [ngStyle]="{'color':(card.headerFontColor==null)? 'inherit;':card.headerFontColor}" 
+                        
+                               >
+                                <div  [innerHTML]="card.title">  </div>
+                                <div *ngIf="card.showConfig" class="action" >
+                                                <i  matTooltip="edit" (click)="onCardEdit($event,card)" class="material-icons md-18">edit</i>
+                                                <i   matTooltip="delete"  (click)="onCardDelete($event,card)" class="material-icons md-18">delete</i>
+                                              
+                                        </div>
+                              
+                            </dt>
+                            <dt style="padding:5px" *ngIf="card.isEdit">
+                                        <ng-container >
+                                                        <mat-form-field [@stateAnimation]="card.isEdit"  style="width:100%;">
+                                                                <input  name="section" matInput placeholder="Section Title" [(ngModel)]="card.title">
+                                                                <button  matSuffix (click)="OnEditComplete(event,card)" mat-icon-button color="primary">
+                                                                        <mat-icon style="font-size: 28px;" aria-label="done">done</mat-icon>
+                                                                      </button>
+                                                              </mat-form-field>
+                                                             
+                                                            </ng-container>
+                            </dt>
+                       
+                            <dd  [ngStyle]="{ 'background': (pageSettings.colorTheme) ?pageSettings.colorTheme:'rgb(69, 90, 100)' }" class="circle">
+                                       
+                        
+                                </dd>
+                                <dd  [ngStyle]="{ 'border-left': (pageSettings.colorTheme) ? '3px solid '+pageSettings.colorTheme:'3px solid  rgb(69, 90, 100)'}">
+                                        <ng-container dynamicLoadComponent [card]="card" [pageSettings]="pageSettings"></ng-container>
+                        
+                                </dd>
+                        
+                                <dd class="clear"></dd>
+                        </div>
+                                   </ng-container>
+
+    </ng-template>
+    
+    <div class='first-page'  *ngIf="pageSettings.isPreviewMode">
+    <div class='top-header' style="width:21cm;margin:0 auto;" id="resume" >
+                <div class="mainDetails" [ngStyle]="{'background':(pageSettings.colorTheme) ? pageSettings.colorTheme : '#ededed','color':(pageSettings.fontColor)?pageSettings.fontColor:'#444'}">
+                                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+        </div>
+        
+        <div id="page-wrap" >
+                <dl [@listAnimation]="cardsList.length"  id="mainArea">
+                                <ng-container *ngTemplateOutlet="bodyTemplate"></ng-container>
+                        </dl>
+                        
+                        <div class="clear"></div>
+                
+        
+        </div>
+        </div>
+</div>
+
+    <div *ngIf="!pageSettings.isPreviewMode" id="resume">
+        <div class="headerDetails" [ngStyle]="{'background':(pageSettings.colorTheme) ? pageSettings.colorTheme : '#ededed','color':(pageSettings.fontColor)?pageSettings.fontColor:'#444'}">
+                        <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+</div>
+
+<div id="page-wrap" >
+        <dl [@listAnimation]="cardsList.length" [dragula]="'right'" class="contentArea">
+                        <ng-container *ngTemplateOutlet="bodyTemplate"></ng-container>
+                </dl>
+                
+                <div class="clear"></div>
+        
+
+</div>
+</div>
+
+
+
+
+
+<!--component html goes here -->

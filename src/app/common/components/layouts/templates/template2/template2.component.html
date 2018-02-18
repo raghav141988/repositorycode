@@ -1,35 +1,147 @@
-<!--component html goes here -->
 
-
-<ng-template *ngFor="let card of cardsList"  #cardTemplates   >
-    
-    <mat-card class="transparent-card ">
+<ng-template #leftTemplate>
+  <ng-container  *ngFor="let card of cardsList;let i=index">
+    <ng-container  *ngIf=" card.cardPlacing=='left'">
+      <mat-card #cardTemplates  [ngStyle]="{'cursor': (showContent==false)?'move':'default'}" [attr.data-id]="card.index" [attr.data-index]="i" class="transparent-card ">
         <mat-card-header 
-        matTooltip="To swap,select and drag this section header and drop it in  to other section !"
-        dropDirective 
-        
-           [dragDirective]="card.index"  (startDrag)="onCardDrag($event,card.index)" 
-           (dragleaveEvent)="onDragEnd($event,card.index)" (dropEvent)="onCardDrop($event,card)"
+        [@stateAnimation]="card.isEdit" *ngIf="!card.isEdit"
+      
 
         wrapperDirective (onHover) ="onHoverSection($event,card)" [ngStyle]="{'border-bottom': '2px solid '+pageSettings.colorTheme}" class="card-header">
-            <div [ngStyle]="{'font-size':pageSettings.headerFontSize+'px','color':pageSettings.colorTheme}"  mat-card-avatar  class="card-header" [className]="card.icon"></div>
-           <div  style="width:90%" [ngStyle]="{'font-size':pageSettings.headerFontSize+'px','font-family':pageSettings.headerFontStyle,'color':pageSettings.colorTheme}">  {{card.title}} </div>
-             <div  style="width:10%"  *ngIf="card.showConfig"  class="action" >
-                <i (click)="onCardEdit($event,card)" class="material-icons md-18">edit</i>
+          <!--  <div [ngStyle]="{'font-size':pageSettings.headerFontSize+'px'}"  mat-card-avatar  class="card-header" [className]="card.icon"></div>-->
+           <div  style="width:60%" [ngStyle]="{'font-size':pageSettings.headerFontSize+'px','font-family':pageSettings.headerFontStyle}">  {{card.title}} </div>
+             <div  style="width:40%"  *ngIf="card.showConfig"  class="action" >
+              <i  matTooltip="edit" (click)="onCardEdit($event,card)" class="material-icons md-18">edit</i>
+              <i   matTooltip="delete"  (click)="onCardDelete($event,card)" class="material-icons md-18">delete</i>
+              <i  matTooltip="move right side"  (click)="onCardMove($event,card,'right')" class="material-icons md-18">chevron_right</i>
+           
              
                 </div>
          </mat-card-header>
+         <mat-card-header [@stateAnimation]="card.isEdit" *ngIf="card.isEdit">
+            
+            
+            
+                     <ng-container >
+                         <mat-form-field [@stateAnimation]="card.isEdit"  style="width:100%;">
+                                 <input  name="section" matInput placeholder="Section Title" [(ngModel)]="card.title">
+                                 <button  matSuffix (click)="OnEditComplete(event,card)" mat-icon-button color="primary">
+                                         <mat-icon style="font-size: 28px;" aria-label="done">done</mat-icon>
+                                       </button>
+                               </mat-form-field>
+                              
+                             </ng-container>
+              </mat-card-header>
        <div style=" margin-top: 10px ;  margin-left: 10px">
-          <ng-container dynamicLoadComponent [card]="card"></ng-container>
+          <ng-container  dynamicLoadComponent [card]="card" [pageSettings]="pageSettings"></ng-container>
        </div>
       </mat-card>
-<!--    </div>
-  </div> -->
-  <div style="height:10px"></div>
-
+        </ng-container>
+       </ng-container>
 </ng-template>
 
+<ng-template #rightTemplate>
+  <ng-container  *ngFor="let card of cardsList;let i=index">
+    <ng-container  *ngIf=" card.cardPlacing=='right'">
+      <mat-card  #cardTemplates [ngStyle]="{'cursor': (showContent==false)?'move':'default'}" [attr.data-id]="card.index" [attr.data-index]="i" class="transparent-card ">
+        <mat-card-header 
+        [@stateAnimation]="card.isEdit" *ngIf="!card.isEdit"
+       
+        wrapperDirective (onHover) ="onHoverSection($event,card)" [ngStyle]="{'border-bottom': '2px solid '+pageSettings.colorTheme}" class="card-header">
+            <!--<div  [ngStyle]="{'font-size':pageSettings.headerFontSize+'px','color':pageSettings.colorTheme}"  mat-card-avatar  class="card-header" [className]="card.icon"></div>-->
+           <div  style="width:85%" [ngStyle]="{'font-size':pageSettings.headerFontSize+'px','font-family':pageSettings.headerFontStyle,'color':pageSettings.colorTheme}">  {{card.title}} </div>
+             <div  style="width:15%"  *ngIf="card.showConfig"  class="action" >
+              <i  matTooltip="edit"  (click)="onCardEdit($event,card)" class="material-icons md-18">edit</i>
+              <i  matTooltip="delete"  (click)="onCardDelete($event,card)" class="material-icons md-18">delete</i>
+              <i   matTooltip="move left side"  (click)="onCardMove($event,card,'left')" class="material-icons md-18">chevron_left</i>
+                </div>
+                
+         </mat-card-header>
 
+         <mat-card-header [@stateAnimation]="card.isEdit" *ngIf="card.isEdit">
+         
+         
+         
+                  <ng-container >
+                      <mat-form-field [@stateAnimation]="card.isEdit"  style="width:100%;">
+                              <input  name="section" matInput placeholder="Section Title" [(ngModel)]="card.title">
+                              <button  matSuffix (click)="OnEditComplete(event,card)" mat-icon-button color="primary">
+                                      <mat-icon style="font-size: 28px;" aria-label="done">done</mat-icon>
+                                    </button>
+                            </mat-form-field>
+                           
+                          </ng-container>
+           </mat-card-header>
+
+       <div style=" margin-top: 10px ;  margin-left: 10px">
+          <ng-container  dynamicLoadComponent [card]="card" [pageSettings]="pageSettings"></ng-container>
+       </div>
+      </mat-card>
+        </ng-container>
+       </ng-container>
+</ng-template>
+
+<div class='top-header' style="width:21cm;margin:0 auto;" *ngIf="pageSettings.isPreviewMode">
+
+      <div  id="A4Area" class="row" style="padding:0px!important;">
+        
+          <div class='leftsideDiv' style="width:35%;background:#313127; color:#fff;">
+            <div wrapperDirective (onHover) ="onUserPhotoHover($event)">
+            <div *ngIf="showPhoto" matTooltip="Click to add your picture!" class="centered" [ngStyle]="{'background-image':'url('+url+')','position': 'relative', 'background-repeat': 'no-repeat','background-size': 'cover'}">
+        
+              <input (change)="readUrl($event)" type="file" style="opacity: 0.0; position: relative; top:0; left: 0; bottom: 0; right:0; width: 100%; height:100%;"
+              />
+             
+            </div>
+            <div  >
+                <div *ngIf="photoHover" class="action" >
+                        <i   matTooltip="Click to delete" (click)="onPhotoHide()" class="material-icons md-18">clear</i>
+                      </div>
+                  
+           
+    </div>
+          </div>
+          <div  @explainerAnim id="name" style="margin:auto;text-align:center;">
+              <h1 class="header-title" matTooltip="Double click on the text content to edit the text!" textEditDirective (onDoubleClick)="toggleNameEdit()"
+                  [innerHTML]="userName| noSanitize"></h1>
+              <h2 class="header-title"  matTooltip="Double click on the text content to edit the text!" textEditDirective (onDoubleClick)="toggleDesigEdit()"
+                  [innerHTML]="title| noSanitize"></h2>
+              <div *ngIf="isNameEdit">
+          
+          
+                  <div #titleText class="summernote" placeholder="userName" [innerHTML]="userName"></div>
+                  <button mat-raised-button color="primary" (click)="toggleNameEdit()">Done!</button>
+          
+              </div>
+              <div *ngIf="isTitleEdit">
+          
+          
+                  <div #designation class="summernote" placeholder="title" [innerHTML]="title"></div>
+                  <button mat-raised-button color="primary" (click)="toggleDesigEdit()">Done!</button>
+          
+              </div>
+          </div>  
+          <div [@listAnimation]="cardsList.length"  style="height:22cm;" class="leftsideDiv" id="leftArea"  >
+           
+                  <ng-container *ngTemplateOutlet="leftTemplate"></ng-container>
+                  
+                  </div>
+    
+                   
+          </div>
+          
+          <div [@listAnimation]="cardsList.length"   style="width:65%;" class="rightsideDiv" id="rightArea"
+          
+          >
+       
+               
+          <ng-container *ngTemplateOutlet="rightTemplate"></ng-container>
+          
+          </div>
+        </div>
+
+      
+    </div>
 
 
 
@@ -38,13 +150,13 @@
     
     
     <!-- NEW TEMPLATE CODE STARTS--> 
-    <div class="row template2-theme" >
+    <div  *ngIf="!pageSettings.isPreviewMode" class="row template2-theme" >
     
-      <div class='leftsideDiv' style="width:30%;background:#313127; color:#fff; height: auto;">
+      <div class='leftsideDiv' style="width:30%;background:#313127; color:#fff; ">
         <div wrapperDirective (onHover) ="onUserPhotoHover($event)">
         <div *ngIf="showPhoto" matTooltip="Click to add your picture!" class="centered" [ngStyle]="{'background-image':'url('+url+')', 'background-repeat': 'no-repeat','background-size': 'cover'}">
     
-          <input (change)="readUrl($event)" type="file" style="opacity: 0.0; position: relative; top:0; left: 0; bottom: 0; right:0; width: 100%; height:100%;"
+          <input (change)="readUrl($event)" type="file" style="opacity: 0.0; position: relative; top:0; left: 0; bottom: 0; right:0; width: 100%; "
           />
          
         </div>
@@ -56,27 +168,40 @@
        
 </div>
       </div>
-        <ng-container  *ngFor="let card of cardsList;let i=index">
-            <ng-container  *ngIf="getCardTemplate(i) && card.cardPlacing=='left'">
-                    <template [ngTemplateOutlet]="getCardTemplate(i)"></template>
-                </ng-container>
-               </ng-container>
-                
-    
+      <div  @explainerAnim id="name" style="margin:auto;text-align:center;">
+          <h1 class="header-title" matTooltip="Double click on the text content to edit the text!" textEditDirective (onDoubleClick)="toggleNameEdit()"
+              [innerHTML]="userName| noSanitize"></h1>
+          <h2 class="header-title"  matTooltip="Double click on the text content to edit the text!" textEditDirective (onDoubleClick)="toggleDesigEdit()"
+              [innerHTML]="title| noSanitize"></h2>
+          <div *ngIf="isNameEdit">
+      
+      
+              <div #titleText class="summernote" placeholder="userName" [innerHTML]="userName"></div>
+              <button mat-raised-button color="primary" (click)="toggleNameEdit()">Done!</button>
+      
+          </div>
+          <div *ngIf="isTitleEdit">
+      
+      
+              <div #designation class="summernote" placeholder="title" [innerHTML]="title"></div>
+              <button mat-raised-button color="primary" (click)="toggleDesigEdit()">Done!</button>
+      
+          </div>
+      </div>  
+      <div [@listAnimation]="cardsList.length" [dragula]="'left'"  >
+        
+        <ng-container *ngTemplateOutlet="leftTemplate"></ng-container>
+              </div>
 
 
                
       </div>
       
-      <div style="width:69%;  height:100%; " class="rightsideDiv"
+      <div [@listAnimation]="cardsList.length" [dragula]="'right'"   style="width:69%;" class="rightsideDiv"
       
       >
    
-            <ng-container  *ngFor="let card of cardsList;let i=index">
-                <ng-container  *ngIf="getCardTemplate(i) && card.cardPlacing=='right'">
-                        <template [ngTemplateOutlet]="getCardTemplate(i)"></template>
-                    </ng-container>
-                   </ng-container>
+      <ng-container *ngTemplateOutlet="rightTemplate"></ng-container>   
     
       </div>
     </div>

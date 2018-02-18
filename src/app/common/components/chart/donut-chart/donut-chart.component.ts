@@ -62,8 +62,8 @@ public loadDonutChart(){
             }
         }
     });
-    this.donutChart.nativeElement.width="175";
-    this.donutChart.nativeElement.height="175";
+    this.donutChart.nativeElement.width="150";
+    this.donutChart.nativeElement.height="150";
     let ctxDonut =this.donutChart.nativeElement.getContext('2d');
     let myDonutChart = new Chart(ctxDonut, {
        type: 'doughnut',
@@ -97,8 +97,8 @@ public loadDonutChart(){
          elements: {
             center: {
                 text: this.skill.name,
-      color: '#1976d2', // Default is #000000
-      fontStyle: 'Arial', // Default is Arial
+      color: this.color?this.color:'#1976d2', // Default is #000000
+      fontStyle: 'Roboto', // Default is Arial
       sidePadding: 20 // Defualt is 20 (as a percentage)
             }
         }

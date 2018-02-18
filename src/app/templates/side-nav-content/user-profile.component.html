@@ -1,0 +1,42 @@
+<div id="wrapper">
+    <div id="container">
+      
+      <div id="back" >
+          
+
+      </div>
+      <div class='user-profile' wrapperDirective (onHover)="onUserPhotoHover($event)" [ngStyle]="{'background-image':'url('+url+')', 'background-repeat': 'no-repeat','background-size': 'cover'}">
+      
+  
+    <input (change)="readUrl($event)" type="file" style="opacity: 0.0; position: relative; top:0; left: 0; bottom: 0; right:0; width: 100%; height:100%;"
+    />
+    <div class="contact-inline-layout">
+        <div *ngIf="photoHover" class="action">
+            <i matTooltip="Click to delete" (click)="onPhotoHide()" class="material-icons md-18">clear</i>
+        </div>
+        <!--  <div *ngIf="contact.showActions" class="action" >
+                   <i (click)="onSettingsClicked(contact)" class="material-icons md-18">settings</i>
+                 </div>
+                -->
+
+
+    </div>
+  </div>
+      
+      <div id="info">
+      
+        <h1 *ngIf="userDetails">{{userDetails.displayName}}</h1>
+        
+        <ul   [@listAnimation]="menuItems.length"   id="about">
+          <li   [ngClass]="{'active': menu.isActive}" *ngFor="let menu of menuItems"><a (click) ="userMenuClick(menu,$event)">{{menu.name}}</a></li>
+         
+         
+       
+        
+        </ul>
+        
+       
+      </div>
+      
+
+ 

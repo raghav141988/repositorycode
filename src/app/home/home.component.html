@@ -13,19 +13,17 @@
                 <i class="fa fa-bars"></i>
               </button>
               <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav  ml-auto">
+                <ul @explainerAnim class="navbar-nav  ml-auto">
                     <li  *ngIf="!userDetails" class="nav-item">
                         <a (click)="login();" class="nav-link js-scroll-trigger" >Login</a>
                       </li>
                       
                      
                   <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" (click)="onNavClick('themes')" >Themes</a>
+                    <a class="nav-link js-scroll-trigger" (click)="onNavClick('themes')" >Templates</a>
                   </li>
-                  <li *ngIf="userDetails"  class="nav-item">
-                      <a (click)="openMySavedWork();" class="nav-link js-scroll-trigger" >My Saved Work</a>
-                    </li>
-                  <li class="nav-item">
+                 
+               <!--  <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" >About</a>
                   </li>
                   
@@ -33,11 +31,15 @@
                   <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" >Contact</a>
                   </li>
-                  <li *ngIf="userDetails" class="nav-item">
-                      <a class="nav-link js-scroll-trigger user-welcome" >Welcome {{userDetails.displayName}} !</a>
+                -->
+                  <li  class="nav-item">
+                      <a *ngIf="userDetails" class="nav-link js-scroll-trigger user-welcome" >Welcome {{userDetails.displayName}} !</a>
                     </li>
-                    <li *ngIf="userDetails" class="nav-item">
-                        <a  matTooltip="Click to logout" class="nav-link js-scroll-trigger" (click)="logout()"><i class="material-icons">power_settings_new</i></a>
+                    <li   class="nav-item">
+                        <a *ngIf="userDetails" (click)="openMyProfile();" class="nav-link js-scroll-trigger" >My profile</a>
+                      </li>
+                    <li class="nav-item">
+                        <a  *ngIf="userDetails"  matTooltip="Click to logout" class="nav-link js-scroll-trigger" (click)="logout()"><i class="material-icons">power_settings_new</i></a>
                       </li>
                     
                 </ul>
@@ -48,8 +50,8 @@
             <div class="container" style="opacity:1 !important;" >
               <div style="opacity:1 !important;"  class="intro-text">
                
-                <div  style="opacity:1 !important;" class="intro-heading ">Craft your smart resume here</div>
-                <a  style="opacity:1 !important;;"  (click)="onNavClick('themes')"  class="btn btn-primary btn-xl text-uppercase js-scroll-trigger"  >Get Started</a>
+                <div @titleAnimation  style="opacity:1 !important;" class="intro-heading ">Craft your smart resume</div>
+                <a @buttonAnimation style="opacity:1 !important;;"  (click)="onNavClick('themes')"  class="btn btn-primary btn-xl text-uppercase js-scroll-trigger"  >Get Started</a>
               </div>
             </div>
           </header>

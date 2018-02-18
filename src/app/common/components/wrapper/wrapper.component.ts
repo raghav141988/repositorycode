@@ -1,6 +1,10 @@
+import { TemplateService } from './../layouts/templates/service/template.service';
+import { TemplateSettingService } from './../layouts/templates/template-setting-service';
 import { Action } from '../Action';
 import { DataProperty } from '../data.property';
+
 import { Component,Input,Output,EventEmitter } from '@angular/core';
+import { PageSettings } from '../layouts/templates/PageSettings';
 @Component({
     selector: 'my-wrapper',
     templateUrl: './wrapper.component.html',
@@ -9,22 +13,30 @@ import { Component,Input,Output,EventEmitter } from '@angular/core';
 export class WrapperComponent {
     @Input('config') config:DataProperty;
     @Output() onEdit = new EventEmitter<any>();
-  
+ 
+   
     @Output() onAction = new EventEmitter<any>();
-    constructor() {
-     
+    constructor(private templateService:TemplateService) {
+      
     }
     showIcons=false;
   onHover(event:any) {
   
-    console.log('hover clicked');
+      if(this.templateService.getSavedPageSettings().isPreviewMode){
+        this.showIcons=false;
+      }
+      else {
         this.showIcons=event;
+      }
+        
+       
      
        
     }
     onEditClicked(){
        // this.onEdit.emit(true);
        this.config.isEdit=true;
+       this.onAction.emit(Action.EDIT);
     
     }
     onDeleteClicked(){
@@ -42,4 +54,5 @@ export class WrapperComponent {
     onSettingsClicked(){
         this.onAction.emit(Action.CONFIGURE);
     }
+  
 }

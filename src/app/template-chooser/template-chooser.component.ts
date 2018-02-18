@@ -34,32 +34,32 @@ export class TemplateChooserComponent {
   images: GALLERY_IMAGE[] = [
     {
       url: "assets/img/templates/template1.png", 
-      altText: 'Select these template for your resume', 
-      title: 'Select these template for your resume',
+      altText: 'Select this template for your resume', 
+      title: 'Select this template for your resume',
       thumbnailUrl: "assets/img/templates/template1.png"
     },
     {
       url: "assets/img/templates/template2.png", 
-      altText: 'Select these template for your resume', 
-      title: 'Select these template for your resume',
+      altText: 'Select this template for your resume', 
+      title: 'Select this template for your resume',
       thumbnailUrl: "assets/img/templates/template2.png"
     },
     {
       url: "assets/img/templates/template3.png", 
-      altText: 'Select these template for your resume', 
-      title: 'Select these template for your resume',
+      altText: 'Select this template for your resume', 
+      title: 'Select this template for your resume',
       thumbnailUrl: "assets/img/templates/template3.png"
     },
     {
       url: "assets/img/templates/template4.png", 
-      altText: 'Select these template for your resume', 
-      title: 'Select these template for your resume',
+      altText: 'Select this template for your resume', 
+      title: 'Select this template for your resume',
       thumbnailUrl: "assets/img/templates/template4.png"
     },
     {
       url: "assets/img/templates/template5.png", 
-      altText: 'Select these template for your resume', 
-      title: 'Select these template for your resume',
+      altText: 'Select this template for your resume', 
+      title: 'Select this template for your resume',
       thumbnailUrl: "assets/img/templates/template5.png"
     }
   ];
@@ -73,7 +73,7 @@ export class TemplateChooserComponent {
                    (user) => {
                      if (user) {
                        this.userDetails = user;
-                       console.log(this.userDetails.displayName);
+                     
                       
                      }
                      else {
@@ -92,7 +92,8 @@ export class TemplateChooserComponent {
         this.router.navigate([pathtoNavigate]);
     }
     login(){
-      this.authService.loginWithGoogle();
+     // this.authService.loginWithGoogle();
+     
   }
   openMySavedWork(){
       this.router.navigate(['/templates/mywork']);

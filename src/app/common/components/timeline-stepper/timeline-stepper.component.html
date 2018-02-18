@@ -1,24 +1,21 @@
-<div class="stepper" *ngIf="timeLineDataSet">
-        <div *ngFor="let timeLineData of timeLineDataSet; let i=index"  class="step" >
+<div  *ngIf="showContent">
+<div  class="stepper" *ngIf="timeLineDataSet" >
+        <div [@timelineListAnimation]="timeLineDataSet.length">
+        <div  *ngFor="let timeLineData of timeLineDataSet; let i=index"  wrapperDirective (onHover) ="onHoverTimeLine($event,timeLineData)" class="step" >
            
-                    <div  >
+                    <div *ngIf="!timeLineData.isEdit" [@stateAnimation]="timeLineData.isEdit" >
                         <div [ngStyle]="{'background':pageSettings.colorTheme,'color':pageSettings.fontColor,'font-size':pageSettings.contentFontSize+'px','font-family':pageSettings.contentFontStyle?pageSettings.contentFontStyle:'inherit'}" class="circle">{{i+1}}</div>
                         <div [ngStyle]="{'border-left':'1px solid '+pageSettings.colorTheme}" class="line"></div>
                     </div>
-                    <div  wrapperDirective (onHover) ="onHoverTimeLine($event,timeLineData)">
-                        <div [ngStyle]="{'color':pageSettings.colorTheme,'font-size':pageSettings.contentFontSize+'px','font-family':pageSettings.contentFontStyle?pageSettings.contentFontStyle:'inherit'}" class="title">{{timeLineData.title.toUpperCase( )}} /  <span [ngStyle]="{'color':pageSettings.colorTheme,'font-size':pageSettings.contentFontSize}" class="description"> {{timeLineData.startTime}} -  {{timeLineData.endTime}}</span></div>
+                    <div *ngIf="!timeLineData.isEdit" [@stateAnimation]="timeLineData.isEdit" >
+                        <div [ngStyle]="{'color':pageSettings.colorTheme,'font-size':pageSettings.contentFontSize+'px','font-family':pageSettings.contentFontStyle?pageSettings.contentFontStyle:'inherit'}" class="title">{{timeLineData.title.toUpperCase( )}} /  <span [ngStyle]="{'color':pageSettings.colorTheme,'font-size':pageSettings.contentFontSize}" class="description"> {{timeLineData.startTime}} - <span *ngIf="timeLineData.endTime"> {{timeLineData.endTime}}</span></span>
+                                <span *ngIf="timeLineData.isTillPresent" [ngStyle]="{'color':pageSettings.colorTheme,'font-size':pageSettings.contentFontSize}" class="description">Till Present</span>
+                        </div>
                         
                         <div [ngStyle]="{'font-size':pageSettings.contentFontSize+'px','font-family':pageSettings.contentFontStyle?pageSettings.contentFontStyle:'inherit'}" class="body"      [innerHtml]="timeLineData.desc| noSanitize">
                         </div>
-                        <div *ngIf="timeLineData.isEdit" >
-                                <!--
-                                    <textarea style="width:100%" #descTextArea name="textInputBox" [value]="timeLineData.desc" placeholder="TimeLine desc">
-                                                                        </textarea>
-                                
-                                    <button  mat-raised-button color="primary"  (click)="toggleTextEdit(timeLineData)" >Done!</button>
-                                                                -->
-                                </div>
-                        <div  class="timeline-inline-layout">
+                        
+                        <div *ngIf="!timeLineData.isEdit" class="timeline-inline-layout">
                                 <div  *ngIf="timeLineData.showActions" class="action" >
                                         <i  matTooltip="Click to delete" (click)="onDeleteClicked(timeLineData)" class="material-icons md-18">delete</i>
                                       </div>
@@ -37,10 +34,10 @@
                     </div>
                
                 </div>
-            
+        </div>
             </div>
-
-            <div *ngIf="addNew" style="width:100%;">
+        </div>
+            <div  [@stateAnimation]="addNew" *ngIf="addNew" style="width:100%;">
                     <!-- ADD NEW TIME LINE -->
                                 <form  style="width:100%;" (ngSubmit)="onNewData(f.value)" novalidate #f="ngForm">
                                     <div> 
@@ -52,16 +49,22 @@
                                         <mat-form-field  style="width:100%;">
                                                 <input name="startDate"  matInput [matDatepicker]="startpicker" placeholder="Start Date" ngModel>
                                                 <mat-datepicker-toggle matSuffix [for]="startpicker"></mat-datepicker-toggle>
-                                                <mat-datepicker #startpicker></mat-datepicker>
+                                                <mat-datepicker #startpicker startView="year" ></mat-datepicker>
                                               </mat-form-field>
                                     </div> 
                                     <div>
                                             <mat-form-field  style="width:100%;">
-                                                    <input name="endDate"  matInput [matDatepicker]="endpicker" placeholder="End Date" ngModel>
+                                                    <input [disabled]="isNewTimeTillToday" name="endDate"  matInput [matDatepicker]="endpicker" placeholder="End Date" ngModel>
                                                     <mat-datepicker-toggle matSuffix [for]="endpicker"></mat-datepicker-toggle>
-                                                    <mat-datepicker #endpicker></mat-datepicker>
+                                                    <mat-datepicker #endpicker startView="year" ></mat-datepicker>
                                                   </mat-form-field>
                                         </div> 
+                                        <div>
+                                                        
+                                                                          <mat-slide-toggle name="tillToday" [(ngModel)]="isNewTimeTillToday">Till Present</mat-slide-toggle>
+                                                               
+                                                      </div> 
+                                          
                                 <div>
                                  
                                                 <div style="width:100%" class="summernote" #descTextArea [innerHTML]="'Add your description'" placeholder="TimeLine desc">
@@ -79,8 +82,8 @@
                     </div>
             <div >
                     <!-- EDIT THE EXISTING  TIME LINE -->
-                    <div *ngFor="let timeLineData of timeLineDataSet; let i=index"  >
-                    <div  *ngIf="timeLineData.isEdit && !isDbClick" style="width:100%;">
+                    <div   *ngFor="let timeLineData of timeLineDataSet; let i=index"  >
+                    <div [@stateAnimation]="timeLineData.isEdit" *ngIf="timeLineData.isEdit && !isDbClick" style="width:100%;">
                             <!-- ADD NEW TIME LINE -->
                                        
                                             <div> 
@@ -92,19 +95,26 @@
                                                 <mat-form-field  style="width:100%;">
                                                         <input name="startDate"  matInput [matDatepicker]="startpicker" placeholder="Start Date" (ngModelChange)="startDateChange(timeLineData,$event)" [ngModel]="getStartTime(timeLineData)" >
                                                         <mat-datepicker-toggle matSuffix [for]="startpicker"></mat-datepicker-toggle>
-                                                        <mat-datepicker #startpicker></mat-datepicker>
+                                                        <mat-datepicker #startpicker startView="year" ></mat-datepicker>
                                                       </mat-form-field>
                                             </div> 
                                             <div>
                                                     <mat-form-field  style="width:100%;">
-                                                            <input name="endDate"  matInput [matDatepicker]="endpicker" placeholder="End Date"  (ngModelChange)="endDateChange(timeLineData,$event)"  [ngModel]="getEndTime(timeLineData)">
+                                                            <input [disabled]="timeLineData.isTillPresent" name="endDate"  matInput [matDatepicker]="endpicker" placeholder="End Date"  (ngModelChange)="endDateChange(timeLineData,$event)"  [ngModel]="getEndTime(timeLineData)">
                                                             <mat-datepicker-toggle matSuffix [for]="endpicker"></mat-datepicker-toggle>
-                                                            <mat-datepicker #endpicker></mat-datepicker>
+                                                            <mat-datepicker #endpicker startView="year" ></mat-datepicker>
                                                           </mat-form-field>
                                                 </div> 
+                                                <div>
+                                                              
+                                                                                <mat-slide-toggle [checked]="timeLineData.isTillPresent" (change)="onEndTImeChange(timeLineData,$event)">Till Present</mat-slide-toggle>
+                                                                     
+                                                            </div> 
+                                                
                                         <div>
+                                        
                                        
-                                                        <div class="summernote" style="width:100%" #descTextArea  [innerHTML]="timeLineData.desc" placeholder="TimeLine desc"></div>
+                                                        <div class="summernote" style="width:100%" #descTextArea  [innerHTML]="timeLineData.desc| noSanitize" placeholder="TimeLine desc"></div>
                                          
                                         </div>  
                                           <div>

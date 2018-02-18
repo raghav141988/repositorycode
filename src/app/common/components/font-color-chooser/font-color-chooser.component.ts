@@ -940,7 +940,7 @@ selectedPrimary:any;
       this.selectedPrimary=material;
      }
      onColorSelect(material:any, variation:any){
-         alert('variation'+material);
+        
       this.selectedColor=variation;
     
   

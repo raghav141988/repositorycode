@@ -38,11 +38,14 @@
 	width: 34px; 
 	height: 34px; 
 	line-height: 32px; 
-	border-radius: 16px; 
+	border-radius: 50%; 
 	position: relative; 
 	color: white; 
-	text-align: center; 
+    text-align: center; 
+    position: relative;
+    z-index: 1;
 }
+
  .line { 
 	position: absolute;
     border-left: 1px solid #00A9E0;
@@ -59,7 +62,7 @@
 	font-weight: 500; 
 }
  .body {    
-	padding-bottom: 28px;
+	
     padding-top: 8px;
 }
  .description {

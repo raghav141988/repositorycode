@@ -1,8 +1,9 @@
+import { DragulaService } from 'ng2-dragula';
 import { editorConfig } from './../../../../editor-config';
 import { TemplateSettingService } from './../template-setting-service';
 import { Section } from './../../../../../templates/side-nav-content/Section';
 import { TemplateService } from './../service/template.service';
-
+import { ActivatedRoute,Router } from '@angular/router';
 import { ChipComponent } from './../../../chip/chip.component';
 import { CardPlacing } from './../../../CardPlacing';
 
@@ -21,11 +22,80 @@ import { PageSettings } from '../PageSettings';
 import { BaseTemplateComponent } from '../base-template/base-template.component';
 declare var jquery: any;
 declare var $: any;
+import {sequence, trigger, stagger, animate, style, group, query, transition, keyframes, animateChild} from '@angular/animations';
+
+
+
 
 @Component({
   moduleId: module.id,
   selector: 'template4',
   templateUrl: 'template4.component.html',
+  animations: [
+    trigger('stateAnimation', [
+      transition('* => false', [
+          style({
+              transform: 'rotateY(-180deg)',
+              opacity: 1
+          }),
+          animate('0.4s', style({
+              transform: 'rotateY(0deg)',
+              opacity: 0
+          }))
+      ]),
+      transition('* => true', [
+          style({
+              transform: 'rotateY(180deg)',
+              opacity: 0
+          }),
+          animate('0.4s', style({
+              transform: 'rotateY(0deg)',
+              opacity: 1
+          }))
+      ])
+  ]) ,
+    trigger('explainerAnim', [
+      transition('* => *', [
+     
+        query('.header-title', style({ opacity: 0, transform: 'translateY(-70px)' })),
+
+        query('.header-title', stagger('500ms', [
+          animate('800ms  cubic-bezier(.75,-0.48,.26,1.52)', style({ opacity: 1, transform: 'translateY(0)' })),
+        ])),
+
+        query('.header-title', [
+          animate(1000, style('*'))
+        ]),
+       
+      
+      ])
+
+    ]),
+    trigger('listAnimation', [
+      transition('* => *', [
+
+        query(':enter', style({ opacity: 0 }), {optional: true}),
+
+        query(':enter', stagger('500ms 1.2s', [
+          animate('1s cubic-bezier(.75,-0.48,.26,1.52)', keyframes([
+            style({opacity: 0, transform: 'translateY(-75%)', offset: 0}),
+            style({opacity: .5, transform: 'translateY(35px)',  offset: 0.5}),
+          
+            style({opacity: 1, transform: 'translateY(0)',     offset: 1.0}),
+          ]))]), {optional: true}),
+          query(':leave', stagger('500ms 1.2s', [
+            animate('1s cubic-bezier(.75,-0.48,.26,1.52)', keyframes([
+              style({opacity: 1, transform: 'translateY(35px)', offset: 0}),
+              style({opacity: .5, transform: 'translateY(-75%)',  offset: 0.5}),
+            
+              style({opacity: 0, transform: 'translateY(0)',     offset: 1.0}),
+            ]))]), {optional: true})
+
+      ])
+    ])
+    
+      ],
+
   styleUrls: ['template4.component.scss']
 })
 export class Template4Component extends BaseTemplateComponent {
@@ -53,13 +123,27 @@ export class Template4Component extends BaseTemplateComponent {
 
 
   ngOnInit() {
+   
+   
     super.ngOnInit();
-    this.cardsList = this.service.getCardsListByTemplate('template4');
-
+    if(!this.cardsList){
+      this.cardsList = this.service.getCardsListByTemplate('template4');
+      this.pageSettings.colorTheme='#1E88E5';
+      this.pageSettings.fontColor='#fff';
+      this.pageSettings.cssClass='Blue-600';
+     
+      this.templateSettings.updateTemplateSetting(this.pageSettings);
+      super.arrangeCards();
+    }
+    this.templateSettings.loadedSections(this.cardsList);
   }
   /* FROM THE TEMPLATE HANDLE EACH SECTION SETTING */
-  constructor(public dialog: MatDialog, private changeDetector: ChangeDetectorRef, public service: TemplateService, public templateSettings: TemplateSettingService) {
-    super(dialog, service, templateSettings);
+  constructor(public dialog: MatDialog, private changeDetector: ChangeDetectorRef, public service: TemplateService, public templateSettings: TemplateSettingService,public dragula: DragulaService,public route: ActivatedRoute,
+    public router: Router) {
+    super(dialog, service, templateSettings,dragula,route,router,service);
+
+
+
   }
 
   openDialog(cardDetails: CardConfig): void {
@@ -75,6 +159,10 @@ export class Template4Component extends BaseTemplateComponent {
   }
   ngAfterViewChecked() {
     this.changeDetector.detectChanges();
+    if(this.pageSettings.isPreviewMode&& !this.isPreviewComplete){
+      super.rearrangeForPreview("mainArea");
+      this.isPreviewComplete=true;
+     }
   }
   /* READING IMAGE URL FOR PICTURE */
   readUrl(event: any) {
@@ -144,10 +232,6 @@ export class Template4Component extends BaseTemplateComponent {
 
 
 
-  /* HANDLE THE CARD EDIT CLICK */
-  onCardEdit(event: any, cardDetails: CardConfig) {
-    this.openDialog(cardDetails);
-  }
 
   toggleNameEdit() {
 
@@ -208,9 +292,9 @@ export class Template4Component extends BaseTemplateComponent {
 
   }
 
-  addNewSection(section: Section, component: ComponentType) {
+  addNewSection(section: Section, component: ComponentType,isAdd:boolean) {
 
-    super.addNewSection(section, component);
+    super.addNewSection(section, component,isAdd);
     this.changeDetector.detectChanges();
 
   }
@@ -218,6 +302,17 @@ export class Template4Component extends BaseTemplateComponent {
   getThemeName(): string {
     return this.themeName;
   }
+  handleEdit(data:any){
+    
+       
+     this.cardsList.forEach((eachSkill)=>{
+      if(eachSkill!=data){ 
+      eachSkill.isEdit=false}
+     });
+    
+}
+ngAfterViewInit(){
+  
 
-
+}
 }

@@ -1,3 +1,4 @@
+import { UIType } from './UIType';
 import { CardData } from "../layouts/CardData";
 
 export class ContactType extends CardData{
@@ -6,6 +7,7 @@ export class ContactType extends CardData{
     value:string;
     isEdit?:boolean;
     showActions?:boolean;
+    typeOfUI?:UIType;
 
     constructor( contactType:string, icon:string,value:string){
         super();

@@ -1,8 +1,34 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+//@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
 @import '_variable';
+
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://www.google.com/design/spec/style/color.html
+$candy-app-primary: mat-palette($mat-blue);
+$candy-app-accent:  mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$candy-app-warn:    mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($candy-app-theme);
 
 
 html {
@@ -12,12 +38,12 @@ body {
 	
 	background-image: url('assets/img/body-bg.jpg');
 	background-repeat:none;
+	font-family: Roboto,Arial;
+	font-size: 12pt !important;
 }
 
 
-	body {
-		font-size: 20px !important;
-	}
+
 	h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 		margin-bottom: .5rem;
 		font-family: inherit;
@@ -40,3 +66,151 @@ background-image: url('assets/img/body-bg.jpg');
 background-repeat:none;
 
 	}
+
+	.A4 {
+		background: white;
+	   
+	   
+		margin: 0 auto;
+		padding: 10px 25px;
+		margin-bottom: 0.5cm;
+		box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+	   
+		box-sizing: border-box;
+		font-size: inherit;
+	  }
+
+	  .A4-nopadding {
+		background: white;
+	   margin-top:10px;
+	   
+		
+		margin-bottom: 0.5cm;
+		box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+	   
+		box-sizing: border-box;
+		font-size: inherit;
+	  }
+	  
+	  @media print {
+		.page-break {
+		  display: block;
+		  page-break-before: always;
+		}
+		size: A4 portrait;
+	  }
+	  
+	  @media print {
+		body {
+		  margin: 0;
+		  padding: 0;
+		}
+		.A4 {
+		  box-shadow: none;
+		  margin: 0;
+		  width: auto;
+		  height: auto;
+		}
+		.noprint {
+		  display: none;
+		}
+		.enable-print {
+		  display: block;
+		}
+	  }
+	.headerDetails {
+		padding: 25px 35px 15px;
+		border-bottom: 2px solid #cf8a05;
+		background: #ededed;
+	}
+	.mainDetails {
+        padding: 25px 35px;
+        border-bottom: 2px solid #ddd;
+        background: #ededed;
+       
+        width: 21cm;
+      
+        display: block;
+        margin: 0 auto !important;
+        padding: 10px 25px;
+       
+        box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+       
+        box-sizing: border-box;
+        font-size: inherit;
+	}
+	#mainArea {
+        background: white;
+        width: 21cm;
+        height: 29.7cm;
+        display: block;
+        margin: 0 auto;
+        padding: 10px 25px;
+        margin-bottom: 0.5cm;
+        box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+        overflow-y: scroll;
+        box-sizing: border-box;
+        font-size: inherit;
+       
+		}
+		
+		.dialog-header{
+			padding:0;
+			height:50px !important;
+			background:#2196F3;
+		}
+
+		.mat-dialog-container {
+			box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);
+			display: block;
+			padding:0px !important;
+			border-radius: 2px;
+			box-sizing: border-box;
+			overflow: auto;
+			outline: 0;
+			width: 100%;
+			height: 100%;
+	}
+	.mat-dialog-content {
+    display: block;
+  margin: 0 12px !important;
+  //  padding: 40px !important;;
+    max-height: 65vh;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+.mat-dialog-actions {
+	padding: 20px 20px 32px 20px !important;;
+	display: flex;
+	flex-wrap: wrap;
+}
+.mat-dialog-actions:last-child {
+	 margin-bottom: 0 !important; 
+}
+		.first-page {
+			background: white;
+		 
+		 
+			margin: 0 auto;
+			padding: 0px 25px;
+			margin-bottom: 0.5cm;
+		 
+		 
+			box-sizing: border-box;
+			font-size: inherit;
+		}
+		#rightArea{
+			background: white;
+		
+			height: 29cm;
+			display: block;
+			margin: 0 auto;
+		
+			margin-bottom: 0.5cm;
+		
+	
+			box-sizing: border-box;
+		
+		}

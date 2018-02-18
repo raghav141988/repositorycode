@@ -1,3 +1,6 @@
+import { VerticalTimelineComponent } from './../../vertical-timeline/vertical-timeline.component';
+import { LinearTimelineComponent } from './../../linear-timeline/linear-timeline.component';
+import { PageSettings } from './PageSettings';
 import { SimpleTimelineComponent } from './../../simple-timeline/simple-timeline.component';
 import { SkillCircleComponent } from './../../skill-circle/skill-circle.component';
 import { StarSkillComponent } from './../../star-skill/star-skill.component';
@@ -34,17 +37,22 @@ const components: { [type: number]: any } = {
   6: ChipComponent,
   7:StarSkillComponent,
   8:SkillCircleComponent,
-  9:SimpleTimelineComponent
+  9:SimpleTimelineComponent,
+  10:LinearTimelineComponent,
+  11:VerticalTimelineComponent
 };
 
 @Directive({
-  selector: '[dynamicLoadComponent]',
+  selector: '[dynamicLoadComponent]'
+
+
 
 })
 export class DynamicLoadComponent {
   @Input()
   card: CardConfig;
-
+  @Input()
+  pageSettings: PageSettings;
  
 
 
@@ -71,7 +79,8 @@ export class DynamicLoadComponent {
     const component = this.resolver.resolveComponentFactory<any>(components[this.card.type]);
     this.component = this.container.createComponent(component);
    this.component.instance.card = this.card;
-  
+
+   this.component.instance.pageSettings = this.pageSettings;
   }
 
   

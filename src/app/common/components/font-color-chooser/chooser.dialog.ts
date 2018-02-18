@@ -1,10 +1,11 @@
 import {Component, Inject} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-
+/*
 @Component({
   selector: 'font-color-chooser-dialog',
   templateUrl: 'dialog.html',
 })
+*/
 export class FontColorChooserDialog {
     choosenData:any;
   constructor(

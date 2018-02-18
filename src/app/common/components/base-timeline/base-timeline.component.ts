@@ -1,3 +1,4 @@
+import { ComponentType } from './../ComponentType';
 import { TemplateSettingService } from './../layouts/templates/template-setting-service';
 import { editorConfig } from './../../editor-config';
 import { TemplateService } from './../layouts/templates/service/template.service';
@@ -6,21 +7,18 @@ import { Component,ViewChild,ElementRef ,Input} from '@angular/core';
 import { BaseComponentComponent } from '../base-component/base-component.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Action } from '../Action';
+import { timeInterval } from 'rxjs/operator/timeInterval';
 
 declare var jquery:any;
 declare var $ :any;
  var  moment = require('moment');
-@Component({
-    moduleId: module.id,
-    selector: 'base-timeline',
-    templateUrl: 'base-timeline.component.html',
-    styleUrls: ['base-timeline.component.scss']
-})
-export class BaseTimelineComponent extends BaseComponentComponent{
+
+export abstract class BaseTimelineComponent extends BaseComponentComponent{
     monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
     firstFormGroup: FormGroup;
     secondFormGroup: FormGroup;
     addNew=false;
+    isNewTimeTillToday:boolean;
     isTextEdit=false;
     converted=false;
     isDbClick=false;
@@ -33,23 +31,18 @@ export class BaseTimelineComponent extends BaseComponentComponent{
        
        }
        ngOnInit() {
+        
         if(this.card.cardData){
           this.timeLineDataSet=this.card.cardData;
         
          
       }else {
       this.timeLineDataSet=  this.templateService.getTimeLineData();
-      
+      this.card.cardData= this.timeLineDataSet;
         }  
       }
 
-      onEditClicked(timeLineData:TimeLineData){
-        // this.onEdit.emit(true);
-        timeLineData.isEdit=true;
-       
-        this.converted=false;
-        this.needsFocus=true;
-     }
+     
 
      onDeleteClicked(timeLineData:TimeLineData){
       var index = this.timeLineDataSet.indexOf(timeLineData, 0);
@@ -57,12 +50,7 @@ export class BaseTimelineComponent extends BaseComponentComponent{
           this.timeLineDataSet.splice(index, 1);
       }
      }
-     onAddNew(timeLineData:TimeLineData){
-        this.addNew=true;
-        this.needsFocus=true;
-        this.converted=false;
-        //this.config.isDelete=true;
-       }
+     
        getStartTime(timeLineData:TimeLineData){
         
        var date = moment(timeLineData.startTime, "YYYY-MMM-DD");
@@ -110,8 +98,8 @@ export class BaseTimelineComponent extends BaseComponentComponent{
        // this.skills.push(new Skill(formData.skillName,formData.skillValue));
         //this.addNew=false;
         
-        var startdateVal;
-        var endDateVal;
+        var startdateVal='';
+        var endDateVal='';
         var startdate = new Date(formData.startDate);
         var endDate = new Date(formData.endDate);
         if(startdate){
@@ -121,7 +109,8 @@ export class BaseTimelineComponent extends BaseComponentComponent{
           endDateVal=endDate.getFullYear()+'-' + this.monthNames[(endDate.getMonth())] + '-'+endDate.getDate();
        }
        var nicInstance = $('.summernote').summernote('code');;
-      
+       endDateVal=endDateVal==='NaN-undefined-NaN'?'':endDateVal;
+       console.log(endDateVal);
   
        let timeLinedata={
     'title':formData.title,
@@ -130,10 +119,12 @@ export class BaseTimelineComponent extends BaseComponentComponent{
       'desc':nicInstance,
      'isEdit':false,
       'isDelete':false,
-      'showActions':false
+      'showActions':false,
+      'isTillPresent':this.isNewTimeTillToday
        }
        this.timeLineDataSet.push(timeLinedata);
        this.addNew=false;
+       this.isNewTimeTillToday=false;
       }
       cancelForm(){
         this.addNew=false;
@@ -149,7 +140,12 @@ export class BaseTimelineComponent extends BaseComponentComponent{
        }
   
         onHoverTimeLine(event:any,timeLineData:TimeLineData){
-          timeLineData.showActions=event;
+          if(this.pageSettings.isPreviewMode ){
+            timeLineData.showActions=false;
+          }else {
+            timeLineData.showActions=event;
+          }
+        
           
          // this.showIcons=event;
         }
@@ -195,4 +191,11 @@ export class BaseTimelineComponent extends BaseComponentComponent{
         } 
   
       }
+      onEndTImeChange(timeLine:TimeLineData,event:any){
+        timeLine.isTillPresent=event.checked;
+        if(event.checked){
+        timeLine.endTime='';
+        }
+    }
+      
 }

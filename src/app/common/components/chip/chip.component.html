@@ -2,15 +2,16 @@
 
 
 <!--component html goes here -->
+<div *ngIf="showContent">
 <div class="component-content">
-<div  class="row"  *ngIf="skillsAsChips">
+<div   [@listAnimation]="skillsAsChips.length" class="row"  *ngIf="skillsAsChips">
                 <mat-chip-list>
                 <div     [className]="choosenData"  *ngFor="let skill of  skillsAsChips">
                     
                    
                       <my-wrapper  (onAction)="onAction($event,skill);" [config]="skill">
                     
-                      <div *ngIf="!skill.isEdit"   class="col">
+                      <div  [@stateAnimation]="skill.isEdit" *ngIf="!skill.isEdit"   class="col">
                                 <mat-chip class="mat-chip"    [ngStyle]="{'color':pageSettings.fontColor?pageSettings.fontColor:fontColor,'font-size':pageSettings.contentFontSize+'px','font-family':pageSettings.contentFontStyle?pageSettings.contentFontStyle:'inherit'}">{{skill.itemName}}</mat-chip>
                   
                   </div> 
@@ -20,10 +21,10 @@
                 </mat-chip-list>
                     </div>
                     <div *ngFor="let skill of skillsAsChips"  class="col-12">
-                      <ng-container  *ngIf="skill.isEdit">
-                        <div>
+                      <div  [@stateAnimation]="skill.isEdit"  *ngIf="skill.isEdit">
+                        <div >
                             <mat-form-field  style="width:100%;">
-                                    <input matInput placeholder="Name"  [(ngModel)]="skill.itemName">
+                                    <input [autoFocus]=true matInput placeholder="Name"  [(ngModel)]="skill.itemName">
                                   </mat-form-field>
                                 </div> 
                             
@@ -33,17 +34,16 @@
                                         <button (click)="cancel(skill);" mat-raised-button>Cancel</button>
                 
                                   </div>
-                                </ng-container>
+                                </div>
                     </div >
+                   </div>
                 
-                   
-                
-                    <div *ngIf="addNew">
+                    <div  [@stateAnimation]="addNew" *ngIf="addNew">
                         
                                     <form (ngSubmit)="onNewData(f.value)" novalidate #f="ngForm">
                                         <div> 
                                 <mat-form-field  style="width:100%;">
-                                        <input name="skillName" matInput placeholder="Name" ngModel>
+                                        <input [autoFocus]=true name="skillName" matInput placeholder="Name" ngModel>
                                       </mat-form-field>
                                     </div> 
                                     

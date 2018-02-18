@@ -1,8 +1,9 @@
-import { Component } from './Component';
+import { SectionComponent } from './Component';
 
 export class Section {
     id?:number;
     name:string;
-    component:Component[];
+    component:SectionComponent[];
     showComponent?:boolean;
+    isSelected?:boolean;
 }

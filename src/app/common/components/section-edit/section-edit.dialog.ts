@@ -1,10 +1,11 @@
 import {Component, Inject} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-
+/*
 @Component({
   selector: 'section-edit-dialog',
   templateUrl: 'section.dialog.html',
 })
+*/
 export class SectionEditDialog {
     choosenData:any;
   constructor(

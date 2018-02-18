@@ -7,13 +7,8 @@ import { MatDialog } from '@angular/material';
 import { FontColorChooserDialog } from '../font-color-chooser/chooser.dialog';
 import { Action } from '../Action';
 
-@Component({
-    moduleId: module.id,
-    selector: 'base-rating',
-    templateUrl: 'base-rating.component.html',
-    styleUrls: ['base-rating.component.scss']
-})
-export class BaseRatingComponent extends BaseComponentComponent{
+
+export abstract class BaseRatingComponent extends BaseComponentComponent{
     addNew=false;
     skills:Skill[];
      choosenData:string="myClass";
@@ -23,8 +18,10 @@ export class BaseRatingComponent extends BaseComponentComponent{
           
         }else {
       this.skills=this.templateService.getStarSkills();
+      this.card.cardData= this.skills;
     
         }
+        super.ngOnInit();
     }
   
     myClasses={};
@@ -48,6 +45,7 @@ export class BaseRatingComponent extends BaseComponentComponent{
         skill.isEdit = false;
     }
     cancel(skill: Skill) {
+       
         skill.isEdit = false;
     }
     onDelete(skill:Skill){
@@ -57,18 +55,10 @@ export class BaseRatingComponent extends BaseComponentComponent{
         }
     }
 
-     onAction(event:any,skill:Skill){
-         let action:Action=event;
-         if(action==Action.ADD){
-            this.addNew=true;
-         }else if(action==Action.DELETE){
-             this.onDelete(skill);
-         }else if(action==Action.CONFIGURE){
-            this.openDialog();
-        }
-     }
+    
      onNewData(formData:any){
        this.skills.push(new Skill(formData.skillName,formData.skillValue));
        this.addNew=false;
      }
+     public abstract handleEdit(data:any);
 }

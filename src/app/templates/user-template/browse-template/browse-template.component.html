@@ -1,0 +1,21 @@
+<!--component html goes here -->
+<!--component html goes here -->
+
+<div  class='container'>
+        <mat-grid-list  [@listAnimation]="tiles.length" rowHeight="310px"  cols="4"  gutterSize="50" >
+          <mat-grid-tile  class ="tile-shadow" [@stateAnimation]="tile.hovered" wrapperDirective (onHover)="onHover(tile,$event)"
+              *ngFor="let tile of tiles"
+              [colspan]="1"
+               [rowspan]="1"
+              >
+              <div>
+              <img (click)="openTemplate(tile)" style="display:block;width:100%;height:80%;cursor:pointer" [src]="tile.thumbNail" >
+             <mat-grid-tile-footer *ngIf="tile.hovered" class="card-description">   Click to select this template for your resume
+                
+            </mat-grid-tile-footer>
+            
+              </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+        </div>
+        

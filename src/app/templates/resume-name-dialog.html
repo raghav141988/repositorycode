@@ -1,0 +1,12 @@
+
+<div mat-dialog-title class="dialog-header"></div>
+<div mat-dialog-content>
+  <p>Please provide title for your resume!</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.templateName">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="data.templateName" cdkFocusInitial>Ok</button>
+</div>

@@ -1,3 +1,5 @@
+
+import { LinearTimelineComponent } from './components/linear-timeline/linear-timeline.component';
 import { NoSanitizePipe } from './components/pipe/no-sanitize.pipe';
 import { SafeHtmlDirective } from './components/directive/safe-html-directive';
 import { TemplateSettingService } from './components/layouts/templates/template-setting-service';
@@ -25,7 +27,7 @@ import { FontColorChooserComponent } from './components/font-color-chooser/font-
 import { WrapperDirective } from './components/wrapper/wrapper.directive';
 
 
-import { TimelineModule } from './components/timeline/timeline.module';
+
 import { ChartComponent } from './components/chart/chart.component';
 import { SkillComponent } from './components/skill-component/skill-component';
 import { ResumeContentSelectorModule } from './components/resume-content-selector/resume-content-selector.module';
@@ -56,16 +58,19 @@ import { FocusDirective } from './components/timeline-stepper/focus.directive';
 import { BaseComponentComponent } from './components/base-component/base-component.component';
 import { BaseSkillComponent } from './components/base-skill/base-skill.component';
 import { BaseTimelineComponent } from './components/base-timeline/base-timeline.component';
-
+import { TimelineComponent } from './components/timeline/timeline.component';
+import { InViewportModule } from 'ng-in-viewport';
+import { InViewportService } from 'ng-in-viewport';
+import { VerticalTimelineComponent } from './components/vertical-timeline/vertical-timeline.component';
 @NgModule({
     imports: [
       DragDropDirectiveModule,
-    
+      InViewportModule,
       SlimScrollModule,
     
         CommonModule,
         MaterialModule,
-        TimelineModule,
+       
         HttpModule ,JsonpModule,
         RouterModule,
         FormsModule,ReactiveFormsModule,
@@ -75,9 +80,7 @@ import { BaseTimelineComponent } from './components/base-timeline/base-timeline.
         ResumeContentSelectorModule
       ],
       declarations:[
-        BaseTimelineComponent,
-        BaseComponentComponent,
-        BaseSkillComponent,
+      
         Card,Layouts,ResumeHeaderComponent,NoSanitizePipe,
    FocusDirective,
       SkillComponent,
@@ -89,7 +92,7 @@ import { BaseTimelineComponent } from './components/base-timeline/base-timeline.
       FontColorChooserComponent,
       SafeHtmlDirective,
       ChipComponent,
-    
+      LinearTimelineComponent,
     
       TimelineStepperComponent,
       DescriptionComponent,
@@ -102,14 +105,16 @@ import { BaseTimelineComponent } from './components/base-timeline/base-timeline.
       SkillCircleComponent,
       TemplateChooserComponent,
       SimpleTimelineComponent,HeaderContactComponent,
-      
+      TimelineComponent,
+     
+      VerticalTimelineComponent
       ],
      
-      providers:[LayoutService,TemplateSettingService,
+      providers:[InViewportService,LayoutService,TemplateSettingService,
         ],
-    entryComponents:[SkillComponent,TimelineStepperComponent,DescriptionComponent,ChipComponent,ChartComponent,ContactInfoComponent,StarSkillComponent,SkillCircleComponent,SimpleTimelineComponent,HeaderContactComponent],
+    entryComponents:[SkillComponent,TimelineStepperComponent,DescriptionComponent,ChipComponent,ChartComponent,ContactInfoComponent,StarSkillComponent,SkillCircleComponent,SimpleTimelineComponent,HeaderContactComponent,VerticalTimelineComponent,
+      LinearTimelineComponent],
     exports: [
-      TimelineModule,
      
       CommonModule,
       HttpModule ,JsonpModule,
@@ -141,9 +146,10 @@ import { BaseTimelineComponent } from './components/base-timeline/base-timeline.
     SimpleTimelineComponent,
     HeaderContactComponent,
     NoSanitizePipe,
-    BaseComponentComponent,
-    BaseSkillComponent,
-    BaseTimelineComponent
+    TimelineComponent,
+    LinearTimelineComponent,
+    VerticalTimelineComponent
+   
     //DatePickerModule
     ]
   })

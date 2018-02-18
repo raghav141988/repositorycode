@@ -2,7 +2,7 @@
 @import '../../../../_variable';
 .mat-chip {
     width:100%;
-    font-size: 20px;
+    font-size:12pt;
     line-height: 28px;
     margin-bottom: 10px;
 }
@@ -22,7 +22,7 @@ $progress-background:#ff00ff;
      
        .mat-chip {
         width:100%;
-        font-size: 20px;
+        font-size: inherit;
         line-height: 28px;
         margin-bottom: 10px;
         background-color: $progress-background !important;
