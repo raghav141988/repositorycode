@@ -54,7 +54,7 @@
                                          
                                         </ng-container>
                               
-                              <div class="sectionContent">
+                              <div #cardContent  [attr.data-id]="card.cardId" class="sectionContent">
                                       <ng-container  dynamicLoadComponent [card]="card" [pageSettings]="pageSettings"></ng-container>
                               </div>
                           </article>

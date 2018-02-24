@@ -61,7 +61,7 @@
                     <article>
     
     
-                        <div class="sectionContent">
+                        <div  #cardContent  [attr.data-id]="card.cardId"  class="sectionContent">
                             <div [ngStyle]="{'color':(card.headerFontColor==null)? 'inherit;':card.headerFontColor,'font-size':pageSettings.headerFontSize+'px','font-family':pageSettings.headerFontStyle}">
                                 <div [ngStyle]="{'border-bottom':(pageSettings.colorTheme) ? '2px solid ' +pageSettings.colorTheme : '2px solid  #1976D2'}"
                                     wrapperDirective (onHover)="onHoverSection($event,card)">
@@ -120,16 +120,12 @@
               </div>
           
               <div  [@listAnimation]="cardsList.length"  >
-                    <div  *ngIf="!pageSettings.showContent"  [dragula]="'right'" class="contentArea">
-                    <ng-container *ngTemplateOutlet="bodyTemplate"></ng-container>
+                    <div  [dragula]="'right'" class="contentArea">
+                    <ng-container  *ngTemplateOutlet="bodyTemplate"></ng-container>
           
               </div>
 
-              <div  *ngIf="pageSettings.showContent" class="contentArea">
-                    <ng-container *ngTemplateOutlet="bodyTemplate"></ng-container>
-          
-              </div>
-
+              
           </div>
   
   

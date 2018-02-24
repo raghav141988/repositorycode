@@ -172,6 +172,9 @@ ngAfterViewInit(){
       
     }
     this.templateSettings.loadedSections(this.cardsList);
+    
+    
+
   }
 
   openDialog(cardDetails: CardConfig): void {

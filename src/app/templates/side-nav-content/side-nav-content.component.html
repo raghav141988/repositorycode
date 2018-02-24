@@ -3,7 +3,9 @@
  <i (click)="closeSideNav($event);" style="float:right;color:#fff;cursor:pointer;font-size:40px;" class="material-icons">clear</i>
 </div>-->
 
+
 <mat-accordion>
+    <ng-scrollbar  >
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -53,7 +55,7 @@
       
              
           <div style="padding:10px">
-              <mat-form-field style="width:100%;">
+              <mat-form-field style="width:90%;">
                 <mat-select (change)="onHeaderFontChange($event)" [value]="pageSettings.headerFontStyle" name="headerFontFamily" placeholder="Section header font style">
                   <ng-container *ngFor="let font of fontFamilies">
                     <mat-option [value]="font">
@@ -65,7 +67,7 @@
       
             </div>
             <div style="padding:10px">
-              <mat-form-field style="width:100%;">
+              <mat-form-field style="width:90%;">
                 <mat-select (change)="onContentFontChange($event)" [value]="pageSettings.contentFontStyle" name="contentFontFamily" placeholder="content font style">
                   <ng-container *ngFor="let font of fontFamilies">
                     <mat-option [value]="font">
@@ -101,6 +103,7 @@
     </mat-accordion>
 
   </mat-expansion-panel>
+
   <mat-expansion-panel >
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -118,7 +121,7 @@
         <div style="display: flex;padding-top:10px; align-items: center;">
 
 
-          <div  *ngIf="section.component.length==1" [ngStyle]= "{'color':section.isSelected?'#2196F3':'inherit'}" (click)="showOrHideSectionComp(section)" style=" width:60%;padding-left:20px;vertical-align: -webkit-baseline-middle; vertical-align: middle;word-wrap: break-word; cursor: pointer">{{section.name}}</div>
+          <div  *ngIf="section.component.length==1" [ngStyle]= "{'color':section.isSelected?'#2196F3':'inherit'}" (click)="showOrHideSectionComp(section)" style=" width:55%;padding-left:20px;vertical-align: -webkit-baseline-middle; vertical-align: middle;word-wrap: break-word; cursor: pointer">{{section.name}}</div>
           <div *ngIf="section.component.length==1" style=" width:40%; padding-right:10px; text-align: right; cursor: pointer">
 
            
@@ -145,7 +148,7 @@
                           <ng-container *ngFor="let component of section.component">
                             <div style=" display: flex;padding-top:5px; align-items: center; cursor: pointer">
                 
-                              <div  style=" width:70%;vertical-align: -webkit-baseline-middle; vertical-align: middle;word-wrap: break-word; cursor: pointer">{{component.name}}</div>
+                              <div  style=" width:65%;vertical-align: -webkit-baseline-middle; vertical-align: middle;word-wrap: break-word; cursor: pointer">{{component.name}}</div>
                 
                               <div style=" width:30%; text-align: right; cursor: pointer">
                                 
@@ -159,6 +162,7 @@
             
         
               </mat-expansion-panel>
+           
                
 </div>
        
@@ -169,7 +173,7 @@
     </ng-template>
   </mat-expansion-panel>
   
-  
+
 
 
  
@@ -178,6 +182,7 @@
 
     <mat-slide-toggle color='primary'  [checked]="reArrangeSections" (change)="onSectionReArrange($event)">Rearrange sections</mat-slide-toggle>
   </div>
+</ng-scrollbar>
 </mat-accordion>
 
 

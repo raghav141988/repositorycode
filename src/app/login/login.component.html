@@ -1,6 +1,7 @@
 <div class="login-form">
-  <img src="assets/img/lock.svg" id="lock">
-
+  <div>
+  <i class="material-icons" id="lock" >lock</i>
+</div>
     <span class="error" *ngIf="error">{{ error }}</span>
 
   <button mat-raised-button (click)="loginFb()"  id="fb">Login With Facebook</button><br>

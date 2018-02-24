@@ -22,7 +22,9 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { NgxImageGalleryComponent, GALLERY_IMAGE, GALLERY_CONF } from "ngx-image-gallery";
 import { Subscription } from 'rxjs/Subscription';
 import { routerTransition } from './router.animations';
-import { AngularFireDatabase } from 'angularfire2/database'
+
+//mport { ISlimScrollOptions, SlimScrollEvent } from 'ngx-slimscroll';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { sequence, trigger, stagger, animate, style, group, query, transition, keyframes, animateChild } from '@angular/animations';
 import 'firebase/storage';
 export const confirmLoginString: string = "Please login to your google account before download."
@@ -59,6 +61,8 @@ export const confirmLSaveString: string = "Please login to your google account b
 export class TemplatesComponent {
   toBeOpened = true;
   mobileQuery: MediaQueryList;
+ 
+  
 
   subscription: Subscription;
   @ViewChild(NgxImageGalleryComponent) ngxImageGallery: NgxImageGalleryComponent;
@@ -176,6 +180,8 @@ export class TemplatesComponent {
   }
   ngOnInit() {
     this.templateService.resetCardData();
+    
+
   }
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
@@ -196,7 +202,7 @@ export class TemplatesComponent {
     this.loadedComponent = componentRef;
 
   }
-
+  createResumeLink(){}
 
   /* SAVE USER'S WORK */
   save() {

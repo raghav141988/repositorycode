@@ -28,7 +28,11 @@
                               <li *ngIf="pageSettings.isPreviewMode && !pageSettings.isSharedReadOnlyMode" class="nav-item">
                                   <a style="cursor: pointer;" matTooltip="Click to switch back to edit mode"  class="nav-link js-scroll-trigger" ><i (click)="edit()" class="material-icons menu-icons">edit</i></a>
                                 </li>
+                              <!--  <li  *ngIf="pageSettings.isPreviewMode && !pageSettings.isSharedReadOnlyMode" class="nav-item">
+                                  <a style="cursor: pointer;" matTooltip="Click to create resume link to share with others "  class="nav-link js-scroll-trigger" > <i (click)="createResumeLink()"  class=" material-icons menu-icons">link</i></a>
+                                </li> -->
 
+                               
                             <li  *ngIf="pageSettings.isPreviewMode && !pageSettings.isSharedReadOnlyMode" class="nav-item">
                                     <a style="cursor: pointer;" matTooltip="Click to Download your resume in PDF"  class="nav-link js-scroll-trigger" ><i (click)="makePdf()" class="material-icons menu-icons">file_download</i></a>
                                   </li>
@@ -64,24 +68,29 @@
             </div>
       
         <mat-sidenav-container class="example-sidenav-container"
-                               [style.marginTop.px]="mobileQuery.matches ? 56 : 100">
-          <mat-sidenav [opened]="!pageSettings.isPreviewMode && !pageSettings.isSharedReadOnlyMode &&toBeOpened" class="side-navigation" #snav opened="true" [mode]="mobileQuery.matches ? 'over' : 'side'"
+                               [style.marginTop.px]="mobileQuery.matches ? 100 : 100">
+                 
+          <mat-sidenav  [opened]="!pageSettings.isPreviewMode && !pageSettings.isSharedReadOnlyMode &&toBeOpened" class="side-navigation" #snav opened="true" [mode]="mobileQuery.matches ? 'over' : 'side'"
                        [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
-           
-                       <side-nav-content
-                       
-                       (addOrRemoveSection)="addOrRemoveSection($event)"
-                       ></side-nav-content>
+                      
+                     
+                          <side-nav-content
+                          
+                          (addOrRemoveSection)="addOrRemoveSection($event)"
+                          ></side-nav-content>
+                      
+                    
+                    
         
          </mat-sidenav>
-         
-      
+        
+        
           <mat-sidenav-content 
           
           style="background-image: url('assets/img/body-bg.jpg');
           background-repeat:none;"
           >
-             
+          <ng-scrollbar class="scrollbar-for-lazy-module">
                 <div  [ngStyle] ="{  'width': maxWidth,
                 'margin': 'auto',
                 'margin-top':'15px',
@@ -89,15 +98,17 @@
                     <main >
                       
                         <router-outlet #o="outlet"(activate)="onActivate($event)" ></router-outlet>
+                     
                       </main>
 
-                     
-                    
+                  
+                 
 
 
   
 
   </div>
+</ng-scrollbar>
           </mat-sidenav-content>
         </mat-sidenav-container>
       </div>

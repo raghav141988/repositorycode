@@ -32,7 +32,7 @@
                               
                              </ng-container>
               </mat-card-header>
-       <div style=" margin-top: 10px ;  margin-left: 10px">
+       <div #cardContent  [attr.data-id]="card.cardId" style=" margin-top: 10px ;  margin-left: 10px">
           <ng-container  dynamicLoadComponent [card]="card" [pageSettings]="pageSettings"></ng-container>
        </div>
       </mat-card>
@@ -73,7 +73,7 @@
                           </ng-container>
            </mat-card-header>
 
-       <div style=" margin-top: 10px ;  margin-left: 10px">
+       <div #cardContent  [attr.data-id]="card.cardId" style=" margin-top: 10px ;  margin-left: 10px">
           <ng-container  dynamicLoadComponent [card]="card" [pageSettings]="pageSettings"></ng-container>
        </div>
       </mat-card>

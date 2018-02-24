@@ -37,7 +37,7 @@
 
 <ng-template #bodyTemplate>
         <ng-container  *ngFor="let card of cardsList;let i=index">
-                <div [ngStyle]="{'cursor': (showContent==false)?'move':'default'}" [attr.data-id]="card.index" [attr.data-index]="i" >
+                <div  [ngStyle]="{'cursor': (showContent==false)?'move':'default'}" [attr.data-id]="card.index" [attr.data-index]="i" >
                 <dd class="clear"></dd>
                 
                 <dt  [@stateAnimation]="card.isEdit" *ngIf="!card.isEdit" [ngStyle]="{'font-size':pageSettings.headerFontSize+'px','font-family':pageSettings.headerFontStyle,'color':pageSettings.colorTheme}" 
@@ -70,7 +70,7 @@
                        
         
                
-                <dd  [ngStyle]="{ 'border-left': '3px solid '+pageSettings.colorTheme}">
+                <dd #cardContent  [attr.data-id]="card.cardId" [ngStyle]="{ 'border-left': '3px solid '+pageSettings.colorTheme}">
                         <ng-container dynamicLoadComponent [card]="card" [pageSettings]="pageSettings"></ng-container>
         
                 </dd>

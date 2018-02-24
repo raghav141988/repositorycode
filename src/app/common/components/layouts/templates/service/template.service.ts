@@ -19,6 +19,15 @@ import { Subscription } from 'rxjs/Subscription';
 import { UIType } from '../../../contact-info/UIType';
 import { UserDetailsService } from '../../../../../user-details-service';
 import { TemplateSettingService } from '../template-setting-service';
+import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
+import 'rxjs/add/operator/map';
+import 'rxjs/operator/delay';
+import 'rxjs/operator/mergeMap';
+import 'rxjs/operator/switchMap';
+
+import 'rxjs/add/operator/catch';
+
+
 @Injectable()
 export class TemplateService {
 
@@ -55,7 +64,7 @@ export class TemplateService {
   userDetailsSubscription: Subscription;
   
   private userDetails: firebase.User = null;
-  constructor(private userDetailService:UserDetailsService,private templateSettings:TemplateSettingService, public afDb: AngularFireDatabase,private spinnerService:ProgressSpinnerService) { 
+  constructor(private _http: Http,private userDetailService:UserDetailsService,private templateSettings:TemplateSettingService, public afDb: AngularFireDatabase,private spinnerService:ProgressSpinnerService) { 
     this.userDetailsSubscription = this.userDetailService.userDetailsSubscriber().subscribe(userDetails => {
       this.userDetails = userDetails;
      
@@ -71,6 +80,7 @@ export class TemplateService {
 
 
      this.userDetails= this.userDetailService.getUserDetails();
+     
 
   }
 
@@ -102,8 +112,22 @@ export class TemplateService {
       { 'contactType': 'Address', 'icon': 'map', 'value': 'Address' ,'typeOfUI':UIType.TEXT_AREA}, { 'contactType': 'Phone', 'icon': 'phone', 'value': '+1-111-111111','typeOfUI':UIType.TEXT }, { 'contactType': 'Email', 'icon': 'email', 'value': 'youremail@email.com','typeOfUI':UIType.TEXT }];
     return contactTypes;
   }
+callfullTextSearch(){
+ 
 
-  getChips(): ChipItem[] {
+}
+private extractData(res: Response) {
+  console.log('on response');
+  let body = res.json();
+  console.log(body);
+        return body;
+    }
+ handleError (error: Response | any) {
+  console.log('on error');
+	console.error(error.message || error);
+	return Observable.throw(error.message || error);
+    }
+getChips(): ChipItem[] {
     let skillsAsChips: ChipItem[] = [{ 'itemName': 'Skill-1/Award-1/hobby-1' }, { 'itemName': 'Skill-2/Award-2/hobby-2' }, { 'itemName': 'Skill-3/Award-3/hobby-3' }, { 'itemName': 'Skill-4/Award-4/hobby-4' }]
     return skillsAsChips;
   }

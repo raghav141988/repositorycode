@@ -22,12 +22,11 @@ import { TemplatesComponent } from './templates.component';
 import { NgxImageGalleryModule } from 'ngx-image-gallery';
 import { BaseTemplateComponent } from '../common/components/layouts/templates/base-template/base-template.component';
 import { DragulaModule } from 'ng2-dragula/components/dragular.module';
-
-
+import { ScrollbarModule } from 'ngx-scrollbar';
 
 @NgModule({
     imports: [
-CommonSharedModule,routing,MaterialModule,NgxImageGalleryModule,
+CommonSharedModule,routing,MaterialModule,NgxImageGalleryModule,ScrollbarModule,
 DragulaModule
     ],
     declarations: [

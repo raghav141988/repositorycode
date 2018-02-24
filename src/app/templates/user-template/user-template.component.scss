@@ -14,7 +14,11 @@
       left: 0;
       right: 0;
     }
-    
+    ::ng-deep.mat-drawer {
+      background-color: #424242;
+      color:#000;
+      /* color: white; */
+  }
     .example-is-mobile .example-toolbar {
       position: fixed;
       /* Make sure the toolbar will stay on top of the content as it scrolls past. */

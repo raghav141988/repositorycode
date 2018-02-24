@@ -1,7 +1,7 @@
 // component css goes here
 .mat-expansion-panel {
-  
-
+    background:#3d3734 !important;
+    color:#ededed !important;
 }
 .slimscroll-wrapper {
     width:100% important;
@@ -11,7 +11,67 @@
     width: 8px !important;
     margin: 1px 2px !important;
 }
+.mat-expansion-panel-header-title {
+    color:#ededed !important;
+}
+
 mat-grid-tile {
     background: lightblue;
   }
- 
+  ::ng-deep  .mat-drawer-container {
+    background-color: #303030;
+    color: #000;
+}
+.mat-expansion-panel:not([class*=mat-elevation-z]) {
+    box-shadow: 0 3px 1px -2px #1e1b18, 0 2px 2px 0 #1e1b18, 0 1px 5px 0 #1e1b18 !important;
+}
+
+::ng-deep .mat-slider-min-value.mat-slider-thumb-label-showing .mat-slider-thumb, .mat-slider-min-value.mat-slider-thumb-label-showing .mat-slider-thumb-label {
+    background-color: #2196F3;
+}
+
+
+::ng-deep .mat-select-placeholder, .mat-select-trigger {
+    color:white !important;
+  }
+::ng-deep .mat-expansion-indicator::after {
+    color:#ededed !important;
+}
+::ng-deep .mat-slider-track-background {
+    background-color:#ededed;
+}
+::ng-deep .mat-form-field-underline {
+    background-color:#ededed;
+}
+::ng-deep .mat-select-arrow {
+    color:#ededed !important;
+}
+::ng-deep .mat-select-value {
+    color:#ededed !important;
+}
+::ng-deep .mat-select-placeholder {
+    color:#ededed !important;
+}
+::ng-deep.mat-slider-horizontal .mat-slider-ticks {
+    background-image: repeating-linear-gradient(to right, #ededed, #ededed 2px, transparent 0, transparent);
+    background-image: -moz-repeating-linear-gradient(0.0001deg, #ededed, #ededed 2px, transparent 0, transparent);
+}
+
+
+
+::ng-deep .scrollbar-for-lazy-module-black .ng-scrollbar-thumb {
+    position: relative;
+    display: block;
+    width: 0;
+    height: 0;
+    cursor: pointer;
+    border-radius: inherit;
+    background-color: #494949 !important;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+::ng-deep .scrollbar-for-lazy-module-black.ng-scrollbar .-vertical {
+    width: 6px;
+    bottom: 10px;
+  }
+  

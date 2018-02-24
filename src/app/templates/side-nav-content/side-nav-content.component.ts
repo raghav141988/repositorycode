@@ -59,6 +59,8 @@ export class SideNavContentComponent {
     autoTicks = false;
     disabled = false;
     invert = false;
+    clientHeight:string;
+    scrollHeight:string;
     max = 40;
     min = 18;
     showTicks = false;
@@ -88,6 +90,11 @@ export class SideNavContentComponent {
     }
     ngOnInit() {
         this.materialColors=materialColors;
+        this.clientHeight=(window.screen.height-200) + "px";
+        this.scrollHeight=(window.screen.height-210) + "px";
+        this.templateSections=this.service.getAvailableSections();
+        
+        this.pageSettings=this.service.getSavedPageSettings();
         this.opts = {
             position: 'right',
             barBackground: '#ccc',
@@ -95,15 +102,13 @@ export class SideNavContentComponent {
             barMargin:'0 2px'
          
           }
-        this.templateSections=this.service.getAvailableSections();
-        
-        this.pageSettings=this.service.getSavedPageSettings();
-       
        
     }
+
     addSectionComponent(section:Section,component:SectionComponent,changeEvent:any){
         let componentType;
         section.isSelected=changeEvent.checked;
+        console.log(component);
         if(component===undefined){
             componentType=section.component[0].type;
         }else {

@@ -23,7 +23,7 @@ $candy-app-accent:  mat-palette($mat-pink, A200, A100, A400);
 $candy-app-warn:    mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
+$candy-app-theme: mat-dark-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -158,6 +158,7 @@ background-repeat:none;
 			padding:0;
 			height:50px !important;
 			background:#2196F3;
+			//background:#26201c;
 		}
 
 		.mat-dialog-container {
@@ -170,6 +171,10 @@ background-repeat:none;
 			outline: 0;
 			width: 100%;
 			height: 100%;
+			
+				
+				
+			
 	}
 	.mat-dialog-content {
     display: block;
@@ -214,3 +219,11 @@ background-repeat:none;
 			box-sizing: border-box;
 		
 		}
+
+.summernote{
+	line-height: .25;
+		}
+
+.note-editable{
+	line-height: 1;
+}

@@ -58,7 +58,7 @@
                                 wrapperDirective (onHover) ="onHoverSection($event,card)"   [ngStyle]="{'color':(card.headerFontColor==null)? 'inherit;':card.headerFontColor}" 
                         
                                >
-                                <div  [innerHTML]="card.title">  </div>
+                                <div #cardContent  [attr.data-id]="card.cardId" [innerHTML]="card.title">  </div>
                                 <div *ngIf="card.showConfig" class="action" >
                                                 <i  matTooltip="edit" (click)="onCardEdit($event,card)" class="material-icons md-18">edit</i>
                                                 <i   matTooltip="delete"  (click)="onCardDelete($event,card)" class="material-icons md-18">delete</i>

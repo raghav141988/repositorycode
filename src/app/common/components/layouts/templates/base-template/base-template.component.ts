@@ -5,7 +5,7 @@ import { ComponentType } from './../../../ComponentType';
 import { Section } from './../../../../../templates/side-nav-content/Section';
 import { TemplateSettingService } from './../template-setting-service';
 import { TemplateService } from './../service/template.service';
-import { Component, Type, ViewChild, ViewChildren, ElementRef } from '@angular/core';
+import { Component, Type, ViewChild, ViewChildren, ElementRef,ViewContainerRef} from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ChangeDetectorRef } from '@angular/core/src/change_detection/change_detector_ref';
 import { Subscription } from 'rxjs/Subscription';
@@ -42,23 +42,25 @@ function snipMe() {
     console.log('detaching a child');
     console.log(child);
     long = $(this)[0].scrollHeight - Math.ceil($(child).innerHeight()); 
-    if(long<0){
-        snipMe.call(child);
-    }else {
+    //if(long<0){
+       // snipMe.call(child);
+   // }else {
 
     
     $(child).detach();  // JQuery Method detach() removes the "child" element from DOM for the current page
     removed.push(child);  // Add element that was removed to the end of "removed" array
     long = $(this)[0].scrollHeight - Math.ceil($(this).innerHeight()); // Compute current size of the page 
-}
+//}
   }
   // If elements were removed from the page 
 
   if(removed.length==1 ){
       console.log('only one present');
-      var children=removed.pop().children();
-      console.log(children);
-      snipMe.call(children);
+      var children=removed.pop();
+     
+     // var children=removed.pop().children();
+     // console.log(children);
+       snipMe.call(children.children);
   }
 
   
@@ -78,6 +80,7 @@ function snipMe() {
 
 export abstract class BaseTemplateComponent {
     @ViewChildren('cardTemplates') cardTemplates: any;
+    @ViewChildren("cardContent") cardContent: any;
     @ViewChildren('printScreen') printContent: any;
     @ViewChild('titleText') titleText: ElementRef;
     @ViewChild('designation') designation: ElementRef;
@@ -368,6 +371,7 @@ export abstract class BaseTemplateComponent {
 
 
         addNewSection(section: Section, component: ComponentType, isAdd: boolean) {
+            let cardIndex=this.getLatestIndex() + 1;
             if (isAdd) {
                 let newCard: CardConfig = {
 
@@ -377,7 +381,7 @@ export abstract class BaseTemplateComponent {
                     isDraggable: true,
                     isDroppable: true,
                     cardId: "" + (this.getLatestIndex() + 1),
-                    index: "" + (this.getLatestIndex() + 1),
+                    index: "" + cardIndex,
                     isEnlarge: false,
                     type: component,
                     cardPlacing: 'right'
@@ -387,23 +391,59 @@ export abstract class BaseTemplateComponent {
                 let cards = this.cardMaps[newCard.cardPlacing];
 
                 cards.push(newCard);
+                let lastElement=this.cardContent.toArray().length-1
+                setTimeout(()=>{  
+               
+                  
+                    this.cardContent.toArray().forEach((el, index) => {
+                      // console.log(el);
+                        console.log(cardIndex);
+                        if(index===lastElement){
+                        
+                           el.nativeElement.scrollIntoView();
+
+                        }
+                       
+                    });
+
+
+                 }, 400);
+
 
             }
             else {
+               
 
 
-                let card = this.cardsList.find(card => card.title == section.name);
+             
+
+               //el.dataset.id 
+
+                let card = this.cardsList.find(card => (card.title == section.name && card.type==component) );
                 let index = this.cardsList.indexOf(card);
+
+                this.cardContent.toArray().forEach((el) => {
+                    // console.log(el);
+                     // console.log(el.dataset.id);
+                     
+                      if(card.cardId===el.nativeElement.dataset.id ){
+                         
+                         el.nativeElement.scrollIntoView();
+
+                      }
+                     
+                  });
+
                 this.cardsList.splice(index, 1);
 
                 let cards = this.cardMaps['left'];
-                card = this.cardsList.find(card => card.title == section.name);
+                card = this.cardsList.find(card => (card.title == section.name && card.type==component));
                 index = this.cardsList.indexOf(card);
                 if (index >= 0) {
                     cards.splice(index, 1);
                 }
                 cards = this.cardMaps['right'];
-                card = this.cardsList.find(card => card.title == section.name);
+                card = this.cardsList.find(card => (card.title == section.name && card.type==component));
                 index = this.cardsList.indexOf(card);
                 if (index >= 0) {
                     cards.splice(index, 1);
@@ -516,7 +556,7 @@ if(!this.headerContactTypes) {
         $('#'+id).each(function() {
             console.log(this);
            
-          snipMe.call(this);
+         snipMe.call(this);
         });
        }
 /* TODO REMOVE */
